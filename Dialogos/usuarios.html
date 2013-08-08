@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Tabla usuarios</title>
+<script>
+	var aledrez = window.frameElement.window;
+	var NICK = aledrez.control.getNick();
+	
+	function cargarUsuarios(){
+		tabla = new TablaUsuarios();
+        aledrez.usuarios.tabla = tabla;
+        tabla.ingresarUsuarios(aledrez.control.mostrarUsuarios());
+        
+        document.body.onclick = function(){
+			window.frameElement.ventana.ponerEncima();
+        }
+	}
+	
+	function TablaUsuarios(){
+        var tabla = document.createElement("table");
+        
+        with(tabla.style){
+            width = "100%";
+            border = "solid black 1px";
+            borderCollapse = "collapse";
+            fontFamily = "Verdana";
+            fontSize = "12px";
+        }
+        
+        tabla.cellPadding = 2;
+        
+        //Métodos
+        tabla.ingresarUsuarios = Tabla_ingresarUsuarios;
+        tabla.despedirUsuarios = Tabla_despedirUsuarios;
+        tabla.agregarUsuario = Tabla_agregarUsuario;
+        tabla.quitarUsuario = Tabla_quitarUsuario;
+        
+		//tabla.createTHead();
+
+        document.body.appendChild(tabla);
+        return tabla;
+    }
+
+	function Tabla_ingresarUsuarios(usuarios){
+		for(var i=0; i < usuarios.length; i++){
+			this.agregarUsuario(usuarios[i]);
+		}
+	}
+
+    function Tabla_agregarUsuario(nickname){
+        nickname = nickname.toLowerCase();
+        
+        for(var i=0; i < this.rows.length; i++){
+            if(this.rows[i].cells[0].innerText.toLowerCase() > nickname){
+                var row = this.insertRow(i);
+                var cell = row.insertCell();
+                cell.style.border = "solid black 1px";
+                cell.innerText = nickname;
+                return true;
+            }
+        }
+        
+        var row = this.insertRow();
+        var cell = row.insertCell();
+        cell.style.border = "solid black 1px";
+        cell.innerText = nickname;
+        
+    }
+
+	function Tabla_despedirUsuarios(usuarios){
+		for(var i=0; i < usuarios.length; i++){
+			this.quitarUsuario(usuarios[i]);
+		}
+	}
+
+    function Tabla_quitarUsuario(nickname){
+        nickname = nickname.toLowerCase();
+        for(var i=0; i < this.rows.length; i++){
+            if(this.rows[i].cells[0].innerText.toLowerCase()==nickname){
+                this.deleteRow(i);
+                break;
+            }
+        }
+    }    
+	
+</script>
+
+</head>
+<body onload="cargarUsuarios()" bgcolor="ivory" style="margin:0px; width:100%;padding:5%">
+</body>
+</html>

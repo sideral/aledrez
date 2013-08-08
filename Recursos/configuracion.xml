@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<componentes>
+	<control>
+		<nombre>menu</nombre>
+		<onload>iniciar</onload>
+	</control>
+	<control>
+		<nombre>tablero</nombre>
+		<onload>iniciar</onload>
+	</control>
+	<control>
+		<nombre>mensaje</nombre>
+	</control>
+	<control>
+		<nombre>relojes</nombre>
+		<onload>iniciar</onload>
+	</control>
+	<control>
+		<nombre>sonido</nombre>
+	</control>
+	<control>
+		<nombre>lista</nombre>
+	</control>
+	<control>
+		<nombre>login</nombre>
+	</control>
+	<control>
+		<nombre>chat</nombre>
+	</control>
+</componentes>

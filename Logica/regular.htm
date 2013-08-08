@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title></title>
+<meta name="GENERATOR" content="Microsoft Visual Studio .NET 7.1">
+<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
+<script>
+	function match(str){
+		var lines = new RegExp("\r\n","gm");
+		str = str.replace(lines," ");
+
+		var comentExp = new RegExp("\{.*?\} ","g");
+		var coments = str.match(comentExp);
+		str = str.replace(comentExp,"");
+		
+		var moveExp = new RegExp("\\.+","g");
+		str = str.replace(moveExp," ");
+		
+		var partes = str.split(" ");
+		
+		var result = partes[partes.length-1];
+		
+		var moves = new Array();
+	
+		for(var i=0, k=0; i < partes.length-1; i++){
+			if(partes[i]=="" || !isNaN(partes[i])){
+				continue;
+			}
+			else{
+				moves[k++] = partes[i];
+			}
+		}
+		
+		alert(moves);
+	}
+
+	function match2(str){
+		//'^\s*[[]\s*{1}[\\w]+\s+\"[^\n\t\f\r\v]{0,255}\"\]{1}\s*$' para import format
+		var validTag = new RegExp("^[[]{1}[\\w]+ \"[^\\n\\t\\f\\r\\v]{0,255}\"\]{1}$");
+		var m = validTag.test(str);
+		if(m==true){
+			var sep = str.indexOf(" ");
+			
+			var tag = new Object();			
+			tag.name = str.substring(1,sep);
+			tag.value = str.substring(sep+2,str.length-2);
+			
+			alert(tag.value);
+		}
+		else{
+			alert("Not correct data.");
+		}
+	}
+
+</script>
+
+</head>
+<body onload="texto.value=''">
+<textarea size=80 id=texto cols=80 rows=10></textarea><br>
+<input type=button value="Match" onclick="match2(texto.value)">
+
+</body>
+</html>

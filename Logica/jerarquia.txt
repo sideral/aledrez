@@ -1,0 +1,25 @@
+cargador --> progreso
+	menu
+	tablero
+		administrador --> cerebroHumano (motorScript, motorWinboard, motorServidor, oponenteRemoto)
+			partida --> datospartida
+				capturas
+				relojes
+				lista
+					lectorPGN --> datospartida, progreso
+					escritorPGN
+				login
+					control
+						chat
+						usuarios
+						tableros
+							activador
+	mensaje
+	sonido
+
+
+
+1. Todos los hermanos y tíos deben ser precedidos de if.
+2. Los hijos no deben ser referidos, sino un evento debe ser disparado.
+3. Los padres y abuelos deben ser referidos directamente.
+

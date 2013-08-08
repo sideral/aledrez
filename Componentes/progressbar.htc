@@ -1,0 +1,226 @@
+<public:component tagName="progressbar" lightweight="true">
+<public:attach event="oncontentready" for="element" onevent="inicializarProgress()" />
+<public:method name="load" internalname="Progress_load" />
+<public:method name="addStep" internalname="Progress_addStep"/>
+<public:method name="addFArray" internalname="Progress_addFunctionArray"/>
+<public:method name="interrupt" internalname="Progress_interrupt"/>
+<public:method name="fill" internalname="Progress_fill" />
+<public:method name="blink" internalname="Progress_blink"/>
+<public:method name="increment" internalname="Progress_increment"/>
+<public:property name="active" value=true />
+<public:event name="onfinish" id="onfinishEvent"/>
+<public:event name="onstep" id="onstepEvent"/>
+<public:event name="oninterrupt" id="oninterruptEvent"/>
+</public:component>
+
+<script>
+	function inicializarProgress(){
+		initBar();
+		initFields();
+	}
+	
+	function initFields(){
+		element.funciones = new Array();
+		element.objetos = new Array();
+		element.percents = new Array();
+		element.explains = new Array();
+		element.currentItem = 0;
+	}
+	
+	function initBar(){
+		var barra = element.document.createElement("DIV");
+		element.barra = barra;
+		var parteLlena = element.document.createElement("span");
+		element.lleno = parteLlena;
+		barra.appendChild(parteLlena);
+		element.appendChild(barra);
+		applyStyles();
+	}
+
+
+	function applyStyles(){
+
+		with(element.barra.style){
+			position = "absolute";
+			top = "0%";
+			height = "100%";
+			left = "0%";
+			width = "100%";
+			//backgroundColor = "mintcream";
+			fontSize = 1;
+			fontFamily = "Times New Roman";
+			borderColor = "Maroon";
+			borderStyle = "double";
+		}
+		
+		with(element.lleno.style){
+			position = "relative";
+			backgroundColor = "sienna";
+			width = 0;
+			height = "100%";
+			fontSize = 1;
+			filter = "progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='yellow', EndColorStr='yellow')";
+			left = 0;
+			top = 0;
+		}
+	}	
+	
+	function Progress_increment(percent){
+		var barra = element.barra.clientWidth;
+		var lleno = element.lleno.style.posWidth;
+	
+		if(barra < lleno + barra*percent/100){
+			element.lleno.style.posWidth = element.barra.clientWidth;
+		}
+		else{
+			element.lleno.style.posWidth += Math.round(element.barra.clientWidth*percent/100);
+		}
+			
+		if(element.lleno.style.posWidth == element.barra.clientWidth){
+			onfinishEvent.fire();
+		}
+	}
+	
+	function Progress_addFunctionArray(funcAry){
+		for(var i=0; i < funcAry.length; i++){
+			if(typeof(funcAry[i])=="object"){
+				element.funciones[element.funciones.length] = funcAry[i][0];
+				element.objetos[element.objetos.length] = funcAry[i][1];				
+			}
+			else{
+				element.funciones[element.funciones.length] = funcAry[i];
+				element.objetos[element.objetos.length] = null;
+			}
+			element.percents[element.percents.length] = -1;
+			element.explains[element.explains.length] = "";
+		}
+	}
+	
+	function Progress_addStep(method,objeto,percent,explain){
+		if(objeto){
+			element.funciones.push(method);
+			element.objetos.push(objeto);
+		}
+		else{
+			element.funciones.push(method);
+			element.objetos.push(null);
+		}
+		
+		if(isNaN(percent) || percent<0){
+			percent = -1;
+		}
+		
+		if(explain==undefined){
+			explain = "";
+		}
+		
+		element.explains.push(explain);
+		element.percents.push(percent);
+	}
+	
+	function Progress_interrupt(){
+		element.currentItem = funciones.length;
+		var evento = createEventObject();
+		oninterruptEvent.fire(evento);
+	}
+	
+	function Progress_load(tipo){
+		if(!tipo || tipo=="normal"){
+			element.setCapture();
+			
+			var perUnd = new Array();
+			var resto = 100;
+			
+			for(var i=0; i < percents.length; i++){
+				if(percents[i]==-1){
+					if(resto>0)
+						perUnd[perUnd.length] = i;
+					else
+						percents[i] = 0;
+				}
+				else
+					resto -= percents[i];		
+			}
+			
+			var ajuste = Math.floor(resto/perUnd.length);
+			
+			for(var i=0; i < perUnd.length; i++){
+				percents[perUnd[i]] = ajuste;
+			}
+			
+			Progress_loadComponent();
+			return;
+		}
+		else if(tipo=="blink"){
+			return;
+		}
+		else{
+			alert("Tipo de carga desconocido");
+		}
+	}
+	
+	function Progress_loadComponent(){
+		
+		if(currentItem>=funciones.length){
+			element.lleno.style.posWidth = element.barra.clientWidth;
+			setTimeout(Progress_stop,400);
+			return;
+		}
+		
+		var evento = createEventObject();
+		evento.indice = currentItem;
+		onstepEvent.fire(evento);
+		
+		setTimeout(loadProgressFunction,1);
+	}
+	
+	function loadProgressFunction(){
+		try{
+			if(objetos[currentItem]!=null){
+				objetos[currentItem][funciones[currentItem]]();
+			}
+			else{
+				funciones[currentItem]();
+			}
+		}
+		catch(e){
+			alert("No se puede cargar componente #" + eval(currentItem + 1));
+			return;
+		}
+		
+		var incremento = element.barra.clientWidth*percents[currentItem]/100;
+		var desplazamiento = element.lleno.offsetWidth + incremento;
+	
+		element.lleno.style.posWidth = desplazamiento;
+
+		currentItem++;
+		Progress_loadComponent();
+	}
+	
+	function Progress_stop(){
+		onfinishEvent.fire();
+		element.releaseCapture();
+	}
+	
+	function Progress_blink(){
+		if(element.active==false){
+			element.lleno.style.posWidth = 0;
+			return;
+		}
+	
+		if(element.lleno.clientWidth == element.barra.clientWidth){
+			element.lleno.style.posWidth = 0;
+		}
+		else{
+			element.lleno.style.posWidth = element.barra.clientWidth;
+		}
+		
+		setTimeout(Progress_blink,400);
+	}
+	
+	function Progress_fill(percent){
+		element.lleno.style.posWidth =  element.barra.clientWidth*percent/100;
+	}
+	
+
+</script>

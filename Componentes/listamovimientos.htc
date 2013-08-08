@@ -1,0 +1,355 @@
+<public:component tagName="listamovimientos" lightweight="true">
+<public:attach event="oncontentready" for="element" onevent="inicializarLista()" />
+<public:method name="add" internalname="ListaMovs_add"/>
+<public:method name="reset" internalname="ListaMovs_reset"/>
+
+<public:event name="onselectmove" id="selectmoveEvent"/>
+<public:event name="ontakeback" id="takebackEvent" />
+<public:event name="ontakeforward" id="takeforwardEvent" />
+</public:component>
+
+<script>
+	var EMPTY = true;
+
+	function inicializarLista(){
+		
+		//Estilos
+		with(element.style){
+			height = "100%";
+			width = "100%";
+		}
+
+		//Objetos
+		element.eventos = new Eventos();
+		element.controles = new Controles();
+		element.lista = new Lista();
+	}
+	
+/*------------------------------------------------------------------------------*\
+                                 INTERFAZ PÚBLICA                            
+\*------------------------------------------------------------------------------*/
+	
+	function ListaMovs_add(move){
+		lista.add(move);
+	}
+
+	function ListaMovs_reset(){
+		lista.reset();
+	}
+
+/*------------------------------------------------------------------------------*\
+                                  OBJETO EVENTOS                          
+\*------------------------------------------------------------------------------*/
+	
+	function Eventos(){
+		this.selectmove = new Object();
+		this.selectmove.evt = createEventObject();
+		this.selectmove.setEvent = function(mid,str){
+			this.evt.moveNumber = mid;
+			this.evt.moveString = str;	
+		}
+
+		this.selectmove.fire = function(){
+			selectmoveEvent.fire(this.evt);	
+		}
+		
+		this.clicklast = new Object();
+		this.clicklast.evt = createEventObject();
+		this.clicklast.fire = function(){
+			takebackEvent.fire(this.evt);		
+		}
+		
+		this.clicknext = new Object();
+		this.clicknext.evt = createEventObject();
+		this.clicknext.fire = function(){
+			takeforwardEvent.fire(this.evt);		
+		}
+	}	
+	
+/*------------------------------------------------------------------------------*\
+                                 OBJETO CONTROLES                           
+\*------------------------------------------------------------------------------*/
+	
+	
+	function Controles(){
+		var caja = create("div",element);
+		
+		with(caja.style){
+			width = "100%";
+			height = "25px";
+			borderBottom = "solid 1px black";
+			textAlign = "center";
+			backgroundColor = "tan";
+		}		
+		
+		var inicio = this.begin = new BotonControl(57);
+		var fin = this.end = new BotonControl(58);
+		var play = this.play = new BotonControl(52);
+		var rewind = this.rewind = new BotonRewind();
+		var forward = this.forward = new BotonForward();
+		
+		caja.appendChild(inicio);
+		caja.appendChild(rewind);
+		caja.appendChild(play);
+		caja.appendChild(forward);
+		caja.appendChild(fin);
+		
+		return caja;
+
+	}
+	
+	function BotonRewind(){
+		var boton = new BotonControl(55);
+		
+		boton.onclick = function(){
+			if(lista.selectedCell!=null){
+				var numero = lista.selectedCell.numero;
+				lista.select(lista.celdas[numero-1],false);
+			
+				eventos.clicklast.fire();
+			}
+		}
+		
+		return boton;
+	}
+	
+	function BotonForward(){
+		var boton = new BotonControl(56);
+		
+		boton.onclick = function(){
+			if(lista.selectedCell!=null){
+				var numero = lista.selectedCell.numero;
+				if(lista.celdas[numero+1]!=undefined
+				   && lista.celdas[numero+1].innerText!= "")
+					lista.select(lista.celdas[numero+1],false);
+				else
+					return;
+				
+				eventos.clicknext.fire();
+			}
+			else if(lista.celdas.length > 1){
+				lista.select(lista.celdas[1],false);
+				eventos.clicknext.fire();				
+			}
+		}
+		
+		return boton;
+	}
+	
+	function BotonControl(code){
+		var boton = create("button");
+		boton.innerText = String.fromCharCode(code);
+		boton.tabIndex = -1;
+		
+		with(boton.style){
+			fontFamily = "webdings";
+			fontSize = "18px";
+			margin = "2px";	
+		}						
+		return boton;	
+	}
+	
+
+/*------------------------------------------------------------------------------*\
+                                    OBJETO LISTA                          
+\*------------------------------------------------------------------------------*/
+	
+	function Lista(){
+
+		var box = create("div",element);
+
+		with(box.style){
+			width = "100%";
+			height = element.offsetHeight - box.offsetHeight;
+			overflowX = "hidden";
+			overflowY = "scroll";
+		}
+
+		//Métodos
+		box.add = Lista_add;
+		box.remove = Lista_remove;
+		box.change	= Lista_change;
+		box.select = Lista_select;
+		box.reset = Lista_reset;
+		
+		//Propiedades
+		box.currentMove = 0;
+		box.selectedCell = null;
+		box.turnoBlanco = true;
+		box.currentMidMove = 0;
+
+		//Objetos
+		box.celdas = new Array();
+		box.tabla = new TablaMovimientos(box);
+		
+		return box;
+	}
+	
+	
+	function Lista_add(move){
+		var fila, celda;
+		
+		if(this.turnoBlanco){
+			fila = this.tabla.addRow();
+			fila.number.innerText = ++this.currentMove;
+			celda = fila.white;
+		}
+		else{
+			fila = this.tabla.rows[this.tabla.rows.length-1];
+			celda = fila.black;
+		}
+
+		celda.innerText = move;
+		celda.midMove = ++this.currentMidMove;
+		celda.scrollIntoView();
+		this.select(celda,false);
+		
+		this.turnoBlanco = !this.turnoBlanco;
+	
+	}
+	
+	function Lista_reset(){
+		var longitud = this.tabla.rows.length -1;
+		for(var i=0; i < longitud; i++){
+			this.tabla.deleteRow();
+		}
+		this.currentMove = 0;
+		this.selectedCell = null;
+		this.turnoBlanco = true;
+		this.currentMidMove = 0;	
+	}
+	
+	function Lista_remove(){	
+	}
+	
+	function Lista_change(){
+	}
+	
+	function Lista_select(celda,raiseEvent){
+		if(this.selectedCell!=null){
+			this.selectedCell.style.backgroundColor = "white";
+		}
+		
+		if(celda==undefined){
+			this.selectedCell = null;		
+		}
+		else{
+			celda.style.backgroundColor = "lemonchiffon";	
+			this.selectedCell = celda;
+		
+			if(raiseEvent){
+				eventos.selectmove.setEvent(celda.midMove,celda.innerText);
+				eventos.selectmove.fire();
+			}
+		}
+	}
+	
+
+/*------------------------------------------------------------------------------*\
+                                TABLA DE MOVIMIENTOS                          
+\*------------------------------------------------------------------------------*/
+
+
+	function TablaMovimientos(box){
+		var tabla = create("table",box);
+		
+		tabla.cellSpacing = 0;
+
+		with(tabla.style){
+			borderCollapse = "collapse";
+			padding = 0;
+			tableLayout = "fixed";
+			width = "100%";
+			position = "relative";
+			top = 0;
+			left = 0;
+			backgroundColor = "white";
+			fontSize = "12px";
+			fontFamily = "Courier new";
+			cursor = "default";
+			borderRight = "solid black 1px";
+		}
+				
+		var header = tabla.createTHead();
+		var body = create("tbody",tabla);	
+
+		//Crear el header.		
+		var filaH = header.insertRow();
+		filaH.style.backgroundColor = "whitesmoke";
+		filaH.style.fontWeight = "bold";
+		
+		var num = filaH.appendChild(new NumberCell());
+		num.innerText = "Mov";
+		var blanco = filaH.appendChild(new MoveCell());
+		blanco.innerText = "Blanco";
+		var negro = filaH.appendChild(new MoveCell());
+		negro.innerText = "Negro";
+
+		tabla.addRow = Tabla_addRow;
+		
+		return tabla;	
+	}
+	
+	function Tabla_addRow(){
+		var fila = this.insertRow();	
+		fila.number = fila.appendChild(new ActiveNumberCell());
+		fila.white = fila.appendChild(new ActiveMoveCell(fila.rowIndex*2 - 1));
+		fila.black = fila.appendChild(new ActiveMoveCell(fila.rowIndex*2));
+		return fila;
+	}	
+	
+	function NumberCell(){
+		var celda = create("td");
+		
+		with(celda.style){
+			borderRight = "solid black 1px";
+			borderBottom = "solid black 1px";
+			width = "20%";
+			paddingLeft = 3;
+		}
+			
+		return celda;	
+	}
+	
+	function MoveCell(){
+		var celda = create("td");
+		celda.midMove = 0;
+		
+		with(celda.style){
+			borderLeft = "solid black 1px";
+			borderBottom = "solid black 1px";
+			width = "40%";
+			paddingLeft = 5;
+		}
+	
+		return celda;
+	}
+	
+	function ActiveNumberCell(){
+		var celda = new NumberCell();
+		
+		celda.style.textAlign = "center";
+		celda.onclick = function(){};
+		
+		return celda;
+	}
+	
+	function ActiveMoveCell(num){
+		var celda = new MoveCell();
+		
+		celda.onclick = function(){
+			lista.select(this,true);		
+		}
+		
+		celda.numero = num;
+		lista.celdas[num] = celda;
+		return celda;
+	}
+	
+	function create(strElem, objParent){
+		var newElem = element.document.createElement(strElem);
+		if(objParent!=undefined) objParent.appendChild(newElem);
+		return newElem;		
+	}
+	
+</script>

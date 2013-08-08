@@ -1,0 +1,1610 @@
+<public:component tagName="tablero" lightweight="true">
+
+<public:attach event="oncontentready" for="element" onevent="Tablero_Inicializar()" />
+
+<public:method name="resetear" internalname="Tablero_resetear"/>
+<public:method name="invertir" internalname="Tablero_invertir"/>
+<public:method name="moverPieza" internalname="PublicTablero_moverPieza" />
+<public:method name="retroceder" internalname="Tablero_retrocederMovimiento" />
+<public:method name="adelantar" internalname="Tablero_adelantarMovimiento" />
+<public:method name="activar" internalname="Tablero_activar"/>
+<public:method name="desactivar" internalname="Tablero_desactivar"/>
+<public:method name="toFEN" internalname = "Tablero_toFEN"/>
+<public:method name="algebraToCoordenada" internalname="Tablero_algToCoord" />
+
+<public:property name="jugadorTurno" get="get_jugadorTurno"/>
+<public:property name="jugadorBlanco" put="put_jugadorBlanco" get="get_jugadorBlanco" />
+<public:property name="jugadorNegro" put="put_jugadorNegro" get="get_jugadorNegro" />
+
+<public:event name="onmoverpieza" id="moverpiezaEvento">
+<public:event name="onilegal" id="ilegalEvento" />
+<public:event name="onjaque" id="jaqueEvento" />
+
+</public:component>
+
+<script>
+
+	var BLANCO = "B";
+	var NEGRO = "N";
+
+	function Tablero_Inicializar(){
+		Tablero_ponerValoresPublicos();
+		Tablero_ponerValoresPrivados();
+		Tablero_crearComponente();
+		Tablero_ponerPosicionInicial();
+		element.onselectstart = function(){event.returnValue = false};
+		element.oncontextmenu = function(){event.returnValue = false};
+		element.style.cursor = "default";
+	}
+
+	function get_jugadorTurno(){
+		return juego.jugador[juego.colorTurno];	
+	}
+	
+	function get_jugadorBlanco(){
+		return juego.jugador[BLANCO];
+	}
+	
+	function put_jugadorBlanco(value){
+		juego.jugador[BLANCO] = value;
+	}
+	
+	function get_jugadorNegro(){
+		return juego.jugador[NEGRO];
+	}
+	
+	function put_jugadorNegro(value){
+		juego.jugador[NEGRO] = value;
+	}
+
+	function Tablero_resetear(){
+		element.juego = new Tablero_Juego();
+		element.mouse = new Tablero_Mouse();
+		Tablero_ponerPosicionInicial();
+	}
+
+//**************************************************************************************//
+//**********************************OBJETOS PÚBLICOS************************************//
+//**************************************************************************************//
+
+	function Tablero_ponerValoresPublicos(){
+		//Objetos
+		element.apariencia = new Tablero_Apariencia();
+		element.juego = new Tablero_Juego();
+		element.piezas = new Tablero_Piezas(); //Relativa a la página que llama a tablero
+		generarBaseMovimientos();
+	}
+	
+	function Tablero_Apariencia(){
+		this.colorClaro = "white";
+		this.colorOscuro = "silver";
+		this.colorSeleccion = "lavender";
+		this.pixelEscaque = 40;
+		this.tabBorder = "solid black 2px";
+		this.animarPiezas = true;
+		this.colorPiezas = "black";
+	}
+	
+	function Tablero_Juego(){
+		this.colorTurno = BLANCO;
+		this.jugador = new Object();
+		this.jugador[BLANCO] = "Humano";
+		this.jugador[NEGRO] = "Humano";
+		this.esqDePaso = null;
+		this.enJaque = null;
+		this.enroque = new Tablero_Enroque();
+		this.listaMovimientos = new Tablero_ListaMovimientos();
+	}
+	
+	function Tablero_Enroque(){
+		this.interno = new Object();
+		this.interno[4] = new Object();
+		this.interno[60] = new Object();
+		
+		this.sePuede = function(ori,des){
+			if(this.interno[ori] && this.interno[ori][des]){
+				var aux = (des>ori) ? 1 : -1;
+				if(tab[ori+aux].nombre!="")
+					return false;
+				if(tab[ori+2*aux].nombre!="")
+					return false;
+				if(des%8==6 && tab[ori+3].nombre!="t")
+					return false;
+				if(des%8==2 && tab[ori-4].nombre!="t")
+					return false; 
+				if(juego.enJaque!=null){
+					return false;
+				}
+				return true;
+			}
+			else
+				return false;	
+		}
+		
+		this.permitir = function(ori){
+			this.interno[ori][ori + 2] = true;
+			this.interno[ori][ori - 2] = true;
+		}
+		this.cancelar = function(ori,des){
+			if(!des)
+				this.interno[ori] = new Object();
+			else
+				this.interno[ori][des] = false;
+		}
+	}
+	
+	function Tablero_ListaMovimientos(){
+		this.add = function(origen,destino,captura,promocion){
+			this.lista[this.ultimo] = new Object();
+			this.lista[this.ultimo].origen = origen;
+			this.lista[this.ultimo].destino = destino;
+			this.lista[this.ultimo].captura = captura;
+			this.lista[this.ultimo].promocion = promocion;
+			this.posicion++;
+			this.ultimo++;
+		}
+		
+		this.lista = new Array();					
+		this.ultimo = 0;
+		this.posicion = 0;
+	}
+	
+	function Tablero_Piezas(){
+		this.fuente = "chess adventurer"; //fontFamily
+		this.aliases = new Tablero_ConjuntoPiezas();
+		this.nombreIngles = new Tablero_NombreIngles();
+	}
+	
+	function Tablero_ConjuntoPiezas(){
+		this.rB = "k";
+		this.dB = "q";
+		this.tB = "r";
+		this.aB = "b";
+		this.cB = "n";
+		this.pB = "p";	
+		this.rN = "l";
+		this.dN = "w";
+		this.tN = "t";
+		this.aN = "v";
+		this.cN = "m";
+		this.pN = "o";
+	}
+	
+	function Tablero_NombreIngles(){
+		this.a = "b";
+		this.c = "n";
+		this.r = "k";
+		this.t = "r";
+		this.d = "q";
+		this.p = "p";
+	}
+	
+	function Tablero_PiezaAjedrez(pieza){
+		var alias = piezas.aliases[pieza.nombre + pieza.color];
+		
+		var divPz = element.document.createElement("div");
+		divPz.innerText = alias;
+		divPz.style.fontSize = apariencia.pixelEscaque;
+			
+		return divPz;
+	}
+	
+//**************************************************************************************//
+//***********************************OBJETOS PRIVADOS***********************************//
+//**************************************************************************************//	
+	
+	function Tablero_ponerValoresPrivados(){
+		element.tab = new TableroInterno();
+		element.escaques = new Array(64);
+		
+		element.eventos = new Tablero_Eventos();
+		element.estado = new Tablero_Estado();
+		element.mouse = new Tablero_Mouse();
+		element.traductor = new Tablero_Traductor();
+	}
+	
+	function TableroInterno(){
+		this.colocarPosicionInicial = TableroInterno_colocarPosicionInicial;
+		this.moverPieza = TableroInterno_moverPieza;			
+	}	
+	
+	function Tablero_Estado(){
+		this.activo = true;
+		this.invertido = false;
+		this.modo = "juego" //edicion
+	}
+	
+	function Tablero_activar(){
+		tablero.style.color = apariencia.colorPiezas;
+		estado.activo = true;	
+	}
+	
+	function Tablero_desactivar(){
+		tablero.style.color = "#888888";
+		mouse.deshacerClick();
+		estado.activo = false;
+	}
+	
+	function Tablero_Mouse(){
+		this.yaHizoClick = false;
+		this.colorPiezaTocada = "";
+		this.objOrigen = null;
+		this.esqOver = null;
+		
+		this.deshacerClick = function(){
+			if(this.yaHizoClick){
+				var esqOrigen = parseInt(this.objOrigen.id);
+				if((esqOrigen%8 + (esqOrigen-esqOrigen%8)/8)%2==0)
+					var color = apariencia.colorOscuro;
+				else
+					var color = apariencia.colorClaro;
+					
+				this.objOrigen.style.backgroundColor = color;
+				this.objOrigen = null;
+				this.yaHizoClick = false;
+			}
+		}
+		
+	}
+
+	function Tablero_Eventos(){
+		this.ilegal = createEventObject();
+		this.ilegal.nuevo = function(tipo,nombre,origen,destino){
+			this.tipo = tipo; //movimiento,jaque,turno
+			this.pieza = new TI_Pieza(nombre,juego.colorTurno);
+			this.origen = origen;
+			this.destino = destino;
+		}
+		this.ilegal.fire = function(){
+			ilegalEvento.fire(eventos.ilegal);
+		}
+		
+		this.jaque = createEventObject();
+		this.jaque.fire = function(){
+			jaqueEvento.fire(eventos.jaque);
+		}
+				
+		this.mov = createEventObject();
+		this.mov.origen;
+		this.mov.destino;
+		this.mov.capturada = new TI_Pieza("","");
+		this.mov.fire = function(){
+			moverpiezaEvento.fire(eventos.mov);
+		}
+	}
+	
+	function Tablero_Traductor(){
+		
+		this.toCoordenada = function(iEsq){
+			var col = iEsq%8 + 97;
+			var fil = Math.floor(iEsq/8) + 1;
+			return String.fromCharCode(col)+ fil;
+		}
+		
+		this.toNumero = function(strEsq){
+			var col = strEsq.charCodeAt(0) - 97;
+			var fil = parseInt(strEsq.charAt(1)) - 1;
+			return col + fil*8;
+		}
+		
+		this.nombresEspanol = new Traductor_NombreEspanol();
+		this.nombresIngles = new Tablero_NombreIngles();
+		
+	}
+	
+	function Traductor_NombreEspanol(){
+		this.N = "c";
+		this.K = "r";
+		this.Q = "d";
+		this.P = "p";
+		this.B = "a";
+		this.R = "t";	
+	}
+
+//***************************************************************************************//
+//************************************GRAFICAR TABLERO***********************************//
+//***************************************************************************************//
+
+	function Tablero_crearComponente(){
+		element.tablero = new TableroVacio();
+		for(var i=0; i < 8; i++){
+			var fila = tablero.addRow();
+			for(var j=0; j < 8; j++){
+				var celda = fila.addCell((7 - i)*8 + j);
+			}
+		}
+	}
+	
+	function TableroVacio(){
+		var tablero = element.document.createElement("table");
+
+		tablero.onmousedown = Tablero_onmousedown;
+		tablero.onclick = Tablero_onclick;
+		tablero.addRow = Tablero_addRow;
+
+		tablero.cellSpacing = 0;
+		
+		with(tablero.style){
+			tableLayout = "fixed";
+			borderCollapse = "collapse";
+			border = apariencia.tabBorder;
+			fontFamily = piezas.fuente;	
+			color = apariencia.colorPiezas;
+		}
+		element.appendChild(tablero);
+		
+		return tablero;
+	}
+	
+	function Tablero_addRow(){
+		var fila = this.insertRow();
+		fila.addCell = Fila_addCell;
+		return fila;
+	}
+	
+	function Fila_addCell(id){
+		var celda = this.insertCell();
+		var fila = (id-id%8)/8;
+		
+		if((id + fila)%2 == 1)
+			var color = apariencia.colorClaro;
+		else
+			var color = apariencia.colorOscuro;
+		
+		celda.id = id;
+		
+		celda.style.backgroundColor = color;
+		celda.style.height = celda.style.width  = apariencia.pixelEscaque;
+		celda.style.padding = 0;
+		celda.style.verticalAlign = "middle";
+		celda.style.textAlign = "center";
+		
+		element.escaques[id] = celda;
+		
+		return celda;	
+	}
+
+	function Tablero_dibujarPosicion(tablero){
+		if(!tablero){
+			tablero = element.tab;
+		}
+	
+		for(var i=0; i < 64; i++){
+			if(tablero[i].nombre!=""){
+				var imagenPz = new Tablero_PiezaAjedrez(tablero[i]);
+				
+				if(escaques[i].firstChild!=null)
+					escaques[i].removeChild(escaques[i].firstChild);
+				
+				escaques[i].appendChild(imagenPz);
+			}
+			else{
+				if(escaques[i].firstChild!=null){
+					escaques[i].removeChild(escaques[i].firstChild);
+				}
+			}
+		}
+		
+		mouse.deshacerClick();
+	
+	}
+	
+	function Tablero_invertir(){//Muy ineficiente
+		//Tablero_dibujarPosicion();			
+	}
+
+
+//************************************************************************************//
+//*************************************POSICIONES*************************************//
+//************************************************************************************//
+	
+	function Tablero_ponerPosicionInicial(){
+		tab.colocarPosicionInicial();
+		
+		juego.enroque.permitir(4);
+		juego.enroque.permitir(60);
+		
+		Tablero_dibujarPosicion();
+	}
+
+	function TI_Pieza(nombre,color){
+		this.nombre = nombre;
+		this.color = color;
+	}
+
+	function TableroInterno_colocarPosicionInicial(){
+	
+		this[0] = new TI_Pieza("t",BLANCO);
+		this[1] = new TI_Pieza("c",BLANCO);
+		this[2] = new TI_Pieza("a",BLANCO);
+		this[3] = new TI_Pieza("d",BLANCO);
+		this[4] = new TI_Pieza("r",BLANCO);
+		this[5] = new TI_Pieza("a",BLANCO);
+		this[6] = new TI_Pieza("c",BLANCO);
+		this[7] = new TI_Pieza("t",BLANCO);
+		this[8] = new TI_Pieza("p",BLANCO);
+		this[9] = new TI_Pieza("p",BLANCO);
+		this[10] = new TI_Pieza("p",BLANCO);
+		this[11] = new TI_Pieza("p",BLANCO);
+		this[12] = new TI_Pieza("p",BLANCO);
+		this[13] = new TI_Pieza("p",BLANCO);
+		this[14] = new TI_Pieza("p",BLANCO);
+		this[15] = new TI_Pieza("p",BLANCO);
+		
+		this[48] = new TI_Pieza("p",NEGRO);
+		this[49] = new TI_Pieza("p",NEGRO);
+		this[50] = new TI_Pieza("p",NEGRO);
+		this[51] = new TI_Pieza("p",NEGRO);
+		this[52] = new TI_Pieza("p",NEGRO);
+		this[53] = new TI_Pieza("p",NEGRO);
+		this[54] = new TI_Pieza("p",NEGRO);
+		this[55] = new TI_Pieza("p",NEGRO);
+		this[56] = new TI_Pieza("t",NEGRO);
+		this[57] = new TI_Pieza("c",NEGRO);
+		this[58] = new TI_Pieza("a",NEGRO);
+		this[59] = new TI_Pieza("d",NEGRO);
+		this[60] = new TI_Pieza("r",NEGRO);
+		this[61] = new TI_Pieza("a",NEGRO);
+		this[62] = new TI_Pieza("c",NEGRO);
+		this[63] = new TI_Pieza("t",NEGRO);
+
+		for(var i=16; i < 48; i++){
+			this[i] = new TI_Pieza("","");
+		}
+		this.esqRey = new Array();
+		this.esqRey[BLANCO] = 4;
+		this.esqRey[NEGRO] = 60;
+	
+	}
+
+	function TableroInterno_moverPieza(origen,destino,enroque){
+		this[destino] = this[origen];
+		this[origen] = new TI_Pieza("","");
+		
+		if(enroque){
+			if(destino%8==6){
+				this[destino-1] = this[destino+1];
+				this[destino+1] = new TI_Pieza("","");			
+			}
+			else{
+				this[destino+1] = this[destino-2];
+				this[destino-2] = new TI_Pieza("","");
+			}
+		}	
+		
+	}
+
+//*************************************************************************************//
+//***********************************EVENTOS TABLERO***********************************//
+//*************************************************************************************//
+
+	function Tablero_onmousedown(){
+		if(juego.listaMovimientos.posicion != juego.listaMovimientos.ultimo){
+			eventos.ilegal.nuevo("Lista");
+			eventos.ilegal.fire();
+			return false;
+		}
+	
+		mouse.esqOver = event.srcElement.parentElement;
+		if(mouse.esqOver.id==""){
+			mouse.esqOver = event.srcElement;
+		}
+		
+		if(mouse.esqOver.id==element.id){
+			return;
+		}
+		
+		if(estado.activo == false){
+			return;
+		}
+
+		if(mouse.yaHizoClick == false){
+			mouse.objOrigen = mouse.esqOver;
+			var esqOrigen = parseInt(mouse.objOrigen.id);
+		
+			if(element.tab[esqOrigen].nombre==""){
+				return;
+			}
+			
+			mouse.colorPiezaTocada = tab[esqOrigen].color;
+			
+			var turno = juego.jugador[juego.colorTurno];
+			
+			if(turno != "Humano"//?????????????????????????????????????
+				|| mouse.colorPiezaTocada != juego.colorTurno)
+			{
+				eventos.ilegal.nuevo("turno");
+				eventos.ilegal.fire();
+				return;
+			}
+
+			mouse.objOrigen.style.background = apariencia.colorSeleccion;
+			mouse.yaHizoClick = true;
+		}
+		else{
+			var objDestino = mouse.esqOver;
+			var esqDestino = parseInt(objDestino.id);
+			var esqOrigen = parseInt(mouse.objOrigen.id);
+
+			if((esqOrigen%8 + (esqOrigen-esqOrigen%8)/8)%2==0)
+				var color = apariencia.colorOscuro;
+			else
+				var color = apariencia.colorClaro;
+			
+			if(tab[esqDestino].nombre!="" && tab[esqDestino].color==mouse.colorPiezaTocada){
+				mouse.objOrigen.style.backgroundColor = color;
+				mouse.yaHizoClick = false;
+				Tablero_onmousedown();
+				return;
+			}
+			
+			mouse.yaHizoClick = false;
+			mouse.objOrigen.style.backgroundColor = color;
+			mouse.objOrigen = null;
+			mouse.objDestino = null;
+				
+			var valido = Tablero_validarMovimiento(esqOrigen,esqDestino);
+			
+			if(valido)
+				Tablero_moverPieza(esqOrigen,esqDestino);
+			
+		}
+	}
+	
+	function Tablero_onclick(){
+		event.cancelBubble = true;
+	}
+
+//**************************************************************************************//
+//********************************VALIDAR MOVIMIENTO************************************//
+//**************************************************************************************//
+	
+	function Tablero_validarMovimiento(origen,destino){
+		var valido = false;
+		
+		if(tab[origen].nombre!="r" && !tapaJaque(origen,destino)){
+				eventos.ilegal.nuevo("enjaque",tab[origen].nombre,origen,destino);
+				eventos.ilegal.fire();
+				return false;
+		}
+		
+		switch(element.tab[origen].nombre){
+			case "c":
+				valido = validarCaballo(origen,destino);
+				break;
+			case "a":
+				valido = validarAlfil(origen,destino);
+				break;
+			case "t":
+				valido = validarTorre(origen,destino);
+				break;			
+			case "d":
+				valido = validarDama(origen, destino);
+				break;
+			case "r":
+				valido = validarRey(origen,destino);
+				break;
+			case "p":
+				valido = validarPeon(origen,destino);
+				break;
+
+		}
+		
+		return valido;
+	}	
+	
+	function validarCaballo(origen,destino){
+		eventos.ilegal.nuevo("movimiento","c",origen,destino);
+
+		var dif = Math.abs(destino - origen);
+
+		if(dif != 15 && dif != 10 && dif != 17 && dif != 6){
+			eventos.ilegal.fire();
+			return false;
+		}
+		
+		var difCol = Math.abs(destino%8 - origen%8);
+		
+		if(difCol > 2){
+			eventos.ilegal.fire();
+			return false;
+		}
+		
+		return true;
+	}
+	
+	function validarAlfil(origen,destino){
+		eventos.ilegal.nuevo("movimiento","a",origen,destino);
+		
+		//Se prueba que esté en su diagonal
+		
+		if(Math.abs(origen%8-destino%8)!=Math.abs((origen-origen%8)/8-(destino-destino%8)/8)){
+			eventos.ilegal.fire();
+			return false;
+		}
+		
+		//Se prueba que no pase por encima de nadie
+		
+		var dif = destino - origen;
+		
+		if(dif < 0){
+			var ds = origen;
+			var or = destino;
+		}
+		else{
+			var ds = destino;
+			var or = origen;
+		}
+		
+		var suma = (or%9==ds%9)? 9 : 7;
+		
+		for(var i=or+suma; i < ds; i+=suma){
+			if(element.tab[i].nombre!=""){
+				eventos.ilegal.fire();
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	function validarTorre(origen,destino){
+		eventos.ilegal.nuevo("movimiento","t",origen,destino);
+		
+		var suma = 0;
+ 
+		if(origen%8 == destino%8){
+			suma = 8;	
+		}
+		else if((origen-origen%8) == (destino-destino%8)){
+			suma = 1;
+		}
+		
+		if(suma==0){
+			eventos.ilegal.fire();
+			return false
+		}
+		
+		var dif = destino - origen;
+		
+		if(dif < 0){
+			var ds = origen;
+			var or = destino;
+		}
+		else{
+			var ds = destino;
+			var or = origen;
+		}
+		
+		for(var i=or+suma; i < ds; i+=suma){
+			if(element.tab[i].nombre!=""){
+				eventos.ilegal.fire();
+				return false;
+			}
+		}	
+		
+		return true;
+	}
+	
+	function validarDama(origen,destino){
+		var valido = validarAlfil(origen,destino) || validarTorre(origen,destino);
+		return valido;
+	}
+	
+	function validarPeon(origen,destino){
+		var color = element.tab[origen].color;
+		
+		if(color==BLANCO){
+			var aux = 1;	
+		}
+		else{
+			var aux = -1;
+		}
+		
+		var valido = true;
+		
+		var colO = origen%8;
+		var colD = destino%8;
+		var filO = (origen - origen%8)/8;
+		var filD = (destino - destino%8)/8;
+		
+		//No retroceder
+		if(aux*destino < aux*origen){
+			valido =  false;
+		}
+		
+		//No moverse más de una columna hacia el lado
+		if(Math.abs(colD - colO) > 1){
+			valido =  false;
+		}
+		
+		//No pasar por casillas ocupadas
+		if(element.tab[origen + aux*8] && element.tab[origen + aux*8].nombre!=""){
+			if(Math.abs(colD-colO) != 1){
+				valido =  false;
+			}
+		}
+		
+		//Mover dos casillas en el inicio y una sola después
+		if(filO != 1 && filO != 6 ){
+			if(aux*destino - aux*origen > 9){
+				valido = false;
+			}
+		}
+		else{
+			if(aux*destino - aux*origen > 16){
+				valido = false;
+			}
+		}
+		
+		//No se puede hacer movimiento diagonal si no hay nada para comer
+		if(Math.abs(colD-colO) == 1){
+			if(Math.abs(filD - filO) != 1){
+				valido = false;
+			}
+			else if(tab[destino].nombre==""){
+				if(juego.esqDePaso!=destino){
+					valido = false;
+				}
+			}
+		}
+		
+		if(valido == false){
+			eventos.ilegal.nuevo("movimiento","p",origen,destino);
+			eventos.ilegal.fire();
+		}
+		
+		return valido;
+	}
+	
+	function validarRey(origen,destino){
+		var filDes = (destino - destino%8)/8;
+		var filOri = (origen - origen%8)/8;
+		
+		if(Math.abs(destino%8-origen%8) > 1 || Math.abs(filDes-filOri) > 1){
+			if(juego.enroque.sePuede(origen,destino)){
+				var aux = (destino>origen)? 1 : -1;
+				if(estaAtacado(origen + aux)!=null){
+					eventos.ilegal.nuevo("enroque","r",origen,destino);
+					eventos.ilegal.fire();
+					return false;
+				}
+							
+			}
+			else{
+				eventos.ilegal.nuevo("movimiento","r",origen,destino);
+				eventos.ilegal.fire();	
+				return false;
+			}
+		}
+		
+		if(estaAtacado(destino)!=null){
+			eventos.ilegal.nuevo("jaque","r",origen,destino);
+			eventos.ilegal.fire();
+			return false;			
+		}
+				
+		return true;
+	}
+
+	function estaAtacado(escaque){		
+		if(juego.colorTurno==BLANCO){
+			var colorOp = NEGRO;
+			var aux = -1;
+		}
+		else{
+			var colorOp = BLANCO;
+			var aux = 1;
+		}
+		
+		var colEsq = col(escaque);
+		var filEsq = fil(escaque);
+		
+		var sgI, sgJ = -1, suma, cas, limJ, limI, i, j;
+		
+		//Diagonales y peones
+		for(var n=0; n < 4; n++){
+			sgI = (n%3==0)? 1 : -1;
+			sgJ = -sgJ;			
+			suma = (sgI==sgJ)? sgJ*9 : sgJ*7;
+			limI = (sgI==1)? 8 : -1;
+			limJ = (sgJ==1)? 8 : -1;
+		
+			cas = escaque + suma;
+			for(i=colEsq+sgI, j=filEsq+sgJ; i != limI && j != limJ; i+=sgI, j+=sgJ){
+				if(tab[cas].nombre!=""){
+					if(tab[cas].color==colorOp){
+						if(tab[cas].nombre=="d" || tab[cas].nombre=="a"){
+							return cas;
+						}
+						else if(tab[cas].nombre=="p" && cas == escaque + suma){
+							if(tab[cas].color == BLANCO && escaque > cas)
+								return cas;
+							else if(tab[cas].color == NEGRO && escaque < cas)
+								return cas;
+						}
+						break;						
+					}
+					else if(tab[cas].nombre!="r"){//Atravezamos al rey!!
+						break;
+					}
+				}
+				cas += suma;
+			}		
+		}
+
+		var secuenciaI = [1,-1,0,0];
+		var secuenciaJ = [0,0,1,-1];
+		
+		//filas y columnas
+		for(var n=0; n < 4; n++){
+			sgI = secuenciaI[n];
+			sgJ = secuenciaJ[n];	
+			suma = (sgJ==0)? sgI*1 : sgJ*8;
+			limI = (sgI==1)? 8 : -1;
+			limJ = (sgJ==1)? 8 : -1;
+
+			cas = escaque + suma;
+			for(i=colEsq+sgI, j=filEsq+sgJ; i != limI && j != limJ; i+=sgI, j+=sgJ){
+				if(tab[cas].nombre!=""){
+					if(tab[cas].color==colorOp){
+						if(tab[cas].nombre=="d" || tab[cas].nombre=="t"){
+							return cas;
+						}
+						break;					
+					}
+					else if(tab[cas].nombre!="r"){//Atravezamos al rey!!
+						break;
+					}
+				}
+				cas += suma;
+			}
+		}		
+		
+		//Caballo
+		var secuenciaI = [1,1,-1,-1,2,2,-2,-2];
+		var secuenciaJ = [2,-2,2,-2,1,-1,1,-1];
+		var fila, columna, posible;
+
+		for(var h = 0; h < 8; h++){
+			fila = filEsq + secuenciaI[h];
+			if(fila <= 7 && fila >= 0){
+				columna = colEsq + secuenciaJ[h];
+				if(columna <= 7 && columna >= 0){
+					posible = escaque + secuenciaI[h]*8 + secuenciaJ[h];
+					if(tab[posible].color==colorOp && tab[posible].nombre=="c"){
+						return posible;
+					} 
+				}
+			}
+		}		
+		
+		//Rey
+		var esqReyOp = tab.esqRey[colorOp];
+		
+		if(Math.abs(col(esqReyOp)-colEsq)<=1 && Math.abs(fil(esqReyOp)-filEsq)<=1){
+			return esqReyOp;
+		}
+		
+		return null;
+	}
+
+	function tapaJaque(origen,destino){
+		var esqRey = tab.esqRey[juego.colorTurno];
+		var piezaOrigen = tab[origen];
+		var piezaDestino = tab[destino];
+		
+		tab[destino] = piezaOrigen;
+		tab[origen] = new TI_Pieza("","");
+		
+		var atacado = estaAtacado(esqRey);
+		
+		tab[origen] = piezaOrigen;
+		tab[destino] = piezaDestino;
+			
+		if(atacado!=null){
+			return false;
+		}
+		else{
+			return true;
+		}		
+	}
+
+	function detectarMate(esqRey,atacante){
+			
+	
+	}
+
+	function col(esq){
+		return esq%8;
+	}
+	
+	function fil(esq){
+		return (esq-esq%8)/8;
+	}
+
+//***************************************************************************************/
+/***********************************BASE DE MOVIMIENTOS**********************************/
+/****************************************************************************************/
+
+function generarBaseMovimientos(){
+	
+	element.movBD = new Object();
+	movBD["r"] = new Array();
+	movBD["d"] = new Array();
+	movBD["t"] = new Array();
+	movBD["a"] = new Array();
+	movBD["c"] = new Array();
+	movBD["p"] = new Array();
+	movBD["p"]["B"] = new Array();
+	movBD["p"]["N"] = new Array();
+	
+	movimientosRey(movBD);
+	movimientosTorre(movBD);
+	movimientosAlfil(movBD);
+	movimientosDama(movBD);
+	movimientosCaballo(movBD);
+	movimientosPeon(movBD);
+
+}
+
+function movimientosRey(movBD){
+	
+	var sumas = [-9,-8,-7,7,8,9,-1,1];
+
+	for(var i=0; i < 64; i++){
+	
+		movBD["r"][i] = new Array(0);
+		movBD["r"][i][0] = new Array(0);
+		movBD["r"][i][1] = new Array(0);
+		
+		var filRey = Math.floor(i/8);
+		
+		var a = 1;
+
+		for(var k=0; k < sumas.length; k++){
+			var esqPosible = i + sumas[k];
+
+			if(k==6){
+				a = 0;
+			}
+
+			if(esqPosible <= 63 && esqPosible >= 0){
+				var filaPosible = Math.floor(esqPosible/8);
+				if(filaPosible == filRey + a || filaPosible == filRey - a){
+					var tam = movBD["r"][i][0].length;
+					movBD["r"][i][0][tam] = esqPosible;
+				}
+			}
+
+		}
+		
+		if(i==4){
+			movBD["r"][4][1][0] = 6;
+			movBD["r"][4][1][1] = 2;
+		}
+		if(i==60){
+			movBD["r"][60][1][0] = 62;
+			movBD["r"][60][1][1] = 58;
+		}
+	}
+}
+
+function movimientosTorre(movBD){
+
+	var sumas = [8, -8, 1, -1];
+
+	for(var k=0; k < 64; k++){
+		movBD["t"][k] = new Array(0);
+		
+		var filTor = Math.floor(k/8);
+		
+		for(var j = 0; j < 2; j++){
+			var esqPosible = k + sumas[j];
+			movBD["t"][k][j] = new Array(0);
+			
+			while(esqPosible <= 63 && esqPosible >=0){
+				var tam = movBD["t"][k][j].length;
+				movBD["t"][k][j][tam] = esqPosible;
+				esqPosible += sumas[j];
+			}
+		}
+
+		for(var j = 2; j < 4; j++){
+			var esqPosible = k + sumas[j];
+			movBD["t"][k][j] = new Array(0);
+			
+			while(Math.floor(esqPosible/8)==filTor){
+				var tam = movBD["t"][k][j].length;
+				movBD["t"][k][j][tam] = esqPosible;
+				esqPosible += sumas[j];
+			}
+		}
+	}
+}
+
+function movimientosAlfil(movBD){
+
+	var sumas = [9, -9, 7, -7];
+	var arrAux = [1, -1, 1, -1];
+
+	for(var k=0; k < 64; k++){
+		movBD["a"][k] = new Array(0);
+		
+		var filAlf = Math.floor(k/8);
+		
+		for(var j = 0; j < sumas.length; j++){
+		
+			var esqPosible = k + sumas[j];
+			var filPosible = Math.floor(esqPosible/8);
+			movBD["a"][k][j] = new Array(0);
+			var aux = 1;
+			
+			while(esqPosible <= 63 && esqPosible >=0 && filPosible==filAlf + aux*arrAux[j]){
+				var tam = movBD["a"][k][j].length;
+				movBD["a"][k][j][tam] = esqPosible;
+				esqPosible += sumas[j];
+				filPosible= Math.floor(esqPosible/8);
+				aux++;
+			}
+		}
+	}
+}
+
+function movimientosDama(movBD){
+
+	var sumas = [8, -8, 1, -1, 9, -9, 7, -7];
+	var arrAux = [1, -1, 1, -1];
+
+	for(var k=0; k < 64; k++){
+
+		movBD["d"][k] = new Array(0);
+		
+		var filDama = Math.floor(k/8);
+		
+		for(var j = 0; j < 2; j++){
+			var esqPosible = k + sumas[j];
+			movBD["d"][k][j] = new Array(0);
+			
+			while(esqPosible <= 63 && esqPosible >=0){
+				var tam = movBD["d"][k][j].length;
+				movBD["d"][k][j][tam] = esqPosible;
+				esqPosible += sumas[j];
+			}
+		}
+
+		for(var j = 2; j < 4; j++){
+			var esqPosible = k + sumas[j];
+			movBD["d"][k][j] = new Array(0);
+			
+			while(Math.floor(esqPosible/8)==filDama){
+				var tam = movBD["d"][k][j].length;
+				movBD["d"][k][j][tam] = esqPosible;
+				esqPosible += sumas[j];
+			}
+		}
+	
+		for(var j = 4; j < 8; j++){
+		
+			var esqPosible = k + sumas[j];
+			var filPosible = Math.floor(esqPosible/8);
+			movBD["d"][k][j] = new Array(0);
+			var aux = 1;
+			
+			while(esqPosible <= 63 && esqPosible >=0 && filPosible==filDama + aux*arrAux[j-4]){
+				var tam = movBD["d"][k][j].length;
+				movBD["d"][k][j][tam] = esqPosible;
+				esqPosible += sumas[j];
+				filPosible= Math.floor(esqPosible/8);
+				aux++;
+			}
+		}
+	}
+}
+
+function movimientosCaballo(movBD){
+	
+	var sumas = [-17,-15,15,17,-10,-6,6,10];
+
+	for(var k=0; k < 64; k++){
+		movBD["c"][k] = new Array(8);
+		var filCab = Math.floor(k/8);
+		var aux = 2;
+		
+		for(var i=0; i < sumas.length; i++){
+			var esqPosible = k + sumas[i];
+			
+			if(i==4){
+				aux = 1;
+			}
+
+			if(esqPosible <= 63 && esqPosible >= 0){
+				var filaPosible = Math.floor(esqPosible/8);
+				if(filaPosible == filCab + aux || filaPosible == filCab - aux){
+					var tam = movBD["c"][k].length;
+					movBD["c"][k][tam] = esqPosible;
+				}
+			}
+		}
+	}
+}
+
+
+function movimientosPeon(movBD){
+	var sumas = [8, 7, 9];
+	var peon = movBD["p"]["B"];
+	var aux = 1;
+
+	for(var i=0; i < 2; i++){
+		if(i==1){
+			peon = movBD["p"]["N"];
+			aux = -1;
+		}
+		for(var k=8; k < 64-8; k++){
+			peon[k] = new Array(0);
+			peon[k][0] = new Array(0);
+			peon[k][1] = new Array(0);
+			
+			var filPeon = Math.floor(k/8);
+			
+			var indice = 0;			
+			
+			for(var j = 0; j < sumas.length; j++){
+				if(j>0){
+					indice = 1;
+				}
+				var esqPosible = k + aux*sumas[j];
+				var filPosible = Math.floor(esqPosible/8);
+				
+				if(filPosible==filPeon + aux){
+					var tam = peon[k][indice].length;
+					peon[k][indice][tam] = esqPosible;
+				}
+			}
+			
+			if((filPeon == 1 && aux==1) || (filPeon == 6 && aux==-1)){
+				peon[k][0][1] = k + aux*16;
+			}
+
+		}
+	}
+}
+
+
+//***************************************************************************************//
+//*************************************MOVER PIEZA***************************************//
+//***************************************************************************************//
+	
+	function PublicTablero_moverPieza(strMov,validar){
+		var origen = traductor.toNumero(strMov.substr(0,2));
+		var destino = traductor.toNumero(strMov.substr(2,2));
+		
+		if(!validar)
+			Tablero_moverPieza(origen,destino);
+		else if(Tablero_validarMovimiento(origen,destino))
+			Tablero_moverPieza(origen,destino);
+	}
+	
+	function Tablero_moverPieza(origen,destino){
+
+		if(escaques[origen].firstChild==null || origen < 0 || origen > 63 || destino < 0 || destino > 63){
+			eventos.ilegal.detalle = "Movimiento ilegal. Escaque origen vacío.";
+			eventos.ilegal.origen = traductor.toCoordenada(origen);
+			eventos.ilegal.destino = traductor.toCoordenada(destino);
+			eventos.ilegal.fire();
+			return;
+		}
+
+		if(escaques[destino].firstChild!=null){
+			escaques[destino].removeChild(escaques[destino].firstChild);
+			var capturada = tab[destino];
+			eventos.mov.capturada = tab[destino];
+		}
+		else{
+			var capturada = new TI_Pieza("","");
+			eventos.mov.capturada = new TI_Pieza("","");
+		}
+		
+		var piezaMovidaImg = escaques[origen].firstChild;
+		escaques[destino].appendChild(piezaMovidaImg);
+		
+		tab.moverPieza(origen,destino);
+
+		Tablero_hacerEnroque(origen,destino);
+		Tablero_cancelarEnroque(origen,destino);
+		Tablero_hacerCapturaEnPassant(origen,destino);
+		var promocion = Tablero_hacerPromocion(origen,destino);
+
+		Tablero_cambiarTurno();
+	
+		juego.listaMovimientos.add(origen,destino,capturada,promocion);
+	
+		eventos.mov.origen = traductor.toCoordenada(origen);
+		eventos.mov.destino = traductor.toCoordenada(destino);
+		eventos.mov.fire();
+		setTimeout(detectarJaque,1);
+	}
+
+	function detectarJaque(){
+		var atacante = estaAtacado(tab.esqRey[juego.colorTurno]);
+		if(atacante!=null){
+			juego.enJaque = atacante;
+			eventos.jaque.posRey = tab.esqRey[juego.colorTurno];
+			eventos.jaque.atacante = atacante;
+			eventos.jaque.jaqueMate = detectarMate(tab.esqRey[juego.colorTurno],atacante);
+			eventos.jaque.fire();
+		}
+		else{
+			juego.enJaque = null;
+		}
+	}
+
+	function Tablero_hacerEnroque(origen,destino){
+		if(tab[destino].nombre == "r"){
+			tab.esqRey[juego.colorTurno] = destino;
+			juego.enroque.cancelar(origen);
+			if(destino - origen == 2){
+				var torreEnroqueImg = element.escaques[origen + 3].firstChild;
+				var torreEnroque = element.tab[origen + 3];
+				escaques[origen + 1].appendChild(torreEnroqueImg);
+				tab[origen + 1] = torreEnroque;
+				tab[origen + 3] = new TI_Pieza("","");
+			}
+			else if(origen - destino == 2){
+				var torreEnroqueImg = escaques[origen - 4].firstChild;
+				var torreEnroque = tab[origen - 4];
+				escaques[origen - 1].appendChild(torreEnroqueImg);
+				tab[origen - 1] = torreEnroque;
+				tab[origen - 4] = new TI_Pieza("","");
+			}
+		}
+	}
+
+	function Tablero_cancelarEnroque(origen,destino){
+		if(tab[destino].nombre=="t"){
+			switch(origen){
+				case 0:
+					juego.enroque.cancelar(4,2);
+					break;
+				case 7:
+					juego.enroque.cancelar(4,6);
+					break;
+				case 56:
+					juego.enroque.cancelar(60,58);
+					break;
+				case 63:
+					juego.enroque.cancelar(60,62);
+					break;
+			}
+		}
+	}
+	
+	function Tablero_hacerCapturaEnPassant(origen,destino){
+		if(tab[destino].nombre=="p"){
+			var aux = (tab[destino].color==BLANCO)? 8 : -8;
+			if(Math.abs(destino-origen)==16){
+				juego.esqDePaso = origen + aux;
+			}
+			else{
+				if(destino == juego.esqDePaso){
+					eventos.mov.capturada = tab[destino - aux];
+					tab[destino - aux] = new TI_Pieza("","");
+					escaques[destino - aux].removeChild(escaques[destino-aux].firstChild);
+				}
+				juego.esqDePaso = null;
+			}
+		}
+		else{
+			juego.esqDePaso = null;
+		}
+	}
+
+	function Tablero_hacerPromocion(origen,destino){
+		if(tab[destino].nombre=="p"){
+			if(destino >= 56){
+				tab[destino] = new TI_Pieza("d",BLANCO);
+				escaques[destino].removeChild(escaques[destino].firstChild);
+				escaques[destino].appendChild(new Tablero_PiezaAjedrez(tab[destino]));
+				return "d";
+			}
+			else if(destino <= 7){
+				tab[destino] = new TI_Pieza("d",NEGRO);
+				escaques[destino].removeChild(escaques[destino].firstChild);
+				escaques[destino].appendChild(new Tablero_PiezaAjedrez(tab[destino]));
+				return "d";
+			}		
+		}
+		return "";
+		
+	}
+
+	function Tablero_retrocederMovimiento(){
+		if(juego.listaMovimientos.posicion==0)
+			return;
+	
+		var nuevaPosicion = --juego.listaMovimientos.posicion;
+		var mov = juego.listaMovimientos.lista[nuevaPosicion];
+		
+		tab[mov.origen] = tab[mov.destino];
+		escaques[mov.origen].appendChild(escaques[mov.destino].firstChild);
+
+		tab[mov.destino] = mov.captura;
+		if(mov.captura.nombre!="")
+			escaques[mov.destino].appendChild(new Tablero_PiezaAjedrez(mov.captura));
+		
+		if(tab[mov.origen].nombre=="r"){
+			if(mov.destino - mov.origen == 2){
+				tab[mov.destino + 1] = tab[mov.destino - 1];
+				tab[mov.destino - 1] = new TI_Pieza("","");
+				escaques[mov.destino + 1].appendChild(escaques[mov.destino - 1].firstChild);
+			}
+			else if(mov.origen - mov.destino == 2){
+				tab[mov.destino - 2] = tab[mov.destino + 1];
+				tab[mov.destino + 1] = new TI_Pieza("","");
+				escaques[mov.destino - 2].appendChild(escaques[mov.destino + 1].firstChild);
+			}		
+		}
+		
+	}
+	
+	function Tablero_adelantarMovimiento(){
+
+		if(juego.listaMovimientos.posicion==juego.listaMovimientos.ultimo)
+			return;
+	
+		var nuevaPosicion = juego.listaMovimientos.posicion++;
+		var mov = juego.listaMovimientos.lista[nuevaPosicion];
+
+		tab[mov.destino] = tab[mov.origen];
+
+		if(mov.captura.nombre!="")
+			escaques[mov.destino].removeChild(escaques[mov.destino].firstChild);
+		
+		escaques[mov.destino].appendChild(escaques[mov.origen].firstChild);
+		tab[mov.origen] == new TI_Pieza("","");
+
+		if(tab[mov.destino].nombre=="r"){
+			if(mov.destino - mov.origen == 2){
+				var torreEnroqueImg = escaques[mov.origen + 3].firstChild;
+				var torreEnroque = tab[mov.origen + 3];
+				escaques[mov.origen + 1].appendChild(torreEnroqueImg);
+				tab[mov.origen + 1] = torreEnroque;
+				tab[mov.origen + 3] = new TI_Pieza("","");
+			}
+			else if(mov.origen - mov.destino == 2){
+				var torreEnroqueImg = escaques[mov.origen - 4].firstChild;
+				var torreEnroque = tab[mov.origen - 4];
+				escaques[mov.origen - 1].appendChild(torreEnroqueImg);
+				tab[mov.origen - 1] = torreEnroque;
+				tab[mov.origen - 4] = new TI_Pieza("","");			}		
+		}
+	}
+
+	function Tablero_cambiarTurno(){
+		if(juego.colorTurno == BLANCO)
+			juego.colorTurno = NEGRO;
+		else
+			juego.colorTurno = BLANCO;
+	}
+	
+	
+//***************************************************************************//
+//***********************************FEN*************************************//
+//***************************************************************************//
+
+function Tablero_toFEN(){
+	var vacias, name, fen = "";
+
+	for(var i=7; i >= 0; i--){
+		vacias = 0;
+		for(var j=0; j <= 7; j++){
+			var escaque = i*8 + j;
+			
+			if(tab[escaque].nombre == ""){
+				vacias++;
+				continue;
+			}
+			else if(vacias > 0){
+				fen += vacias;
+				vacias = 0;
+			}
+			
+			name = piezas.nombreIngles[tab[escaque].nombre];
+			
+			if(tab[escaque].color == BLANCO){
+				name = name.toUpperCase();			
+			}
+			
+			fen += name;
+		}
+					
+		if(vacias > 0)
+			fen += vacias;
+	
+		if(i!=0)
+			fen += "/";
+	}
+	
+	fen += (juego.colorTurno==BLANCO)? " w " : " b ";
+
+	var enroque = "";
+
+	if(juego.enroque.interno[4][6])
+		enroque += "K";
+	if(juego.enroque.interno[4][2])
+		enroque += "Q";
+	if(juego.enroque.interno[60][62])
+		enroque += "k";
+	if(juego.enroque.interno[60][58])
+		enroque += "q";
+	
+	if(enroque == "")
+		enroque = "-";
+	
+	fen += enroque;
+	
+	if(juego.esqDePaso != null){
+		fen += " " + traductor.toCoordenada(juego.esqDePaso) + " ";	
+	}
+	else{
+		fen += " - ";
+	}
+	
+	fen += "0";
+	fen += " 1";
+	
+	return fen;
+	
+}
+
+function Tablero_algToCoord(moves){
+	var tempTab = new TableroInterno();	
+	tempTab.colocarPosicionInicial();
+
+	var movPeon = new RegExp('^[a-h][1-8](=[QRNB])*\\+*$');
+	var capPeon = new RegExp('^[a-h]x[a-h][1-8](=[QRNB])*\\+*$');
+	var movPieza = new RegExp('^[KQRNB]x{0,1}[a-h][1-8]\\+*$');
+	var ambPieza = new RegExp('^[KQRNB]([a-h]|[1-8]){1}x{0,1}[a-h][1-8]\\+*$');
+
+	var blanco = true;
+	var nuevo = new Array();
+
+	for(var i=0; i < moves.length; i++){
+		if(movPeon.test(moves[i])){
+			var destino = traductor.toNumero(moves[i].substring(0,2));
+			
+			if(blanco)
+				var aux = 1;
+			else
+				var aux = -1;
+			
+			var casilla = destino - aux*8;
+			
+			while(casilla >= 0 && casilla < 64){
+				if(tempTab[casilla].nombre == "p"){
+					var origen = casilla;
+					break;
+				}
+				casilla-= aux*8;
+			}
+			
+			tempTab.moverPieza(origen,destino);
+			
+			Tablero_dibujarPosicion(tempTab);
+			alert(moves[i]);		
+		}
+		else if(movPieza.test(moves[i])){
+			var piezaMovida = traductor.nombresEspanol[moves[i].charAt(0)];
+	
+			var captura = moves[i].indexOf("x");
+			
+			if(captura == -1)
+				var destino = traductor.toNumero(moves[i].substr(1,2));			
+			else
+				var destino = traductor.toNumero(moves[i].substr(2,2));
+			
+			var movimientos = movBD[piezaMovida][destino];
+			
+			for(var dir=0; dir < movimientos.length; dir++){
+				for(var k=0; k < movimientos[dir].length; k++){
+					if(tempTab[movimientos[dir][k]].nombre==piezaMovida){
+						var origen = movimientos[dir][k];
+					}
+					if(tempTab[movimientos[dir][k]].nombre!=""){
+						break;
+					}					
+				}
+			}
+			
+			tempTab.moverPieza(origen,destino);
+			
+			Tablero_dibujarPosicion(tempTab);
+			alert(moves[i]);
+
+
+		}
+		else if(capPeon.test(moves[i])){			
+			var destino = traductor.toNumero(moves[i].substr(2,2));
+			if(blanco)
+				var aux = 1;
+			else
+				var aux = -1;
+			
+			var columna = moves[i].charCodeAt(0)- 97;
+			
+			if(columna < destino%8){
+				var origen = destino - aux*(8+aux);
+			}
+			else{
+				var origen = destino - aux*(8-aux);
+			}
+			
+			tempTab.moverPieza(origen,destino);
+			Tablero_dibujarPosicion(tempTab);
+			alert(moves[i]);	
+			
+		}
+		else if(ambPieza.test(moves[i])){
+			var piezaMovida = traductor.nombresEspanol[moves[i].charAt(0)];
+	
+			var captura = moves[i].indexOf("x");
+			
+			if(captura == -1)
+				var destino = traductor.toNumero(moves[i].substr(1,2));			
+			else
+				var destino = traductor.toNumero(moves[i].substr(captura+1,2));
+			
+			var desamb = parseInt(moves[i].charAt(1));
+			
+			var columna, fila;
+			
+			if(isNaN(desamb))
+				var columna = moves[i].charCodeAt(1) - 97;
+			else
+				var fila = desamb - 1;
+			
+			var movimientos = movBD[piezaMovida][destino];
+			
+			for(var j=0; j < movimientos.length; j++){
+				if(tempTab[movimientos[j]].nombre==piezaMovida){
+					if(columna == movimientos[j]%8){
+						var origen = movimientos[j];
+						break;
+					}
+					else if(fila == Math.floor(movimientos[j]/8)){
+						var origen = movimientos[j];
+						break;
+					}
+				}
+			}
+			
+			tempTab.moverPieza(origen,destino);
+			Tablero_dibujarPosicion(tempTab);
+			
+			alert(moves[i]);
+			
+		}
+		else{
+			if(moves[i]=="O-O"){
+				if(blanco){
+					
+				}
+				else{
+				
+				
+				}			
+			}
+			else if(moves[i]=="O-O-O"){
+			
+			}
+		}
+		
+		blanco = !blanco;
+	}
+
+	tempTab = null;
+
+}
+
+
+</script>

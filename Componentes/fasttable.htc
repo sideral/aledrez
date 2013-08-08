@@ -1,0 +1,144 @@
+<public:component tagName="table" lightweight="true">
+<public:attach event="oncontentready" for="element" onevent="iniciarTabla()" />
+<public:method name="insertRow" />
+<public:method name="deleteRow" />
+<public:method name="adjust" />
+<public:method name="prepare" />
+<public:property name="cellSpacing" default = "2"/>
+<public:property name="borderCollapse"/>
+<public:property name="fontSize"/>
+</public:component>
+
+<script>
+	function iniciarTabla(){
+		//Objetos públicos
+		element.rows = new Array();
+	
+		//Objetos privados
+		element.tables = new Array(createTable(0));
+		element.sumas = new Object();
+		element.restas = new Object();
+		element.limInf = 12;
+		element.limSup = 12;
+		
+		with(element.style){
+			padding = 0;
+		}		
+	}
+
+/***************************************TABLA***************************************/
+
+	function insertRow(index){
+		if(index==undefined || index==-1){
+			var tam = element.tables.length;
+
+			if(element.tables[tam-1].rows.length < element.limInf){
+				var row = element.tables[tam-1].insertRow();
+			}
+			else{
+				var ultimaTabla = element.tables[tam] = createTable(tam);
+				var row = ultimaTabla.insertRow();
+			}
+			
+			return row;	
+		}
+		else if(!isNaN(parseInt(index)) && index >= 0){
+			var tam = element.tables.length;
+			var rowIdx = index%limInf;
+			var tabIdx = (index-rowIdx)/10;
+			
+			if(tabIdx >= tam)
+				throw new Error(1,"Índice inválido");
+			
+			var ri, ti, dif = 0;
+			for(var x in element.sumas){
+				x = x - 0;
+				ri = x%limInf;
+				ti = (x-ri)/10;
+				
+				if(index > x && tabIdx > ti){
+					dif+=element.sumas[x];
+				}
+			}
+
+			if(dif <= rowIdx){
+				rowIdx-=dif%10;	
+			}
+			else{
+				var diff = dif-rowIdx;
+				tabIdx -= Math.floor(diff/10) + 1;
+				rowIdx = element.tables[tabIdx].rows.length - diff%10;
+			}
+			
+			var row = element.tables[tabIdx].insertRow(rowIdx);
+						
+			if(!element.sumas[index]){
+				element.sumas[index] = 1;
+			}
+			else{
+				element.sumas[index]++;
+			}
+			
+			return row;
+		}
+		else{
+			throw new Error(1,"Índice inválido");	
+		}
+	}			
+	
+	function deleteRow(index){
+		
+	
+		
+	}
+	
+	function createTable(indice){
+		var tab = element.document.createElement("table");
+		element.appendChild(tab);
+		tab.indice = indice;
+		tab.style.margin = "0px";
+		//tab.style.width = "80%";
+
+		return tab;
+	}
+	
+	function adjust(){
+		if(element.tables[0].rows.length==0)
+			return;
+		
+		var celdas = element.tables[0].rows[0].cells.length;
+		var max = new Array(celdas);
+		
+		for(var i=0; i < celdas; i++)
+			max[i] = 0;
+		
+		var tam = element.tables.length;
+		
+		for(var i=0; i < tam; i++){
+			if(element.borderCollapse)
+				element.tables[i].style.borderCollapse = element.borderCollapse;
+			
+			element.tables[i].cellSpacing = element.cellSpacing;
+			element.tables[i].style.fontSize = element.style.fontSize;
+			
+			for(var j=0; j < celdas; j++){
+				var wdt = element.tables[i].rows[0].cells[j].clientWidth;
+				if(wdt > max[j]){
+					max[j] = wdt;	
+				}
+			}
+		}
+		
+		for(var i=0; i < tam; i++){
+			for(var j=0; j < celdas; j++){
+				element.tables[i].rows[0].cells[j].noWrap = true;
+				element.tables[i].rows[0].cells[j].style.width = max[j];
+			}
+		}
+	}
+
+	function prepare(filas,celdas){
+		element.limInf = Math.max(Math.round(filas/(1+Math.PI*celdas))+1,10);
+	}
+
+</script>

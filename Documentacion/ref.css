@@ -1,0 +1,23 @@
+.NombreClase
+{
+	font-weight:bold;
+	width:100%;
+	background-color:lightskyblue;
+	font-size:medium;
+	font-family:Courier New;
+	padding:5px;
+	padding-left:15px;
+}
+
+.NombreMetodo
+{
+	font-weight:bold;
+	font-family:Courier New;
+	padding-left:30px;	
+}
+
+.Lista
+{
+	padding-left:30px;
+	font-family:Courier New;
+}

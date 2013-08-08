@@ -1,0 +1,395 @@
+<public:component tagName="ventana" lightweight=true>
+
+<public:method name="capturar" internalname="Window_capturar" />
+<public:method name="soltar" internalname="Window_soltar" />
+<public:method name="ponerEncima" internalname="Window_ponerEncima" />
+<public:method name="desactivar" internalname="Window_desactivar" />
+<public:method name="activar" internalname="Window_activar" />
+<public:method name="abrir" internalname="Window_abrir" />
+<public:method name="cerrar" internalname="Window_cerrar" />
+<public:property name="titulo" put="put_Titulo" get="get_Titulo" />
+<public:property name="icono" put="put_Icono" get="get_Icono" />
+<public:property name="botones" put="put_Botones" />
+<public:property name="url" put="put_Url" get="get_Url"/>
+<public:property name="visible" put="put_Visible" get="get_Visible" />
+<public:attach event="oncontentready" for="element" onevent="agregarWindow()"></public:attach>
+<public:event name="oncerrar" id="oncerrarEvent" />
+<public:event name="oncaptura" id="oncapturaEvent" />
+<public:event name="onsoltar" id="onsoltarEvent" />
+
+</public:component>
+<script>
+	function inicializarWindow(){
+		var tabla = element.document.createElement("table");
+		
+		with(tabla){
+			cellSpacing = 0;
+			cellPadding = 0;
+		}
+		
+		with(tabla.style){
+			border = "1px solid black";
+			width="100%";
+			height="100%";
+		}
+		
+		element.tabla = tabla;
+		element.appendChild(tabla);
+	}
+
+	function agregarWindow(){
+		inicializarWindow();
+	
+		if(element.document.ventanas == undefined){
+			element.document.ventanas = new Array();
+			element.document.ventanas.zIndex = 0;
+		}
+		
+		element.index = element.document.ventanas.zIndex++;
+		element.document.ventanas[element.index] = element;
+		
+		element.document.onmousemove = function(){
+			for(var i=0; i < element.document.ventanas.length; i++){
+				element.document.ventanas[i].mouse.move();
+			}
+		}
+		
+		element.onmousedown = function(){
+			element.index = element.document.ventanas.zIndex++;
+			if(element.parentElement!=element.document.body){
+				element.parentElement.style.zIndex = element.index;
+			}
+			else{
+				element.style.zIndex = element.index;
+			}
+		}
+	
+		element.oncontextmenu = function(){event.returnValue = false}
+		element.onselectstart = function(){event.returnValue = false}
+		
+		element.mouse = new Object();
+		element.barraTitulo = new BarraTitulo();
+		element.contenido = new Contenido();
+		element.style.position = "absolute";
+		
+		element.conCaptura = false;
+		element.observable = true;
+		element.activa = true;
+		element.frame = null;
+		element.application = false;
+		element.frameUrl = "";
+		element.maximizada = false;
+		element.estiloMax = new Window_estilo();
+	}
+	
+	function Window_estilo(){
+		this.height = "100%";
+		this.width = "100%";
+		this.top = 0;
+		this.left = 0;
+		this.right = undefined;
+	}
+	
+	function Window_abrir(url){
+		element.visible = true;
+		element.ponerEncima();
+		
+		if(url){
+			element.url = url;
+		}
+	}
+	
+	function Window_cerrar(){
+
+		if(element.conCaptura == true){
+			element.soltar();
+		}
+		oncerrarEvent.fire();	
+		element.visible = false;
+	}
+	
+	function Window_capturar(){
+		element.ponerEncima();
+		if(element.conCaptura==false){
+			element.conCaptura = true;
+			oncapturaEvent.fire();
+		}
+	}
+	
+	function Window_soltar(){
+		if(element.conCaptura == true){
+			element.conCaptura = false;
+			onsoltarEvent.fire();
+		}
+	}
+	
+	function Window_desactivar(){
+		if(element.conCaptura==false && element.visible == true){
+			element.activa = false;
+			element.style.filter = "progid:DXImageTransform.Microsoft.BasicImage(opacity=0.8)";
+		}
+	}
+	
+	function Window_activar(){
+		if(element.activa==false && element.visible == true){
+			element.style.filter = "";
+			element.activa = true;
+		}
+	}
+	
+	function Window_ponerEncima(){
+		if(element.activa==true)
+			element.style.zIndex = element.document.ventanas.zIndex++;
+	}
+	
+	function put_Titulo(valor){
+		element.barraTitulo.zonaTexto.innerText = valor;
+	}
+	
+	function get_Titulo(){
+		return element.barraTitulo.zonaTexto.innerText;
+	}
+
+	function put_Icono(valor){
+		var imagen = element.document.createElement("img");
+		imagen.src = valor;
+		element.barraTitulo.zonaIcono.appendChild(imagen);
+	}
+	
+	function put_Url(valor){
+		element.frameUrl = valor;
+		if(element.frame == null){
+			var name = Math.round(Math.random()*100000);
+			var html = "<iframe application='yes' id='" + name + "'>";
+			element.contenido.innerHTML = html;
+			
+			var frame = element.document.all(name.toString());
+			frame.src = valor;
+			frame.window = window;
+			frame.ventana = element;
+			frame.tabIndex = -1;
+			
+			with(frame.style){
+				width = "100%";
+				height = "100%";
+				border = 0;
+				overflow = "auto";
+			}
+			
+			element.contenido.appendChild(frame);
+			element.frame = frame;
+		}
+		else{
+			element.frame.src = valor;
+		}		
+	}
+	
+	function get_Url(){
+		return element.frameUrl;
+	}
+	
+	function put_Visible(valor){
+		if(valor==false){
+			element.style.display = "none";
+			element.style.visibility = "hidden";
+		}
+		else{
+			element.style.visibility = "visible";
+			element.style.display = "block";
+		}
+			
+		element.observable = valor;
+	}
+	
+	function get_Visible(){
+		return element.style.display == "block";
+	}
+	
+	function BarraTitulo(){
+		var barra = Window_construirBarraTitulo();
+		barra.onselectstart = function(){event.returnValue = false}
+		
+		barra.zonaTexto.elm = element;
+		
+		barra.zonaTexto.onmousedown = function(){
+			if(event.button == 1 && element.activa==true && element.maximizada == false){
+				element.mouse.coordenadaX = event.clientX;
+				element.mouse.coordenadaY = event.clientY;
+				element.mouse.left = element.offsetLeft;
+				element.mouse.top = element.offsetTop;
+				element.mouse.ready = true;
+			}
+		}
+		
+		barra.zonaTexto.onmouseup = function(){
+			element.mouse.ready = false;
+		}
+
+		element.mouse.move = function(){
+			if(event.button == 1 && element.mouse.ready && element.activa==true){
+				element.style.left = element.mouse.left - element.mouse.coordenadaX + event.clientX;
+				element.style.top = element.mouse.top - element.mouse.coordenadaY + event.clientY;
+				return false;
+			}
+		}
+		
+		return barra;
+	}	
+	
+	function Window_construirBarraTitulo(){
+		var caja = element.tabla.insertRow();
+		
+		with(caja.style){
+			backgroundColor = "darkblue";
+			fontSize = "12px";
+			fontFamily = "Verdana";
+			padding = 0;
+			margin = 0;
+			cursor = "default";
+			width = "100%";
+			height = 20;
+		}
+		
+		var zI = caja.zonaIcono = caja.insertCell();
+		var zT = caja.zonaTexto = caja.insertCell();
+		var zB = caja.zonaBotones = caja.insertCell();
+		
+		with(zI.style){
+			textAlign = "left";
+			verticalAlign = "middle";
+			padding = 1;
+			width = "0%";
+		}
+		
+		with(zT.style){
+			paddingRight = "4";
+			paddingLeft = "4";
+			color = "white";
+			fontWeight = "bold";
+			overflow = "hidden";
+		}
+		
+		with(zB.style){
+			verticalAlign = "middle";
+			textAlign = "right";
+			padding = 0;
+			width = "0%";
+		}
+		
+		zB.noWrap = true;
+		zT.noWrap = true;
+		
+		return caja;	
+	}
+	
+	function Contenido(){
+		return Window_construirContenido();
+	}
+	
+	function Window_construirContenido(){
+		var row = element.tabla.insertRow();
+		var caja = row.insertCell();
+		var div = element.document.createElement("span");
+		
+		caja.colSpan = 3;
+		
+		with(caja.style){
+			backgroundColor = "white";
+		}
+		
+		with(div.style){
+			width = "100%";
+			height = "100%";
+			top = 0;
+			left = 0;
+		}
+		caja.appendChild(div);
+		
+		return div;
+	}
+
+	function put_Botones(value){
+		if(value & 4){
+			var botonMini =  barraTitulo.zonaBotones.minimizar = new BotonTitulo(String.fromCharCode(48),barraTitulo.zonaBotones);
+			botonMini.onclick = function(){
+				if(element.activa==true){
+					//element.contenido.parentElement.style.display = "none";
+				}			
+			}
+		
+		}
+		if(value & 2){
+			var botonMaxi =  barraTitulo.zonaBotones.maximizar = new BotonTitulo(String.fromCharCode(49),barraTitulo.zonaBotones);
+			botonMaxi.onclick = function(){
+				if(element.activa==true){
+					if(element.maximizada==false){
+						element.estiloNormal = new Window_estilo();
+						estiloNormal.height = element.style.height;
+						estiloNormal.width = element.style.width;
+						estiloNormal.top = element.style.top;
+						estiloNormal.left = element.style.left;
+						
+						with(element.style){
+							height = estiloMax.height;
+							width = estiloMax.width;
+							top = estiloMax.top;
+							left = estiloMax.left;	
+						}
+	
+						this.innerText = String.fromCharCode(50);
+						this.style.backgroundColor = "gainsboro";
+						element.maximizada = true;
+					}
+					else{
+						with(element.style){
+							height = estiloNormal.height;
+							width = estiloNormal.width;
+							top = estiloNormal.top;
+							left = estiloNormal.left;					
+						}
+						this.innerText = String.fromCharCode(49);
+						this.style.backgroundColor = "gainsboro";
+						element.maximizada = false;
+					}
+				}
+			}
+		}
+
+		if(value & 1){
+			var botonCerrar =  barraTitulo.zonaBotones.cerrar = new BotonTitulo(String.fromCharCode(114),barraTitulo.zonaBotones);
+			botonCerrar.onclick = function(){
+				if(element.activa==true){
+					element.cerrar();
+				}
+			}
+		}
+	}
+
+	function BotonTitulo(sym,zona){
+		var boton = element.document.createElement("span");
+		element.barraTitulo.zonaBotones.appendChild(boton);
+		
+		boton.innerText = sym;
+		boton.onmouseover = function(){
+			if(element.activa == true)
+				this.style.backgroundColor = "ghostwhite";
+		}
+		boton.onmouseout = function(){
+			if(element.activa == true)
+				this.style.backgroundColor = "gainsboro";
+		}
+		
+		with(boton.style){
+			fontFamily = "webdings";
+			fontSize = "13px";
+			backgroundColor = "gainsboro";
+			paddingLeft = 2;
+			paddingRight = 1;
+			textAlign = "center";
+			borderWidth = "1px";
+			borderLeft = "1px solid black";
+		}
+		
+		return boton;
+	}
+</script>

@@ -1,0 +1,593 @@
+<PUBLIC:COMPONENT tagName="menu" lightweight="true">
+<PUBLIC:ATTACH event="oncontentready" for="element" onevent="initializeMenu()" />
+<PUBLIC:METHOD NAME="addItem" INTERNALNAME="Menu_addItem" />
+<PUBLIC:METHOD NAME="show" INTERNALNAME="Menu_show" />
+<PUBLIC:METHOD NAME="disable" internalname="Menu_disable" />
+<PUBLIC:METHOD NAME="enable" internalname="Menu_enable" />
+<PUBLIC:PROPERTY NAME="delay" />
+</PUBLIC:COMPONENT>
+<script>
+
+//*************************************************************************************//
+//**********************************DEFINICIONES***************************************//
+//*************************************************************************************//
+
+	function initializeMenu(){
+		//Colección de ítems principal
+		element.items = new Object();
+		element.depth = 0;
+		element.style.zIndex = 10000;
+		element.delay = 315;
+		element.estilo = new Estilo();
+		element.rendered = false;
+		element.type = undefined;
+		element.mainRow = null;
+	}
+
+//ITEM DEL MENU
+
+	function MenuItem(){ // Éste es el constructor de la clase que guarda los datos.
+		//Métodos
+		this.addItem = Menu_addItem;
+		this.disable = MenuItem_disable;
+		this.enable = MenuItem_enable;
+
+		//Propiedades
+		this.name = "";
+		this.action = null;
+		this.object = null;
+		this.argument = null;
+		this.icon = "";
+		this.check = false;
+		this.key = "";
+		this.filter = false;
+		this.disabled = false;
+
+		//Propiedades internas
+		this.depth;
+		this.hasChildren = false;
+
+		//Colecciones
+		this.items = new Object();
+		this.tabObject = null;
+	}
+	
+	function Menu_addItem(name,action,obj,arg,params){
+		var item = new MenuItem();
+
+		item.name = name;
+		item.depth = this.depth + 1;
+		item.action = action;
+		item.object = obj;
+		item.argument = arg;
+		
+		var index = -1;
+		
+		if(params!=undefined){
+			
+			var params = params.replace(/[ *]/g,"");
+			var params = params.replace(/['*]/g,"");	//Quita espacios en blanco
+			var paramList = params.split(";");
+			
+			for(var i=0; i < paramList.length; i++){
+				var propiedad = paramList[i].split("=");
+				
+				switch(propiedad[0]){
+					case "icon":
+						item.icon = propiedad[1];
+						break;
+					case "key":
+						item.key = propiedad[1];
+						break;
+					case "filter":
+						item.filter = propiedad[1]=="true";
+						break;
+					case "disabled":
+						item.disabled = propiedad[1]=="true";
+						break;
+					case "group":
+						item.group = propiedad[1];
+						break;
+					case "index":
+						index = parseInt(propiedad[1]);
+						break;
+					default:
+						break;
+				}
+			}
+		}
+		name = name.replace(/[^a-zA-Z0-9]*/g,"");
+		
+		this[name] = item;
+		this.items[name] = item;
+		this.hasChildren = true;
+		
+		if(element.rendered==true){
+			Menu_paintItem(item,this,index);
+		}
+		
+		return item;
+		
+	}
+	
+	function Menu_paintItem(item,parent,index){
+		if(parent.constructor!=MenuItem){
+			if(index >= element.mainRow.cells.length)
+				index = -1;
+			element.mainRow.addCell(item,index);
+		}
+		else{
+			if(index >= parent.tabObject.itemTable.rows.length)
+				index = -1;
+			parent.tabObject.itemTable.addXRow(item,index);
+		}
+	}
+	
+	function MenuItem_disable(){
+		this.disabled = true;
+		this.tabObject.inactive = true;
+		if(this.tabObject.tagName == "TR"){
+			for(var i=0; i < this.tabObject.cells.length; i++){
+				this.tabObject.cells[i].style.color = estilo.disabledTextColor;
+			}
+			if(this.tabObject.cells[0].firstChild!=null){ //Si tiene un ícono
+				this.tabObject.cells[0].firstChild.style.filter = "progid:DXImageTransform.Microsoft.BasicImage(grayscale=1)";
+			} 
+		}
+		else{
+			this.tabObject.style.color = estilo.disabledTextColor;
+		}
+	}
+	
+	function MenuItem_enable(){
+		this.disabled = false;
+		this.tabObject.inactive = false;
+		if(this.tabObject.tagName == "TR"){
+			for(var i=0; i < this.tabObject.cells.length; i++){
+				this.tabObject.cells[i].style.color = estilo.textColor;
+			}
+			if(this.tabObject.cells[0].firstChild!=null){ //Si tiene un ícono
+				this.tabObject.cells[0].firstChild.style.filter = "";
+			} 			
+		}
+		else{
+			this.tabObject.style.color = estilo.textColor;
+		}
+	}
+
+//MOSTRAR MENU
+	
+	function Menu_Show(type){
+		element.type = type;
+		if(type=="Basic"){
+			Menu_ShowBasic(element.items,0);		
+		}
+		else if(type=="Main"){
+			Menu_ShowMain();
+		}
+	}
+	
+	function Menu_ShowBasic(colItems){
+		for(var x in colItems){
+			for(var i=0; i < colItems[x].depth; i++)
+				element.innerHTML += "&nbsp;&nbsp;";
+			
+			element.innerHTML += colItems[x].name + "<br>";
+			Menu_ShowBasic(colItems[x].items);
+		}
+	}
+
+	function Menu_ShowMain(){
+		with(element.style){
+			width = "100%";
+			backgroundColor = estilo.backgroundColor;
+			paddingLeft = 5;
+			paddingBottom = 1;
+			paddingTop = 1;
+		}
+		
+		element.selectedCell = null;
+		element.timeoutObject = null;
+		element.timeoutID = 0;
+		
+		element.cells = new Object();
+		
+		var mainTable = new HorizontalMenuTable();
+		var rowM = mainTable.addRow();
+		
+		element.appendChild(mainTable);
+		element.mainRow = rowM;
+		
+		for(var x in element.items){
+			element.cells[x] = rowM.addCell(element.items[x],-1); // Una celda para cada item principal.
+			fillItemTable(element.items[x],element.cells[x]); // Le pasa el item y la celda
+		}
+		
+		window.document.body.onmousedown = body_onmousedown;
+		
+		element.rendered = true;
+	}
+
+	function fillItemTable(item,tabObject){
+		for(var x in item.items){ // Cada submenu se recorre aquí.
+			var option = item.items[x]; // El contenido de cada opción en el menú.
+			var xRow = tabObject.itemTable.addXRow(option,-1); //itemTable es la tabla del submenú.
+			fillItemTable(option,xRow);
+		}
+	}
+	
+	function Menu_disable(){
+		element.inactive = true;
+		for(var x in element.items){
+			element.items[x].disable();
+		}		
+	}
+	
+	function Menu_enable(){
+		element.inactive = false;
+		for(var x in element.items){
+			element.items[x].enable();
+		}
+	
+	}
+	
+
+//*************************************************************************************//
+//*******************************TABLA MENU MAIN***************************************//
+//*************************************************************************************//
+
+	function HorizontalMenuTable(){ // Tabla de Menú Horizontal
+	
+		var hTable = element.document.createElement("table");
+		hTable.addRow = HorizontalMenuTable_addRow;
+		
+		with(hTable.style){
+			color = estilo.textColor;
+			backgroundColor = estilo.backgroundColor;
+			fontFamily = estilo.fontFace;
+			fontSize = estilo.fontSize;
+			zIndex = 1000;
+		}
+		
+		hTable.cellSpacing = 0;
+
+		return hTable;
+	}
+
+	function HorizontalMenuTable_addRow(){
+		var hRow = this.insertRow();
+		hRow.addCell = hRow_addCell;
+		hRow.addXCell = hRow_addXCell;
+		hRow.onmouseover = hRow_onmouseover;
+		hRow.onselectstart = cancelarSeleccion;
+		return hRow;
+	}
+
+	function hRow_addCell(item,index){
+		var hCell = this.insertCell(index);
+		hCell.itemTable = new VerticalMenuTable();
+		hCell.innerHTML = item.name;
+
+		hCell.open = itemCell_open;
+		hCell.close = itemCell_close;
+
+		if(item.disabled)
+			hCell.style.color = estilo.disabledTextColor;
+
+		hCell.inactive = item.disabled;
+
+		hCell.onmouseover = hCell_onmouseover;
+		hCell.onmouseout = hCell_onmouseout;
+		hCell.onmousedown = hCell_onmousedown;
+
+		hCell.noWrap = true;
+		hCell.style.paddingLeft = 7;
+		hCell.style.paddingRight = 7;
+		hCell.style.paddingTop = 2;
+		hCell.style.paddingBottom = 2;
+
+		item.tabObject = hCell;
+
+		return hCell;
+	}
+	
+	function hRow_addXCell(option){}
+
+	function VerticalMenuTable(){
+		var iTable = element.document.createElement("table");
+		iTable.addXRow = VerticalMenuTable_addXRow;
+		iTable.addRow = VerticalMenuTable_addRow;
+		//Estilos
+		with(iTable.style){
+			position = "absolute";
+			display = "none";
+			border = "1px solid";
+			borderColor = estilo.backgroundColor;
+			color = estilo.textColor;
+			backgroundColor = estilo.tableBackColor;
+			borderCollapse = "collapse";
+			fontFamily = estilo.fontFace;
+			fontSize = estilo.fontSize;
+			zIndex = 1000;
+		}
+		
+		iTable.cellSpacing = 0;
+		iTable.cellPadding = 2;		
+		
+		iTable.selectedCell = null;
+		
+		element.appendChild(iTable);
+		
+		return iTable;
+	}
+
+	function VerticalMenuTable_addRow(name){}
+
+	function VerticalMenuTable_addXRow(option,index){
+		var itemRow = this.insertRow(index);
+
+		var cIcon = itemRow.insertCell();
+		var cName = itemRow.insertCell();
+		var cKey = itemRow.insertCell();
+		var cArrow = itemRow.insertCell();	
+
+		if(option.icon!=""){
+			var image = element.document.createElement("img");
+			image.src = option.icon;
+			cIcon.appendChild(image);
+			image.style.width = image.currentStyle.width;
+			image.style.height = image.currentStyle.height;
+			image.ondragstart = function(){event.returnValue = false}
+			
+			if(option.disabled){
+				image.style.filter = "progid:DXImageTransform.Microsoft.BasicImage(grayscale=1)";
+			}
+		}
+		
+		if(option.key!=""){
+			cKey.innerText = option.key;
+		}
+
+		if(option.hasChildren){
+			var image = String.fromCharCode(216);
+			cArrow.style.fontFamily = "Wingdings";
+			cArrow.style.color = option.disabled? estilo.disabledTextColor : estilo.textColor;
+			cArrow.innerText = image;
+		}
+		
+		if(option.disabled){
+			itemRow.style.color = estilo.disabledTextColor;
+		}
+
+		cName.innerText = option.name;
+		
+		itemRow.inactive = option.disabled;
+		itemRow.clicked = false;
+		itemRow.hasChildren = option.hasChildren;
+		itemRow.action = option.action;
+		itemRow.object = option.object;
+		itemRow.argument = option.argument;
+		itemRow.itemTable = new VerticalMenuTable();
+		itemRow.close = itemRow_close;
+		itemRow.open = itemRow_open;
+		
+		itemRow.vertical = this;
+		
+		itemRow.onmouseover = itemRow_onmouseover;
+		itemRow.onmouseout = itemRow_onmouseout;
+		itemRow.onselectstart = cancelarSeleccion;
+		itemRow.onmousedown = itemRow_onmousedown;
+		itemRow.onmouseup = itemRow_onmouseup;
+		
+		option.tabObject = itemRow;
+		
+		return itemRow;
+		
+	}
+
+//*************************************************************************************//
+//*******************************MOUSE MENU MAIN***************************************//
+//*************************************************************************************//
+	
+	function itemCell_open(){
+		this.itemTable.style.left = this.offsetLeft + element.offsetLeft + parseInt(element.style.paddingLeft);
+		this.itemTable.style.display = "block";
+		element.selectedCell = this;
+	}
+	
+	function itemCell_close(){
+		this.itemTable.style.display = "none";
+		this.style.backgroundColor = "";
+		element.selectedCell = null;
+	}
+	
+	function itemRow_open(){
+		if(this.itemTable.innerText == ""){
+			return;
+		}
+		
+		var iTable = this.parentElement.parentElement;
+		this.itemTable.style.left = iTable.offsetLeft + iTable.offsetWidth;
+		this.itemTable.style.top = iTable.offsetTop + this.offsetTop;
+		element.timeoutObject = this;
+		element.timeoutID = setTimeout(itemRow_openTime,element.delay);
+
+	}
+	
+	function itemRow_openTime(){
+		element.timeoutObject.itemTable.style.display = "block";
+		element.timeoutObject.vertical.selectedCell = element.timeoutObject;
+		element.timeoutObject = null;
+	}
+	
+	function itemRow_close(){
+		this.itemTable.style.display = "none";
+		this.style.backgroundColor = "";
+		this.vertical.selectedCell = null;
+	}
+
+	function body_onmousedown(){
+		var selected = element.selectedCell;
+		
+		if(selected!=null){
+			while(selected){
+				selected.close();
+				selected = selected.itemTable.selectedCell;
+			}
+		}
+	}
+
+	function hRow_onmouseover(){
+		this.style.cursor = "default";
+	}
+
+	function cancelarSeleccion(){
+		event.returnValue = false;
+	}
+
+	function hCell_onmouseover(){
+		if(element.disabled || this.inactive)
+			return;
+
+		this.style.backgroundColor = estilo.mouseoverColor;
+		var selected = element.selectedCell;
+		
+		if(selected !=null && selected != this){
+			while(selected){
+				selected.close();
+				selected = selected.itemTable.selectedCell;
+			}
+		
+			this.open();
+		}
+		else if(selected == this){
+				selected = selected.itemTable.selectedCell;
+			while(selected){
+				selected.close();
+				selected = selected.itemTable.selectedCell;		
+			}			
+		}
+		
+	}
+
+	function hCell_onmouseout(){
+		if(element.disabled || this.inactive)
+			return;
+
+		if(element.selectedCell == null)
+			this.style.backgroundColor = "";
+	}
+
+	function hCell_onmousedown(){
+		if(element.disabled || this.inactive)
+			return;
+
+		if(element.selectedCell == null){
+			this.open();			
+		}
+		else{
+			var selected = element.selectedCell;
+			
+			while(selected){
+				selected.close();
+				selected = selected.itemTable.selectedCell;			
+			}	
+			
+			this.style.backgroundColor = estilo.mouseoverColor;
+		}
+		event.cancelBubble = true;
+	}
+
+	function itemRow_onmouseup(){
+		if(this.inactive){
+			return;
+		}
+		
+		clearTimeout(element.timeoutID);
+		element.timeoutID = 0;
+		element.timeoutObject = null;
+
+		if(!this.clicked){
+			var selected = element.selectedCell;
+			while(selected){
+				selected.close();
+				selected = selected.itemTable.selectedCell;
+			}
+		}
+		
+		this.clicked = false;
+
+		if(typeof(this.action)=="function"){
+			this.action(this.argument);
+		}
+		else if(typeof(this.action)=="string"){
+			if(this.object){
+				this.object[this.action](this.argument);
+			}
+		}
+	}
+	
+	function itemRow_onmousedown(){
+		if(element.timeoutObject==null && this.hasChildren){
+			this.close();
+			this.style.backgroundColor = estilo.mouseoverColor;
+			this.clicked = true;
+		}
+		else if(this.hasChildren){
+			var delay = element.delay;
+			element.delay = 0;
+			clearTimeout(element.timeoutID);
+			element.timeoutID = 0;
+			element.timeoutObject = this;
+			this.open();
+			element.delay = delay;
+			this.clicked = true;
+		}
+		
+		event.cancelBubble = true;
+	}
+
+	function itemRow_onmouseover(){
+		this.style.cursor = "default";
+		if(this.inactive){
+			return;
+		}
+
+		this.style.backgroundColor = estilo.mouseoverColor;
+		
+		var selected = this.vertical.selectedCell;
+		if(selected != null && selected != this){
+			while(selected){
+				selected.style.backgroundColor = "";
+				selected.close();
+				selected = selected.itemTable.selectedCell;
+			}
+		}
+		
+		this.open();
+	}
+
+	function itemRow_onmouseout(){
+			
+		clearTimeout(element.timeoutID);
+		element.timeoutID = 0;
+		element.timeoutObject = null;
+		
+		if(this.vertical.selectedCell == null){
+			this.style.backgroundColor = "";
+		}
+	
+	}
+
+	//************ESTILOS***********//
+
+	function Estilo(){
+		this.mouseoverColor = "#B2B4BF";
+		this.backgroundColor = "#F0F0F0";
+		this.textColor = "black";
+		this.disabledTextColor = "#bbbbbb";
+		this.fontSize = "13px";
+		this.fontFace = "Times new roman";
+		this.tableBackColor = "white";
+	}
+</script>

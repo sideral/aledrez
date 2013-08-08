@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<motores>
+	<motor>
+		<nombre>Magnus</nombre>
+		<tipo>SCRIPT</tipo>
+		<url>./AjedrezNumerico/magnus.html</url>
+		<habilitado>si</habilitado>
+	</motor>
+	<motor>
+		<nombre>Aledrez</nombre>
+		<tipo>SERVIDOR</tipo>
+		<url>http://localhost/aledrez/servicio/servicio.asmx?wsdl</url>
+		<habilitado>no</habilitado>
+	</motor>
+	<motor>
+		<nombre>The King</nombre>
+		<tipo>WINBOARD</tipo>
+		<url>D:/Ajedrez/cm/theking.exe</url>
+		<habilitado>si</habilitado>
+	</motor>
+	<motor>
+		<nombre>Ruffian</nombre>
+		<tipo>WINBOARD</tipo>
+		<url>D:/Ajedrez/ruffian/ruffian.exe</url>
+		<habilitado>si</habilitado>
+	</motor>
+	<motor>
+		<nombre>Amyan</nombre>
+		<tipo>WINBOARD</tipo>
+		<url>D:/Ajedrez/amyan/amyan.exe</url>
+		<habilitado>si</habilitado>
+	</motor>
+	<motor>
+		<nombre>Kaissa</nombre>
+		<tipo>WINBOARD</tipo>
+		<url>D:/Ajedrez/abrok/kaissa2_10/kaisa2_10.exe</url>
+		<habilitado>si</habilitado>
+	</motor>
+	<motor>
+		<nombre>Beowulf</nombre>
+		<tipo>WINBOARD</tipo>
+		<url>D:/Ajedrez/beowulf/beowulf.exe</url>
+		<habilitado>no</habilitado>
+	</motor>
+	<motor>
+		<nombre>Jonny</nombre>
+		<tipo>WINBOARD</tipo>
+		<url>D:/Ajedrez/jonny/jonny262/jonny262.exe</url>
+		<habilitado>no</habilitado>
+	</motor>
+	<motor>
+		<nombre>Quark</nombre>
+		<tipo>WINBOARD</tipo>
+		<url>D:/Ajedrez/quark/quark.exe</url>
+		<habilitado>no</habilitado>
+	</motor>
+</motores>

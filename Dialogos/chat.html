@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Chat room</title>
+<script language="javascript">
+
+	var aledrez = window.frameElement.window;
+    var NICK = aledrez.control.getNick();
+    
+	function cargarChat(){
+        conversacion = new CuadroConversacion();
+        canal = new Canal();
+     
+		aledrez.chat.canal = canal;
+        
+        canal.abierto = true;
+        aledrez.control.llamarThread();
+        
+        document.body.onclick = function(){
+			window.frameElement.ventana.ponerEncima();
+        }
+	}
+
+	function Formulario_enviarMensaje(){
+        if(canal.abierto == false){
+            event.returnValue = false;
+            return;
+        }
+        
+		if(input.value != ""){
+			var usuario = new Array(NICK);
+			var mensaje = new Array(input.value);
+			canal.imprimirMensajes(usuario,mensaje);
+            canal.enviarMensaje(mensaje[0]);
+		}
+
+		input.value = "";
+		input.focus();
+
+		event.returnValue = false;
+	}
+
+	function Formulario_keypress(){
+		if(event.keyCode==13){
+			Formulario_enviarMensaje();
+		}
+	}
+
+	function Canal(){
+		this.imprimirMensajes = Canal_imprimirMensajes;
+        this.ingresarUsuarios = Canal_ingresarUsuarios;
+        this.despedirUsuarios = Canal_despedirUsuarios;
+        this.desconectarUsuario = Canal_desconectarUsuario;
+		this.enviarMensaje = Canal_enviarMensaje;
+		
+		this.abierto = false;
+	}
+	
+	function Canal_enviarMensaje(msg){
+		aledrez.control.enviarMensaje(msg);
+    }
+	
+    function Canal_ingresarUsuarios(usuarios){
+        for(var i=0; i < usuarios.length; i++){
+            conversacion.ingresarUsuario(usuarios[i]);
+        }
+    }
+	
+    function Canal_despedirUsuarios(usuarios){
+        for(var i=0; i < usuarios.length; i++){
+            conversacion.despedirUsuario(usuarios[i]);
+        }
+    }
+	
+    function Canal_desconectarUsuario(){
+        conversacion.desconectarUsuario();
+    }
+
+    function Canal_imprimirMensajes(usuarios,mensajes){
+		for(var i=0; i < usuarios.length; i++){
+		     conversacion.agregarMensaje(usuarios[i],mensajes[i]);
+		}
+		if(usuarios[0]!=NICK){
+			aledrez.control.llamarThread();
+        }
+	}
+
+	function CuadroConversacion(){
+        var cuadro = document.createElement("div");
+
+        with(cuadro.style){
+            width = "100%";
+            height = "50%";
+            border = "solid 1px black";
+            backgroundColor = "lightyellow";
+            overflow = "auto";
+        }
+        
+        //Métodos
+        cuadro.agregarMensaje = Cuadro_agregarMensaje;
+        cuadro.ingresarUsuario = Cuadro_ingresarUsuario;
+        cuadro.despedirUsuario = Cuadro_despedirUsuario;
+        cuadro.desconectarUsuario = Cuadro_desconectarUsuario;
+
+        cuadro.agregarLinea = Cuadro_agregarLinea;
+        cuadro.hacerScroll = Cuadro_hacerScroll;
+        
+        //Propiedades
+        cuadro.scrollAutomatico = true;
+        
+        document.body.appendChild(cuadro);
+        return cuadro;
+
+   }
+   
+    function Cuadro_agregarMensaje(usuario,mensaje){
+        var linea = this.agregarLinea();
+        var remitente = (usuario + ": ").bold();
+
+        if(usuario == NICK)
+            remitente = remitente.fontcolor("red");
+
+        linea.innerHTML = remitente + mensaje;
+
+        this.hacerScroll();
+    }
+
+    function Cuadro_ingresarUsuario(nickname){
+        var linea = this.agregarLinea();
+        linea.innerHTML = (nickname.bold() + " ingresó.").fontcolor("blue");
+        this.hacerScroll();
+    }
+    
+    function Cuadro_despedirUsuario(nickname){
+        var linea = this.agregarLinea();
+        linea.innerHTML = (nickname.bold() + " salió.").fontcolor("maroon");
+        this.hacerScroll();
+    }
+
+    function Cuadro_desconectarUsuario(){
+        var linea = this.agregarLinea();
+        var mensaje = "Has sido desconectado del servidor.";
+        linea.innerHTML = mensaje.fontcolor("red");
+        this.hacerScroll();
+        canal.abierto = false;
+    }
+
+    function Cuadro_hacerScroll(){
+        if(this.scrollAutomatico == true){
+            this.scrollTop = this.scrollHeight;
+        }
+    }
+
+    function Cuadro_agregarLinea(){
+        var div = document.createElement("div");
+        div.style.width = "100%";
+        this.appendChild(div);
+        return div;
+    }
+
+</script>
+
+</head>
+<body onload="cargarChat()" bgcolor="ivory" style="margin:0px; width:100%;padding:5%">
+
+<script>
+    document.writeln("Conectado " + NICK.bold());
+</script>
+
+<input type="text" onkeypress="Formulario_keypress()" id="input" maxlength="100">
+<input type="button" name="boton" value="Enviar" onclick="Formulario_enviarMensaje()">
+<br><br>
+
+</body>
+</html>

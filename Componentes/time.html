@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns:control>
+<head>
+<title></title>
+<?import namespace="control" implementation="menu2.htc">
+
+<script>
+	function ini(){
+		men.show("Main");
+	}
+	
+</script>
+
+</head>
+<body onload="ini()">
+<control:menu id="men"></control:menu><br><br><br>
+<button onclick="men.addItem('left')">left</button>
+<button onclick="men.addItem('center')">center</button>
+<button onclick="men.addItem('right')">right</button>
+<br>
+<button onclick="men.center.addItem('child',null,null,null,'index=0')">child</button>
+<button onclick="men.center.addItem('otro',null,null,null,'index=1')">otro</button>
+<button onclick="men.center.addItem('mas')">mas</button>
+<!--
+<button onclick="time.stop()">Stop</button>
+<button onclick="time.reset()">Reset</button>
+<button onclick="parte.innerText = time.timestamp">Stamp</button>
+<button onclick="alert()">alert()</button><br>-->
+<div id=parte></div>
+
+</body>
+</html>

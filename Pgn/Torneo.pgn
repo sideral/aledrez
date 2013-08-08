@@ -1,0 +1,586 @@
+[Event "Torneo Arena"]
+[Site "HOGAR"]
+[Date "2004.01.24"]
+[Round "1"]
+[White "AnMon 5.21"]
+[Black "Yace Paderborn"]
+[Result "1-0"]
+[ECO "A08/05"]
+[Opening "Neo-Sicilian"]
+[Time "04:07:34"]
+[Variation "King's Indian Attack, French Variation"]
+[TimeControl "30+0"]
+[Termination "time forfeit"]
+[PlyCount "162"]
+[WhiteType "program"]
+[BlackType "program"]
+
+1.e4 c5 2.Nf3 e6 3.d3 Nc6 4.g3 d5 5.Nbd2 Nf6 6.Bg2 Be7 {(f. 6...Be7 7.O-O O-O
+8.exd5 exd5 9.b3 Bg4 10.Bb2 <0>) 0.17/7 1} 7.O-O O-O {(f. 7...O-O 8.Re1 d4 9.Nc4 Bd7
+10.Bd2 Qc7 <0>) 0.10/7 1} 8.Re1 Qc7 {(u. 8...Qc7 9.exd5 exd5 10.Nc4 dxc4 11.dxc4
+<260>) 0.10/6 1} 9.c3 Bd7 {(f. 9...Bd7 10.Qe2 Rac8 11.c4 b6 12.b3 <0>) 0.18/6} 10.exd5
+{(e4xd5 e6xd5 Te1e6) -0.11/5} exd5 {(f. 10...exd5 11.Nb3 Rfe8 12.Bf4 Qb6 13.Ne5 Nxe5
+<340>) 0.22/7} 11.Nb3 {(Cd2b3 b7b6 Ac1f4 Ae7d6 Af4g5 Cf6g4) 0.05/6} Rae8 {(f.
+11...Rae8 12.Bf4 Qb6 13.a4 Qa6) 0.19/6} 12.Bf4 {(Ac1f4 Dc7b6 Te1e6) 0.01/6} Qb6 {(f.
+12...Qb6 13.Ne5 Nxe5 14.Bxe5 Bg4 15.Qc2 Qc6 <0>) 0.15/6} 13.Qc2 {(Dd1c2 Ad7f5 Dc2e2)
+-0.16/5} Ng4 {(f. 13...Ng4 14.Ng5 Qd8 15.Nf3 Bf6 16.Rxe8 Rxe8 17.Nxc5 Nxh2 18.Nxd7 Qxd7
+<-10>) 0.19/5} 14.d4 {(d3d4 c5xd4 Cb3xd4 Db6xd4 Cf3xd4 Cg4e3) 0.13/6} c4 {(u. 14...c4
+15.Nbd2 Qa6 16.b3 b5 17.Rac1 <0>) 0.09/6} 15.Nbd2 {(Cb3d2 g7g6 h2h3 Ad7f5 Dc2a4 Cg4f6)
+0.09/6} Qa6 {(f. 15...Qa6 16.b3 b5 17.Rab1 Qa3 <0>) 0.05/5} 16.Ng5 {(Cf3g5 Ae7xg5
+Af4xg5 Te8xe1+ Ta1xe1 h7h6 Ag5f4 Da6xa2) 0.41/6} Bxg5 {(f. 16...Bxg5 17.Bxg5 Be6
+18.Bf3 h6 19.Bf4 <-10>) -0.25/5} 17.Bxg5 {(Af4xg5 Te8xe1+ Ta1xe1 h7h6 Ag5f4) 0.41/6}
+h6 {(f. 17...h6 18.Bf4 Nf6 19.b3 b5 <-10>) -0.22/5} 18.Bf4 {(Ag5f4 Cc6e7 b2b3
+Ad7f5 Dc2b2) 0.47/5} Ne7 {(u. 18...Ne7 19.b3 Bf5 20.Qb2 b5 21.a4 <-10>) -0.25/6}
+19.h3 {(h2h3 Cg4f6 b2b3 Ad7f5 Dc2b2 Ce7c6) 0.61/6} Bf5 {(f. 19...Bf5 20.Ne4 Bxe4
+21.Bxe4 Nf6 22.Bf3 Qb5 <-20>) -0.02/6} 20.Qd1 {(Dc2d1 Cg4f6 Te1e5 Af5d3 h3h4) 0.59/6}
+Nf6 {(f. 20...Nf6 21.Qf3 Bd3 22.Be5 Nd7 23.Qh5 Nxe5 24.Qxe5 <0>) 0.01/6} 21.Be5
+{(Af4e5 Da6c6 Ae5xf6 Dc6xf6 Te1e5 Rg8h8) 0.36/6 1} Nd7 {(u. 21...Nd7 22.Qe2 Bd3 23.Nxc4
+Bxe2 24.Rxe2 <561>) -0.21/6} 22.Bc7 {(Ae5c7 Da6c6 Ac7f4 Ce7g6 Af4e3 Af5d3) 0.36/7 1}
+Bd3 {(u. 22...Bd3 23.Bf4 Qc6 24.Qh5 b6 25.Kh2 <-10>) 0.09/6} 23.b3 {(b2b3 Da6c6
+Ac7b8 Te8xb8 g3g4) 0.46/6} Qc6 {(u. 23...Qc6 24.Bf4 g5 25.Be3 Nf5 26.bxc4 Bxc4
+27.Nxc4 <-360>) 0.16/6} 24.Ba5 {(Ac7a5 Ce7f5 g3g4 Te8xe1+ Dd1xe1 Cf5d6 De1e7 Tf8e8)
+0.55/6} Nc8 {(f. 24...Nc8 25.Bb4 Rxe1+ 26.Qxe1 Rd8 27.bxc4 Bxc4 <-10>) -0.10/5} 25.Bb4
+{(Aa5b4 Te8xe1+ Dd1xe1 Tf8d8 De1e3 Cc8d6 De3e7) 0.87/5} Rxe1+ {(f. 25...Rxe1+ 26.Qxe1
+Rd8 27.Qe3 Nf6 28.bxc4 Bxc4 29.Nxc4 <-360>) -0.17/6} 26.Qxe1 {(Dd1xe1 Tf8d8 De1e3
+a7a6) 0.74/6} Rd8 {(f. 26...Rd8 27.bxc4 Bxc4 28.Nxc4 Qxc4 29.Qf1 Qc6 30.Re1 Nd6
+<-20>) -0.27/7} 27.Qe3 {(De1e3 Cd7f6 Cd2f3 c4xb3 a2xb3 h6h5) 0.72/6} b5 {(u. 27...b5
+28.a4 a6 29.Kh2 Nf6 30.axb5 <-90>) -0.23/6} 28.a4 {(a2a4 b5xa4 b3xc4 Ad3xc4 Cd2xc4
+Dc6xc4 Ta1xa4) 1.03/5} bxa4 {(f. 28...bxa4 29.bxc4 Bxc4 30.Nxc4 Qxc4 31.Rxa4 Nf6
+<-20>) -0.29/5} 29.bxc4 {(b3xc4 Ad3xc4 Cd2xc4 Dc6xc4 Ta1xa4 Cd7f6 Rg1h2 Td8e8) 1.05/6}
+Bxc4 {(u. 29...Bxc4 30.Nxc4 Qxc4 31.Rxa4 Nf6 32.Bf1 Qb3 33.Ra6 Re8 <-20>) -0.31/7}
+30.Nxc4 {(Cd2xc4 Dc6xc4 Ta1xa4 Cd7f6 Ag2f3 Td8e8 Ta4a6) 1.08/7} Qxc4 {(f. 30...Qxc4
+31.Rxa4 Qc6 32.Ra1 Nf6 33.Qd3 Nd7) -0.42/7} 31.Rxa4 {(Ta1xa4 Cd7f6 Ta4a5 a7a6 De3e5
+Dc4b5) 1.06/7} Ndb6 {(u. 31...Ndb6 32.Ra1 Qb3 33.Qe5 Qb2 34.Re1 Nc4 <-20>) -0.39/7}
+32.Ra5 {(Ta4a5 Dc4b3 De3e5 Rg8h7 De5c7 Db3c2) 1.24/7} Qb3 {(f. 32...Qb3 33.Qe2 Qb1+
+34.Kh2 Qf5 35.c4 Qb1 <-20>) -0.50/6} 33.Qe2 {(De3e2 Rg8h7) 1.23/6} Qb1+ {(f. 33...Qb1+
+34.Qf1 Qb3 35.Qa6 Re8 36.Kh2 Qc2 <-20>) -0.43/6} 34.Kh2 {(Rg1h2 Db1f5 f2f4 Rg8h7 De2a2
+g7g6 Ab4c5) 1.19/7} Qf5 {(u. 34...Qf5 35.Bc5 Nc4 36.Ra6 N4b6 37.Bf3 Qg5 <-20>)
+-0.64/7} 35.Qa2 {(De2a2 Df5d7) 1.14/7 1} Qe6 {(u. 35...Qe6 36.Rb5 Rd7 37.Qa6 Nd6 38.Ra5
+<-20>) -0.53/6} 36.f4 {(f2f4 g7g6) 1.17/5} Rd7 {(f. 36...Rd7 37.Bc5 Rc7 38.Ra6 Qe3
+39.Qa5 <-20>) -0.54/6} 37.Bf3 {(Ag2f3 Td7d8 Ta5b5 De6c6 Tb5a5) 1.28/5} g6 {(f. 37...g6
+38.Ra6 Qe3 39.Qe2 Qc1 <-20>) -0.61/5} 38.Bg4 {(Af3g4 f7f5 Ag4f3 Rg8g7 Ab4c5) 1.32/5}
+f5 {(f. 38...f5 39.Bf3 Kh7 40.Ra6 Rc7 41.Qe2 Qc6 <-20>) -0.62/7} 39.Bf3 {(Ag4f3
+Rg8h7 Af3g2 Td7d8 Rh2g1) 1.23/6} Kh7 {(u. 39...Kh7 40.Ra6 Rd8 41.Qe2 Qxe2+ 42.Bxe2
+Re8 43.Bf3 Re1 <-20>) -0.62/7} 40.Rb5 {(Ta5b5 Td7f7) 1.11/6} Rd8 {(f. 40...Rd8
+41.Ra5 Qd7 42.Ra6 Nc4 43.Bc5 <-20>) -0.58/6} 41.Rc5 {(Tb5c5 Td8d7 Da2a5) 1.28/5} Qd7
+{(f. 41...Qd7 42.Ra5 Qe6 43.Rb5 Rd7 44.Qa6 <-20>) -0.62/6} 42.Ra5 {(Tc5a5 Dd7e6
+Ta5b5 Td8d7 Ab4f8 De6e3) 1.14/6} Qe6 {(f. 42...Qe6 43.Qe2 Qxe2+ 44.Bxe2 Nc4 45.Bxc4
+dxc4 46.Ra6 <-10>) -0.64/6} 43.Bg2 {(Af3g2 Td8d7 Rh2g1) 1.23/5} Kh8 {(f. 43...Kh8
+44.Bf3 Kg7 45.Ra6 Kh7 46.Qe2 Qxe2+ 47.Bxe2 Re8 48.Bf3 Re1 <-20>) -0.62/6} 44.Rc5
+{(Ta5c5 De6d7 Da2f2) 1.14/5} Qd7 {(f. 44...Qd7 45.Ba5 Ne7 46.c4 dxc4 <60>) -0.61/5}
+45.Qa6 {(Da2a6 Rh8h7) 1.00/6} Kh7 {(f. 45...Kh7 46.Qb5 Qf7 47.Rc6 Ne7 48.Rc7 <-20>)
+-0.48/6} 46.Rb5 {(Tc5b5 Td8e8 Ab4c5 Te8e6 h3h4) 1.04/6} Re8 {(f. 46...Re8 47.Bc5 Re3
+48.Rb3 Qf7 49.Bf1 <-20>) -0.47/6} 47.Bc5 {(Ab4c5 Te8e3 Tb5b4 Dd7c7 Da6a1) 1.05/6} Re1
+{(u. 47...Re1 48.Rb3 Rc1 49.Bf3 Rc2+ 50.Qe2 Rxe2+ 51.Bxe2 <481>) -0.46/6} 48.Rb3
+{(Tb5b3 Dd7c7 Ag2f1) 1.02/5} Rc1 {(u. 48...Rc1 49.Bf8 Qc6 50.Bb4 Rc2 51.Bc5 <-20>)
+-0.35/6} 49.Bf8 {(Ac5f8 Dd7c7) 0.92/5} Qc6 {(u. 49...Qc6 50.Bc5 Qd7 51.Qd3 Na4 52.Ba3
+Re1 53.Bf8 <-20>) -0.34/6} 50.Ra3 {(Tb3a3 Dc6c7 Da6d3 Cb6c4 Ta3a6) 0.92/5} Rc2 {(f.
+50...Rc2 51.Rb3 Rc1 52.Bb4 Rc2 53.Bc5 Qc7 54.Qb5 <-20>) -0.31/6} 51.Qd3 {(Da6d3 Tc2f2)
+0.93/6} Rb2 {(f. 51...Rb2 52.Ra6 Qe6 53.Ba3 Re2 54.Bf8 <-20>) -0.24/6} 52.Ra6 {(Ta3a6
+Cc8d6) 0.82/6} Qe6 {(f. 52...Qe6 53.Ba3 Re2 54.Bc5 Qe4 55.Qxe4 fxe4 <-20>) -0.14/6}
+53.Ba3 {(Af8a3 Tb2f2 Dd3d1) 0.68/6} Re2 {(u. 53...Re2 54.Bc5 Qe4 55.Qxe4 fxe4 56.Bxb6
+axb6 57.h4 <-10>) -0.19/7} 54.Bc5 {(Aa3c5 De6e4 Dd3xe4 f5xe4) 0.41/6} Re3 {(f.
+54...Re3 55.Qb5 Rxc3 56.Bxb6 axb6 57.Qxd5 Qe3 <-10>) -0.14/6} 55.Qd2 {(Dd3d2 Te3e2 Dd2d1
+De6e3 Dd1f1 Cb6c4) 0.54/6} Re2 {(f. 55...Re2 56.Qd3 Re3 57.Qb5 Rxc3 58.Bxb6 axb6
+59.Qxd5 Qe3 <-10>) -0.14/7} 56.Qd1 {(Dd2d1 De6e3 Dd1a1) 0.35/6} Qe3 {(f. 56...Qe3
+57.Ra1 Qf3 58.Qf1 Rf2 <-20>) 0.25/5} 57.Ra1 {(Ta6a1 Cb6d7 Ac5xa7 De3f3 Dd1g1 Df3xc3)
+0.16/5} Nd7 {(u. 57...Nd7 58.Bxa7 Qf3 59.Qg1 Qxc3 <-20>) 0.36/5} 58.Bb4 {(Ac5b4 Cd7f6
+Dd1g1 De3f3) 0.23/4} Qf3 {(f. 58...Qf3 59.Qf1 Rf2 60.Qg1 Re2 <-20>) 0.49/5} 59.Qf1
+{(Dd1f1 Cc8b6) 0.24/6} Qe3 {(f. 59...Qe3 60.Qg1 Qe6 61.Rb1 Qe4 <-20>) 0.31/5} 60.Ra3
+{(Ta1a3 Te2b2 Ta3a6 Cd7b6) 0.52/4} Re1 {(u. 60...Re1 61.c4 Rxf1 62.Rxe3 Rb1 63.Bc3
+<-20>) 0.25/5} 61.c4 {(c3c4 Te1xf1 Ta3xe3 Tf1b1 Ab4c3 d5xc4) -0.19/5} Rxf1 {(f.
+61...Rxf1 62.Rxe3 Rb1 63.Bc3 dxc4 64.Bd5 Nd6 <60>) 0.21/6} 62.Rxe3 {(Ta3xe3 Tf1b1 Ab4c3
+d5xc4 Te3e8 Tb1b3) 0.10/6} Rb1 {(u. 62...Rb1 63.Bc3 dxc4 64.Bc6 Nf6 65.Re6 Rb3 <60>)
+0.16/7} 63.Ba5 {(Ab4a5 d5xc4 Te3e8 Tb1b8 Aa5c3) -0.20/5} dxc4 {(f. 63...dxc4 64.d5 Ra1
+65.Bc3 Rd1 66.Re8 <60>) 0.15/6} 64.d5 {(d4d5 Cd7f6 Aa5c3 Tb1b6 Te3e6) -0.20/5} Ra1
+{(u. 64...Ra1 65.Bc3 Rc1 66.Bf3 Rc2+ 67.Re2 Rxe2+ 68.Kh1 <560>) 0.05/6} 65.Bc3
+{(Aa5c3 Ta1c1 Ac3d4 Tc1d1 Ad4xa7) -0.04/5} Rc1 {(f. 65...Rc1 66.Bd4 Rd1 67.Bxa7 Rd2
+68.Ra3 Nxa7 <330>) 0.11/6} 66.g4 {(g3g4 f5xg4 h3xg4 Tc1d1 Te3e6) -0.03/4} fxg4 {(f.
+66...fxg4 67.hxg4 Nc5 68.Kh3 Nd3 69.Be5 <60>) 0.20/5} 67.hxg4 {(h3xg4 Cd7c5 Ac3d4 Cc5d3
+Te3e8) 0.01/5} Nc5 {(f. 67...Nc5 68.Kh3 Nd3 69.Be5 <60>) 0.20/4} 68.Bd4 {(Ac3d4 Cc5b3
+g4g5) 0.48/4} Nb3 {(f. 68...Nb3 69.Bc3 Rd1 70.Kg3 <60>) 0.18/4} 69.Bf6 {(Ad4f6 Rh7g8
+d5d6 Tc1d1) 0.37/4} Kg8 {(f. 69...Kg8 70.Bb2 Rc2 71.Re8+ Kf7 <60>) -0.14/4} 70.Re8+
+{(Te3e8+ Rg8f7 Te8xc8 Rf7xf6 Tc8c6+ Rf6g7 Tc6c7+ Rg7f6) 0.42/3} Kf7 {(f. 70...Kf7
+71.Rxc8 Kxf6 72.Rc6+ Kf7 73.Rc7+ Kf6 74.Rxa7 <-10>) -0.04/4} 71.Rxc8 {(Te8xc8 Rf7xf6
+Tc8c6+ Rf6f7 Tc6c7+ Rf7e8 Tc7xa7) 0.35/4} Kxf6 {(f. 71...Kxf6 72.Rc6+ Kf7 73.Rc7+ Ke8
+74.Rxa7 c3 <-10>) 0.02/4} 72.Rc6+ {(Tc8c6+ Rf6f7 Ag2e4 Tc1d1 Tc6c7+ Rf7f8 Ae4xg6
+Td1xd5) 0.04/5} Kf7 {(f. 72...Kf7 73.Rc7+ Kf6 74.Rc6+ <70>) 0.00/5} 73.Be4 {(Ag2e4
+Tc1f1 Ae4xg6+ Rf7g7 Rh2g3) 0.25/4} g5 {(f. 73...g5 74.fxg5 hxg5 75.Rc7+ Kf6 76.Rxa7
+<-10>) 0.06/4} 74.Rc7+ {(Tc6c7+ Rf7f6 Tc7c6+ Rf6e7 f4xg5 h6xg5 Tc6c7+ Re7d6) -0.01/4}
+Kf6 {(f. 74...Kf6 75.Rc6+ Ke7 76.d6+ Ke6 77.Kg3 <70>) 0.56/4} 75.Rc6+ {(Tc7c6+
+Rf6e7 f4xg5) -0.15/1} Ke7 {(u. 75...Ke7 76.f5 a5 77.Rxh6 Rd1 78.Re6+ Kd7 <-10>)
+0.09/6} 76.fxg5 {(f4xg5) -0.15/1} hxg5 {(u. 76...hxg5 77.Rc7+ Kd6 78.Rxa7 Nc5 79.Bg2 c3
+<-10>) 0.65/6} 77.Rc7+ {(Tc6c7+ Re7f8) -0.01/1} Kd6 {(f. 77...Kd6 78.Rxa7 Nc5 79.Bg2
+Re1 80.Rg7 Re5 <-10>) 0.60/7} 78.Rxa7 {(Tc7xa7) 0.20/1} c3 {(u. 78...c3 79.Ra6+ Ke5
+80.Re6+ Kd4 81.Bg2 c2 82.Rb6 Re1 83.d6 <-10>) 0.50/6} 79.Rb7 {(Ta7b7) 0.16/1} Nc5 {(u.
+79...Nc5 80.Rb1 Rxb1 81.Bxb1 Kxd5 82.Bc2 Ne4 83.Kh3 <70>) 1.88/7} 80.Rb6+ {(Tb7b6+
+Rd6d7) -0.20/1} Ke5 {(f. 80...Ke5 81.Rb1 Rxb1 82.Bxb1 Kxd5 83.Bc2 Ne4 84.Kh3 <70>)
+1.88/7} 81.Bf3 {(Ae4f3) -0.37/1}  {1-0 Negras pierde por tiempo} 1-0
+
+[Event "Torneo Arena"]
+[Site "HOGAR"]
+[Date "2004.01.24"]
+[Round "1"]
+[White "WJChess"]
+[Black "Ruffian 1.0.5"]
+[Result "0-1"]
+[ECO "B21"]
+[Opening "Sicilian"]
+[Time "04:10:05"]
+[Variation "Grand Prix, Tal Gambit"]
+[TimeControl "30+0"]
+[Termination "normal"]
+[PlyCount "70"]
+[WhiteType "program"]
+[BlackType "program"]
+
+1.f4 d5 2.e4 c5 3.exd5 {(e4d5 d8d5 b1c3 d5d7 g1f3 g8f6) 0.32/6 1} Nf6 4.Bb5+
+{(f1b5 c8d7 b5d7 d8d7 c2c4 e7e6 d1e2) 0.51/5 1} Bd7 {(Ac8d7 Ab5xd7+ Dd8xd7 c2c4 e7e6
+d5xe6 Dd7xe6+ Dd1e2 Cb8c6 De2xe6+ f7xe6 Cg1f3 000 00) -0.72/11 7} 5.Bxd7+ {(b5d7 b8d7
+c2c4 d8a5 b1c3 e8c8) 0.26/5 1} Qxd7 {(Dd8xd7 c2c4 e7e6 d5xe6 Dd7xe6+ Dd1e2 Cb8c6
+De2xe6+ f7xe6 Cg1f3 000 00 Af8d6) -0.68/10} 6.c4 {(c2c4 e7e6 d1e2 b8a6 d5e6 d7e6 e2e6
+f7e6) 0.65/7 1} e6 {(e7e6 d5xe6 Dd7xe6+ Dd1e2 Af8e7 De2xe6 f7xe6 Cg1f3 Cf6h5 d2d4 00)
+-0.72/9} 7.Qe2 {(d1e2 f8d6 d5e6 f7e6 f4f5 e6e5) 0.45/6 1} Bd6 {(Af8d6 f4f5 e6e5 g2g4 00
+g4g5 Cf6e8 De2e4) -0.71/8} 8.f5 {(f4f5 e6e5 e2f3 e8g8 b1c3) 0.63/5 1} e5 {(e6e5 g2g4
+00 g4g5 Cf6e8 De2e4 f7f6 g5g6 h7xg6 f5xg6) -0.60/8} 9.Qf3 {(e2f3 e5e4 f3h3 e8g8
+d2d3 b8a6 d3e4 f6e4) 0.62/6 1} Na6 {(Cb8a6 a2a3 000 Cb1c3 e5e4 Df3h3 Ad6f4 Re1f1)
+-0.25/8 1} 10.Ne2 {(g1e2 e8g8 e1g1 e5e4 f3b3) 0.89/5 1} Nb4 {(Ca6b4 Cb1a3 e5e4 Df3h3
+Cb4d3+ Re1f1 000 Ca3b5 Rc8b8 Rf1g1) 0.14/9} 11.Kd1 {(e1d1 d7a4 b2b3 a4a5 b1c3 e8g8)
+0.30/5 1} e4 {(e5e4 Df3f1 00 Cb1c3 Tf8d8 Ce2g3 Dd7e7) 0.55/7} 12.Qh3 {(f3h3 d7a4 b2b3
+a4a5 b1c3 e8g8) 0.26/5 1} Nd3 {(Cb4d3 Th1f1 b7b5 Cb1a3 b5xc4 Ca3xc4 000 Ce2c3 Ad6f4)
+0.64/8} 13.Rf1 {(h1f1 b7b5 b2b3 e8g8) -0.10/4 1} O-O {(00 Cb1c3 Dd7e7 Cc3b5 Tf8d8
+Cb5xd6 De7xd6 Rd1c2) 0.47/7 1} 14.Nbc3 {(b1c3 d7e7 c3b5 d6e5 e2c3) 0.22/5} Qe7 {(Dd7e7
+Cc3b5 Ad6b8 Rd1c2 a7a6 Cb5c3 Ab8d6 Rc2b1 Tf8d8) 0.33/7 2} 15.Nb5 {(c3b5 d6e5 b5c3
+e5d6 e2g3) 0.27/5} Rfd8 {(Tf8d8 Cb5xd6 De7xd6 g2g4 Dd6a6 g4g5 Cf6d7 b2b3) 0.43/7}
+16.Nxd6 {(b5d6 d8d6 e2c3 a8d8 h3g3) 0.29/5 1} Qxd6 {(De7xd6 Dh3g3 Dd6a6 b2b3 Cd3xc1
+Ta1xc1 Da6xa2 Rd1e1) 0.57/7} 17.Nc3 {(e2c3 d3e5 c3b5 d6b6 h3c3) 0.32/5} Qe5 {(Dd6e5
+Dh3e3 a7a6 Rd1c2 b7b5 c4xb5 a6xb5 Cc3xe4) 0.58/7} 18.g4 {(g2g4 e5d4 g4g5 f6d7) 0.37/4
+1} Qd4 {(De5d4 g4g5 Cf6d7 f5f6 g7xf6 Dh3f5 Dd4xc4 Cc3xe4) 0.71/6} 19.g5 {(g4g5
+f6d7 g5g6 d3c1 a1c1) 0.62/5} Ne8 {(Cf6e8 f5f6 Cd3f2+ Tf1xf2 Dd4xf2 f6xg7 Ce8d6 Dh3h6
+Df2f1+ Rd1c2 Df1xc4) 1.02/6} 20.g6 {(g5g6 e8f6 g6h7 f6h7 b2b3 h7f6) 0.59/5} Nf6
+{(Ce8f6 g6xf7+ Rg8xf7 Dh3g3 Dd4xc4 Tf1g1 Cf6e8 Dg3g5) 0.69/6} 21.gxh7+ {(g6h7 f6h7 b2b3
+h7f6) 0.59/3 1} Nxh7 {(Cf6xh7 Dh3g2 Dd4xc4 f5f6 g7g6 b2b3 Dc4d4 Dg2xe4) 1.19/7} 22.b3
+{(b2b3 d3f2 f1f2 d4f2 c3e4 f2g1) -0.06/5} Nf2+ {(Cd3f2+ Tf1xf2 Dd4xf2 Cc3xe4 Df2d4
+Ce4c3 Ch7g5 Dh3e3 Dd4g4+ Rd1e1) 1.31/7} 23.Rxf2 {(f1f2 d4f2 c3e4 f2g1 d1e2 h7g5 e4g5
+g1g5) -0.28/5} Qxf2 {(Dd4xf2 Cc3xe4 Df2d4 Ce4c3 Ch7g5 Dh3e3 Dd4g4+ Rd1e1) 1.31/7}
+24.Nxe4 {(c3e4 f2g1 d1e2 g1d4 e4c3 h7f6) -0.29/5} Qd4 {(Df2d4 Ce4c3 b7b5 Dh3e3 Dd4g4+
+De3e2 Dg4xf5 Cc3xb5 Ch7g5) 1.25/8} 25.Nc3 {(e4c3 b7b5 c4b5 d8d5 c3d5 d4a1) -0.57/5}
+b5 {(b7b5 Dh3e3 b5xc4 De3xd4 c5xd4 b3xc4 Ta8c8 Cc3e4 Tc8xc4) 1.36/7} 26.cxb5
+{(c4b5 d8d5 c3d5 d4a1 a2a3) -0.48/5} Nf6 {(Ch7f6 Ac1b2 Cf6xd5 Cc3xd5 Dd4xb2 Dh3c3
+Db2a3) 1.54/6} 27.Bb2 {(c1b2 f6d5 c3d5 d4d5) -0.73/4} Nxd5 {(Cf6xd5 Cc3xd5 Dd4xd5
+Dh3c3 Dd5h1+ Rd1c2 Dh1e4+ Rc2d1 De4g4+ Rd1c1) 1.38/6} 28.Nxd5 {(c3d5 d4b2 h3c3 b2a3)
+-0.66/4} Qxd5 {(Dd4xd5 Dh3c3 Dd5g2 f5f6 g7g6 Ab2a3 Dg2f1+ Rd1c2) 1.30/6} 29.d3 {(d2d3
+a8b8 f5f6 d5d3 h3d3 d8d3) -0.69/4} Qe4 {(Dd5e4 Rd1d2 c5c4 b3xc4 De4xc4 Ta1g1 f7f6)
+1.70/6} 30.Kd2 {(d1d2 e4b4 b2c3 b4b5 a1e1) -1.22/4} Qf4+ {(De4f4+ Rd2d1 Df4f2 Ab2e5
+Td8e8 Dh3g3) 1.93/5} 31.Kd1 {(d2d1 a8b8 h3g3 f4g3 h2g3 b8b5) -0.59/4} f6 {(f7f6 Rd1c2
+Ta8b8 Ta1f1 Df4b4) 1.90/5} 32.Ba3 {(b2a3 f4d4 a1c1 d4d3 h3d3 d8d3) -0.57/4} Qf2
+{(Df4f2 Rd1c1 Df2e1+ Rc1b2 De1d2+ Rb2b1 Td8xd3 Dh3h5 Ta8c8) 2.43/6} 33.Rc1 {(a1c1 f2a2
+a3c5 a2b3) -0.88/4} Rde8 {(Td8e8 Dh3f1 Df2xf1+ Rd1c2 Df1xf5 Rc2b2 Df5xd3 Tc1xc5)
+11.92/6} 34.Qe3 {(h3e3 e8e3 c1c2 f2f5) -11.69/4} Rxe3 {(Te8xe3 Aa3xc5 Te3xd3+) M2/2}
+35.Bxc5 {(a3c5 e3d3) -M1/3} Rxd3# {(Te3xd3+) M1/1}  {Mate} 0-1
+
+[Event "Torneo Arena"]
+[Site "HOGAR"]
+[Date "2004.01.24"]
+[Round "1"]
+[White "WJChess"]
+[Black "Nejmet 3.07"]
+[Result "0-1"]
+[ECO "C20"]
+[Opening "KP"]
+[Time "04:27:57"]
+[Variation "King's Head Opening"]
+[TimeControl "30+0"]
+[Termination "adjudication"]
+[PlyCount "40"]
+[WhiteType "program"]
+[BlackType "program"]
+
+1.f3 e5 {(e7e5 Cb1c3 Cb8c6 e2e3 Cg8f6 d2d4 d7d5) 0.25/7 1} 2.e4 {(e2e4 b8c6 b1c3
+g8e7 f1c4 d7d6) -0.47/6 1} Bc5 {(Af8c5 Cg1e2 Cg8f6 d2d4 e5xd4 Ce2xd4 00) 0.57/7}
+3.Ne2 {(g1e2 b8c6 b1c3 g8e7 c3a4 c5d6) -0.52/6 1} Nf6 {(Cg8f6 d2d4 e5xd4 Ce2xd4 00
+Cb1c3 Cb8c6) 0.57/7} 4.d4 {(d2d4 e5d4 e4e5 f6d5 e2d4 e8g8) -0.45/6 1} exd4 {(e5xd4
+Ce2xd4 00 Ac1g5 Dd8e7 Cb1c3 Cb8c6) 0.59/7} 5.Nxd4 {(e2d4 e8g8 e4e5 f8e8 c1f4) -0.25/5
+1} O-O 6.Bc4 {(f1c4 f8e8 e1g1 d7d5 e4d5 f6d5) -0.27/5 1} d5 {(d7d5 e4xd5 Cf6xd5
+Dd1d2 Tf8e8+ Re1f2 Ac8f5) 1.53/6} 7.exd5 {(e4d5 f6d5 c4d5 d8d5 c1e3) -0.83/5 1} Nxd5
+{(Cf6xd5 Ac4xd5 Dd8xd5 Cd4e2 Dd5e5 Re1f1) 1.45/6} 8.Na3 {(b1a3 d8h4 g2g3 c5b4 c2c3 f8e8)
+-1.17/4 1} Re8+ {(Tf8e8+ Cd4e2 Ac8e6 Re1f1 Ac5xa3 b2xa3 Dd8f6) 2.00/6} 9.Ne2 {(d4e2
+c8e6 d1d3 b8c6 c1d2 d8h4) -1.33/5 1} c6 {(c7c6 Re1f1 Ac5xa3 b2xa3 Dd8f6 Ac1d2)
+1.85/6} 10.Bxd5 {(c4d5 c6d5 c1f4 d8f6 d1c1 c5a3 b2a3) -0.99/5 1} cxd5 {(c6xd5 Re1f1
+Ac5xa3 b2xa3 Dd8f6 Ac1f4) 1.82/6} 11.Qd3 {(d1d3 b8c6 c1f4 c8e6) -1.18/4 1} Qe7 {(Dd8e7
+Re1f1 Ac5xa3 b2xa3 Ac8f5 Dd3d2) 2.00/6} 12.Nb5 {(a3b5 e7h4 g2g3 h4b4 c2c3 b4a4)
+-1.12/4 1} Bf5 {(Ac8f5 Dd3d2 Cb8c6 Re1f1 De7e5 Cb5c3) 1.79/6} 13.Qd2 {(d3d2 b8c6 g2g3
+c5b4 c2c3) -1.64/5} Nc6 {(Cb8c6 Re1f1 De7h4 Ce2f4 d5d4) 1.80/5} 14.h4 {(h2h4 c5b4
+c2c3 e7c5) -1.70/4 1} Nb4 {(Cc6b4 Cb5a3 Af5xc2 Ca3b1 Ta8c8 Re1f1) 3.12/6 1} 15.Na3
+{(b5a3 b4d3 e1f1 c5a3 c2d3 a3c5) -2.74/5} Bxc2 {(Af5xc2) 3.52/7} 16.g3 {(g2g3 b4d3
+e1f1 c5a3 d2c2 d3b4) -3.98/5} Qf6 {(De7f6 Ca3xc2 Df6xf3 Re1d1 Df3xh1+ Cc2e1 Ta8c8)
+5.87/6} 17.Nxc2 {(a3c2 f6f3 h1h3 f3f5 c2b4 f5h3 b4d5 h3g3) -2.89/5} Qxf3 {(Df6xf3 Th1h2
+Cb4xc2+ Dd2xc2 Df3xg3+ Re1f1 Dg3xh2 Dc2xc5 Dh2xe2+ Rf1g1 De2g4+ Rg1f1) 6.41/7} 18.Rg1
+{(h1g1 b4d3 e1d1 c5g1 c2e1 d3f2) -6.30/5} Nxc2+ {(Cb4xc2+ Dd2xc2 Ac5xg1 Dc2d2 Ag1e3
+Dd2xe3 Te8xe3 Ac1xe3) 8.22/7} 19.Qxc2 {(d2c2 c5b4 e1d1 a8c8 c1e3 c8c2 d1c2 f3e3)
+-8.61/5} Bxg1 {(Ac5xg1 Dc2d2 Ag1c5 Dd2d1 Df3f2+ Re1d2 Ac5b4+ Rd2c2 Te8xe2+ Rc2b3)
+8.96/7} 20.Qd2 {(c2d2 g1f2 e1d1 f2g3 a1b1 g3h4) -8.48/4 1}  {0-1 Adjudicación de Arena} 0-1
+
+[Event "Torneo Arena"]
+[Site "HOGAR"]
+[Date "2004.01.24"]
+[Round "1"]
+[White "Tao"]
+[Black "Gnuches5"]
+[Result "1-0"]
+[ECO "C10/19"]
+[Opening "French"]
+[Time "04:29:08"]
+[Variation "Rubinstein Variation"]
+[TimeControl "30+0"]
+[Termination "adjudication"]
+[PlyCount "62"]
+[WhiteType "program"]
+[BlackType "program"]
+
+1.e4 e6 2.d4 d5 3.Nc3 dxe4 4.Nxe4 Nd7 5.Nf3 Ngf6 6.Nxf6+ Nxf6 7.Bg5 Bb4+ {(Bb4+
+c3 Be7 Bb5+ c6 Bd3 Nd5 Bd2) -0.28/6} 8.c3 {(c2c3 b4e7 f1b5 c7c6 b5d3 e8g8 e1g1
+c8d7 d1b3 ) 0.42/8} Bd6 {(Bd6 Bd3 O-O O-O Bd7 Re1) -0.35/6} 9.Bd3 {(f1d3 e8g8 d1c2
+h7h6 d3h7 g8h8 ) 0.57/5} O-O {(O-O O-O h6 Bd2 Bd7 Re1) -0.90/6} 10.Qc2 {(d1c2 g7g6
+g5h6 f8e8 e1g1 c8d7 ) 0.73/6} h6 {(h6 Bxf6 Qxf6 O-O Bd7 Bh7+ Kh8 Be4 Bb5) -0.80/6}
+11.Bxf6 {(g5f6 d8f6 e1g1 c8d7 d3h7 g8h8 c3c4 ) 0.58/6} Qxf6 {(Qxf6 O-O Re8 Qa4 Rd8
+Rae1) -0.77/6} 12.Qb3 {(c2b3 f6d8 e1g1 c7c5 b3c2 ) 0.50/5} g5 {(g5 O-O g4 Ne1 Qf4 h4
+gxh3) 0.05/5} 13.h3 {(h2h3 f6f4 e1g1 g5g4 h3g4 f4g4 ) 0.60/5} e5 {(e5 O-O exd4 cxd4
+Re8 Rae1) -0.21/5} 14.dxe5 {(d4e5 d6e5 e1g1 f8d8 f1d1 e5f4 ) 0.71/6} Bxe5 {(Bxe5
+O-O-O Re8 Kb1 a5 Nxe5 Qxe5) -0.19/5} 15.O-O {(e1g1 e5d6 d3e4 f6e6 b3c2 ) 0.90/5} Bf4
+{(Bf4 Rfe1 Rd8 Rad1 Qd6) -0.34/5} 16.Rfe1 {(f1e1 f6b6 b3b6 a7b6 e1e7 ) 0.73/5} Rd8
+{(Rd8 Rad1 Rd6 Re8+ Kg7 Bc4 Qf5) -0.41/5} 17.Red1 {(e1d1 c7c5 d3e4 a8b8 ) 0.68/4} Rd6
+{(Rd6 Be4 Rb6 Qc2 Rd6) -0.16/5} 18.Nd4 {(f3d4 d6b6 b3c2 c8d7 d1e1 ) 0.63/5} h5 {(h5
+Qc4 h4 Re1 Rd8) 0.14/5} 19.Rde1 {(d1e1 f6d8 a1d1 c7c5 b3b5 ) 0.97/5} Be5 {(Be5 Nf3
+Bf4 Qb5 c5) -0.27/5} 20.Rac1 {(a1c1 c7c5 d4f3 e5h2 f3h2 d6d3 e1e8 g8g7 ) 0.91/4} c6
+{(c6 Nf3 Rxd3 Nxe5 Rd2 Nf3) -0.14/4} 21.Nf3 {(d4f3 e5h2 f3h2 d6d3 h2f3 ) 1.00/4} Bf4
+{(Bf4 Rcd1 Re6 Bc4 Rxe1+ Rxe1 c5) -0.42/5} 22.Rcd1 {(c1d1 f6d8 d3c4 d6d7 d1d7 d8d7 )
+1.04/4} h4 {(h4 Re8+ Kg7 Bc4 Rxd1+ Qxd1 b5 Be2 Kh6) -0.48/5} 23.Re8+ {(e1e8 g8g7 f3d4
+c6c5 d4f3 ) 1.89/4} Kg7 24.Nd4 {(f3d4 d6d8 d1e1 c8d7 e8d8 a8d8 b3b7 ) 1.71/4} b6
+{(b6 Rde1 Kh6 R8e2 Bd7) -0.45/5} 25.Be4 {(d3e4 g7h6 d4c6 c8b7 e8a8 b7a8 ) 2.00/4} b5
+{(b5 a4 Rb8 axb5 cxb5 Re1) -0.81/5} 26.Qc2 {(b3c2 b5b4 d1e1 b4c3 b2c3 ) 2.05/4} a5
+{(a5 Qe2 Rb8 Qh5 Qh6 Qxh6+ Kxh6 Bxc6) -1.40/5} 27.Re1 {(d1e1 g7h6 d4f5 c8f5 e8a8 )
+2.20/4} Kh6 {(Kh6 a4 bxa4 Nf5+ Bxf5 Rxa8) -1.80/5} 28.Rxc8 {(e8c8 a8c8 d4f5 f6f5 e4f5
+c8d8 ) 5.49/5} Rxd4 {(Rxd4 Rxc6 Bh2+ Kf1 Bd6 cxd4 Qxd4) -6.16/6} 29.Rxc6 {(c8c6 f4h2
+g1f1 h2d6 c3d4 f6d4 ) 6.35/5} Rd6 {(Rd6 Rxd6 Qxd6 Bxa8 Bh2+ Kf1 Kh5 Qe4 Qd2 Qf3+)
+-6.80/7} 30.Rxd6 {(c6d6 f6d6 e4a8 f4h2 g1h1 h6g7 ) 6.56/5} Qxd6 {(Qxd6 Bxa8 Bh2+ Kf1 b4
+Be4 Qf4 cxb4 axb4) -7.01/5} 31.Bxa8 {(e4a8 h6g7 g1f1 d6d2 c2b1 ) 6.57/5}  {1-0
+Adjudicación de Arena} 1-0
+
+[Event "Torneo Arena"]
+[Site "HOGAR"]
+[Date "2004.01.24"]
+[Round "1"]
+[White "AnMon 5.21"]
+[Black "TheKing"]
+[Result "1-0"]
+[ECO "D38"]
+[Opening "QGD"]
+[Time "04:30:29"]
+[Variation "Ragozin Variation"]
+[TimeControl "30+0"]
+[Termination "adjudication"]
+[PlyCount "96"]
+[WhiteType "program"]
+[BlackType "program"]
+
+1.d4 Nf6 {(Nf6 Bf4 d6 Nc3 Bf5 e3 Nbd7 Bd3) -0.19/91} 2.c4 d5 {(d5 Nc3 dxc4 e4
+Be6 Nf3 Nc6) -0.03/114} 3.Nf3 e6 {(e6 Nc3 Bb4 a3 Bxc3+ bxc3 0-0) -0.04/114} 4.Nc3
+Bb4 {(Bb4 Bf4 0-0 e3 Nc6 Bd3) -0.10/138} 5.e3 Ne4 {(Ne4 Qb3 Nc6 Bd2 Nxd2 Nxd2)
+0.01/114} 6.Qc2 {(Dd1c2 Cb8c6 Af1d3 Ce4xc3 Dc2xc3) -0.18/5} O-O {(0-0 Bd3 f5 a3 dxc4 Bxc4
+Nd6) -0.34/114} 7.Bd3 {(Af1d3 f7f5 00 Cb8c6 Ac1d2 Ce4xd2 Cf3xd2) 0.11/6} f5 {(f5 0-0
+Nxc3 bxc3 Be7 Ne5 Nd7) -0.47/114 1} 8.O-O {(00 Cb8c6 Ac1d2 Ce4xd2 Cf3xd2 Dd8d6)
+0.15/6} Nxc3 {(Nxc3 bxc3 Be7 Ne5 Nd7) -0.52/138} 9.bxc3 {(b2xc3 Ab4e7 c4xd5 e6xd5 Ta1b1
+Dd8e8) 0.23/7} Be7 {(Be7 Qb3 Qd6 c5 Qd8 Ne5 Nc6) -0.53/114} 10.cxd5 {(c4xd5 e6xd5
+Cf3e5 Tf8f6 c3c4 Cb8c6 Ta1b1 Cc6xe5) 0.31/7} exd5 {(exd5 c4 Nc6 Bd2 a5 cxd5 Qxd5)
+-0.56/114} 11.Ne5 {(Cf3e5 Tf8f6 Ta1b1 b7b6 Dc2b2) 0.39/7} c5 {(c5 c4 cxd4 exd4 Nc6 Be3
+Nxe5 dxe5) -0.56/114} 12.c4 {(c3c4 c5xd4 e3xd4 Cb8c6 Dc2b3) 0.51/5} Nc6 {(Nc6 Nxc6
+bxc6 cxd5 cxd5 dxc5 Rb8) -0.50/138} 13.Nxc6 {(Ce5xc6 b7xc6 d4xc5 Dd8c7 Ac1b2 Ae7xc5
+Ad3e4) 1.14/7} bxc6 {(bxc6 Rb1 Qc7 Ba3 cxd4 Bxe7 Qxe7 exd4) -0.60/114} 14.cxd5 {(c4xd5
+c6xd5 d4xc5 Dd8c7 Ac1a3 Ta8b8 Ta1b1 Ac8d7) 1.11/7} cxd5 {(cxd5 dxc5 Qc7 Bb2 Bxc5
+Rac1) -0.74/114} 15.dxc5 {(d4xc5 Dd8c7 Ac1a3 Ta8b8 Ta1b1 Ac8e6 Tf1d1) 1.10/7} Qc7
+{(Qc7 Bb2 Qxc5 Qxc5 Bxc5 Rac1 Bb6 Rfd1 Bd7) -0.76/114} 16.Ba3 {(Ac1a3 Tf8f6 Tf1b1
+Tf6h6 Rg1f1) 1.21/6} Bd7 {(Bd7 Rab1 Rae8 Qb3 Qc6 Rfc1) -0.88/138} 17.Rab1 {(Ta1b1
+Ad7e6 Tf1d1 Ta8c8 Aa3b4 Tc8b8) 1.31/6} Rf6 {(Rf6 Qb3 Bc6 Qc3 Rh6) -1.08/138} 18.Bb2
+{(Aa3b2 Tf6h6 h2h3 Dc7b6) 1.46/5} Rh6 {(Rh6 h3 Bxc5 Bxf5 Rc8 Be5 Qxe5 Bxd7) -0.82/138}
+19.h3 {(h2h3 Ta8f8 Tf1c1 Th6c6 Dc2b3) 1.50/5} f4 {(f4 Bd4 fxe3 fxe3 Rf8 Rxf8+ Bxf8)
+-1.07/138} 20.exf4 {(e3xf4 Ta8c8 Dc2e2 Dc7xc5 Tf1e1) 1.61/5} Qxc5 {(Qxc5 Qe2 Re8 Rfc1 Qa5
+Qe5) -0.98/138} 21.Qd2 {(Dc2d2 Ta8f8 Tf1c1 Dc5b4 Dd2e3) 1.68/5} Rc8 {(Rc8 Be5 Bd6
+Rfc1 Qa3 Rxc8+ Bxc8) -1.21/138} 22.Rfc1 {(Tf1c1 Dc5b4 Ad3xh7+ Rg8xh7 Tc1c7) 2.96/6}
+Qb4 {(Qb4 Qxb4 Bxb4 Rxc8+ Bxc8 Bxg7 Kxg7 Rxb4 Ba6) -1.95/114} 23.Qxb4 {(Dd2xb4
+Ae7xb4 Tc1xc8+ Ad7xc8 Ab2xg7 Rg8xg7 a2a4) 2.73/5} Bxb4 {(Bxb4 Rxc8+ Bxc8 Bxg7 Kxg7
+Rxb4 Ba6 Bc2 Bc4) -1.80/114} 24.Rxc8+ {(Tc1xc8+ Ad7xc8 Tb1c1 Ac8a6 Ad3xh7+ Rg8xh7
+Ab2xg7 Rh7xg7) 2.58/7} Bxc8 {(Bxc8 Bxg7 Kxg7 Rxb4 Ba6 Bf5 Rc6 Rd4) -2.11/114} 25.Bxg7
+{(Ab2xg7 Rg8xg7 Tb1xb4 Th6c6 Rg1h2 Tc6c3 Tb4b3 Tc3xb3) 2.62/8} Kxg7 {(Kxg7 Rxb4 Ba6 Bf5
+Rc6 Rd4 Rc1+ Kh2 Bc4) -2.11/91} 26.Rxb4 {(Tb1xb4 Ac8a6 Ad3f1) 2.64/7} Ba6 {(Ba6 Bc2
+Re6 Bb3 Re1+ Kh2 Rb1 Rd4) -2.10/115} 27.Bf1 {(Ad3f1 Rg7f6 Tb4d4 Aa6b7 a2a3 a7a6)
+2.51/7} Bxf1 {(Bxf1 Kxf1 Ra6 a4 Kf6 Ke2 Re6+ Kd3 Re1) -1.44/115} 28.Kxf1 {(Rg1xf1 Th6b6
+Tb4a4 a7a6 Rf1e2 Rg7g6 Re2f3) 2.51/7} Ra6 {(Ra6 a4 Kf6 Ke2 h5 g4) -1.54/117} 29.a4
+{(a2a4 Rg7f6 g2g4 Ta6b6 Tb4d4 Tb6b1+ Rf1e2 Tb1b2+) 2.55/7} Kf6 {(Kf6 Ke2 Rc6 g4 Rc1
+Rd4) -1.63/117} 30.Ke2 {(Rf1e2 Ta6b6 Tb4d4 Rf6f5) 2.47/8} Rc6 {(Rc6 Kd3 h6 g4 Rc1
+Kd4 Rd1+ Kc5) -1.72/117} 31.Rb5 {(Tb4b5 Tc6c4 Tb5a5 Tc4xf4 Ta5xa7 Rf6e6 Ta7a6+
+Re6e7) 2.73/6} Re6+ {(Re6+ Kd3 Re4 Ra5 Rxf4 f3 Ke5 Rxa7) -1.61/117} 32.Kf3 {(Re2f3
+Te6a6 Tb5xd5 Ta6xa4 Td5d6+ Rf6f7 f4f5 a7a6) 3.18/9} Ra6 {(Ra6 a5 Rd6 g4 Rd7 Ke2 d4
+Kd3) -1.65/94} 33.Rxd5 {(Tb5xd5 Ta6xa4 Td5d6+ Rf6g7 Td6d7+ Rg7h6 g2g4 a7a5) 3.26/7}
+Rxa4 {(Rxa4 Rd6+ Kg7 Rd7+ Kg6 g4 Ra3+ Ke4 Ra4+ Ke5 a5) -1.56/117} 34.Rd6+ {(Td5d6+
+Rf6g7 Td6d7+ Rg7h6 g2g4 a7a5 Td7a7) 3.07/7} Kf7 {(Kf7 Rd7+ Kg6 g4 Ra3+ Ke4 Ra4+ Ke5
+Ra5+ Ke6 Ra6+ Kd5) -1.54/117} 35.Rd7+ {(Td6d7+ Rf7g6 g2g4 a7a5 f4f5+ Rg6h6 Td7a7
+Ta4a2) 3.28/7} Kg6 {(Kg6 g4 Ra3+ Ke4 Ra4+ Ke5 Ra5+ Ke6 Ra6+ Kd5) -1.54/117} 36.g4
+{(g2g4 a7a5 f4f5+ Rg6h6 Td7a7 Ta4a2 h3h4 Ta2a3+) 3.24/8} h5 {(h5 Rd6+ Kf7 gxh5 Ra3+
+Kg4 a5 Rd7+ Ke6 Ra7) -1.71/117} 37.f5+ {(f4f5+ Rg6h6 Td7d6+ Rh6h7 g4xh5 Ta4a3+
+Rf3g4 a7a5) 3.33/7} Kg5 {(Kg5 Rg7+ Kf6 Rg6+ Kf7 gxh5 Rh4 h6 Rxh3+ Ke4) -1.65/117}
+38.Rg7+ {(Td7g7+ Rg5f6 Tg7g6+ Rf6e5 Tg6e6+ Re5d5 g4xh5 Ta4h4) 3.15/8} Kf6 {(Kf6 Rg6+
+Kf7 gxh5 Rh4 Ra6 Rxh3+ Kg4) -1.58/117} 39.Rg6+ {(Tg7g6+ Rf6e5) 3.21/8} Kf7 {(Kf7
+gxh5 Ra3+ Kg4 a5 Ra6 a4) -1.69/117} 40.Kg3 {(Rf3g3 a7a5 Tg6a6) 3.24/7} hxg4 {(hxg4
+hxg4 Ra1 g5 a5 Kf4 Rg1 Ke5) -1.71/94} 41.hxg4 {(h3xg4 Rf7f8) 3.27/8} a5 {(a5 Ra6 Ra2
+g5 Ra3+ Kf4 Ra4+ Ke5 Rg4) -1.83/117} 42.Ra6 {(Tg6a6 Ta4d4) 3.52/7} Ra2 {(Ra2 f3 a4
+Ra7+ Kf8 Kf4 a3 Ke5) -1.93/117} 43.g5 {(g4g5 Ta2a3+ f2f3 a5a4 g5g6+ Rf7g7 Rg3g4
+Rg7h6) 4.20/6} Kg7 {(Kg7 Ra7+ Kf8 g6 Ra1 Kf4 Rf1 Ra8+ Kg7) -2.35/117} 44.f6+ {(f5f6+
+Rg7f7 Ta6a7+ Rf7f8 g5g6 Ta2a3+ Rg3f4 Ta3a4+) 4.79/6} Kg6 {(Kg6 Ra7 Ra4 Rg7+ Kf5 f7
+Rg4+ Kh3 Rh4+ Kxh4) -7.93/117} 45.Ra7 {(Ta6a7 Rg6xg5 f6f7 Ta2a3+ Rg3g2 Ta3b3 f7f8D
+Tb3b7) 4.25/7} Ra4 {(Ra4 Rg7+ Kh5 f7 Rg4+ Kf3 Rxg5 Rxg5+ Kxg5 f8Q Kg6 Qd6+ Kg7 Qe5+
+Kg6 Qxa5) -9.96/117} 46.Rg7+ {(Ta7g7+ Rg6h5 f6f7 Ta4g4+ Rg3f3 Tg4xg5 Tg7xg5+
+Rh5xg5) 11.54/6} Kh5 {(Kh5 f7 Rg4+ Kf3 Rxg5 Rxg5+ Kxg5 f8Q a4 Qf4+ Kg6 Qxa4 Kf6)
+-9.97/117} 47.f7 {(f6f7 Ta4g4+ Rg3f3 Tg4g1 f7f8D Tg1d1) 11.80/7} Rg4+ {(Rg4+ Kf3 Rxg5
+Rxg5+ Kxg5 f8Q a4 Qf4+ Kg6 Qxa4 Kf6) -9.97/140} 48.Kf3 {(Rg3f3 Tg4h4 f7f8D Th4h3+
+Rf3e4 Th3h4+ Re4e5 Th4c4) 12.34/7}  {1-0 Adjudicación de Arena} 1-0
+
+[Event "Torneo Arena"]
+[Site "HOGAR"]
+[Date "2004.01.24"]
+[Round "1"]
+[White "Aristarch 4.21"]
+[Black "Chop"]
+[Result "1-0"]
+[ECO "C75/04"]
+[Opening "Ruy Lopez"]
+[Time "04:32:12"]
+[Variation "Modern Steinitz Defence, Rubinstein-Geller Variation"]
+[TimeControl "30+0"]
+[Termination "adjudication"]
+[PlyCount "71"]
+[WhiteType "program"]
+[BlackType "program"]
+
+1.e4 e5 2.Nf3 Nc6 3.Bb5 a6 4.Ba4 d6 5.c3 Bd7 6.O-O Nge7 7.d4 Ng6 8.Be3 b5 {(b7b5
+a4b3 f8e7 b3d5 e8g8 b1d2) -0.37/6 1} 9.Bb3 {(a4b3 f8e7 d4e5 c6e5 f3e5 g6e5 b3d5 d7g4
+) 0.24/6} Be7 {(f8e7 b3d5 e7f6 d1b3 e8g8 b1d2 e5d4 f3d4) -0.41/6} 10.Bd5 {(b3d5
+e8g8 a2a4 g6f4 a4b5 a6b5 a1a8 d8a8 d4e5 ) 0.23/7 1} Bf6 {(e7f6 d4e5 g6e5 f3e5 f6e5
+d1h5) -0.37/7 1} 11.a4 {(a2a4 e8g8 a4b5 a6b5 b1a3 a8a5 d1d3 ) 0.58/6} bxa4 {(b5a4)
+-0.62/6} 12.dxe5 {(d4e5 g6e5 f3e5 f6e5 f2f4 e5f6 e4e5 f6e7 ) 0.82/6} Ngxe5 {(g6e5)
+-0.36/5} 13.Nxe5 {(f3e5 f6e5 f2f4 e5f6 a1a4 e8g8 d1h5 ) 0.85/6} Bxe5 {(f6e5 f2f4 e5f6
+a1a4) -0.51/5} 14.f4 {(f2f4 e5f6 e4e5 d6e5 f4e5 d8e7 a1a4 ) 1.29/6} Bf6 {(e5f6 e4e5
+d6e5 d1f3 a8b8 d5c6 b8b2 a1a4) -1.32/9 3} 15.e5 {(e4e5 d6e5 d1f3 a4a3 b1a3 e5e4 )
+2.12/6} dxe5 {(d6e5 d1f3) -1.78/7} 16.Qf3 {(d1f3 e8g8 d5c6 d7c6 f3c6 d8d3 ) 2.58/5}
+exf4 {(e5f4 d5c6 f4e3 c6a8 e8g8 f1d1) -1.85/6} 17.Bxc6 {(d5c6 f4e3 c6d7 e8f8 d7c6
+a8b8 ) 3.35/5} fxe3 {(f4e3 c6a8 e8g8 f1d1 f8e8 a8e4) -1.93/6} 18.Bxd7+ {(c6d7 e8f8
+a1a4 e3e2 f1e1 a8b8 f3d3 b8b2 ) 3.47/6} Kf8 {(e8f8 f1d1 a8b8 f3e3 b8b2 a1a4)
+-1.92/7} 19.Bc6 {(d7c6 a8b8 f3e3 b8b2 f1e1 d8e7 a1a4 ) 3.45/7} Rb8 {(a8b8 a1a4 b8b6 a4d4
+d8e7 d4d7) -1.82/7 1} 20.Rxa4 {(a1a4 b8b6 f1d1 d8c8 c6d7 c8b7 f3e3 ) 3.70/7} Rb6
+{(b8b6 f1d1 d8b8 b2b4 f8g8 d1d7) -1.89/7 1} 21.Be4 {(c6e4 !! d8e8 a4c4 b6b2 f3e3 f6e5
+) 2.93/7 1} Rxb2 {(b6b2 f3e3 d8d6) -1.22/4} 22.Rxa6 {(a4a6 e3e2 f1e1 f6h4 g2g3
+h4g3 f3g3 ) 3.43/6} e2 {(e3e2 f1e1 f6h4 e4d5) -1.18/4} 23.Re1 {(f1e1 f6h4 g2g3 h4e7
+a6a5 d8b8 ) 3.43/6} Bh4 {(f6h4) -1.18/3} 24.g3 {(g2g3 h4e7 a6a8 d8a8 e4a8 e7c5 g1g2
+) 3.65/6} Be7 {(h4e7 e1e2 d8d1 g1f2) -1.87/3} 25.Ra8 {(a6a8 b2b8 a8b8 d8b8 f3e2
+b8e8 e4f5 c7c6 ) 4.97/7} Rb8 {(b2b8 a8b8 e7c5 g1h1 d8b8 e1e2) -3.05/5} 26.Rxb8
+{(a8b8 d8b8 g1h1 f8g8 e1e2 b8e8 h1g1 ) 4.86/6} Bc5+ {(e7c5 g1g2 d8b8 e4d5 f7f6 f3e2)
+-3.18/5} 27.Kh1 {(g1h1 !! d8b8 e1e2 b8d8 e4d5 d8d7 b1d2 ) 4.82/8} Qxb8 {(d8b8 e4d5 f7f6
+f3e2 h7h5) -3.38/6} 28.Rxe2 {(e1e2 b8d8 e4d5 d8d7 f3e4 f8g8 e4e8 d7e8 ) 4.87/7} Kg8
+{(f8g8 b1d2 b8b5 e4d5) -3.34/4} 29.Ra2 {(e2a2 b8b5 a2a8 c5f8 a8a7 b5e5 h1g1 ) 5.05/6}
+Ba7 {(c5a7 a2d2 b8e8 f3g4) -3.44/4} 30.Bd5 {(e4d5 b8b1 h1g2 b1g6 a2a7 g6c2 g2h3
+c2g6 ) 5.71/6} Qxb1+ {(b8b1 h1g2 b1g1 g2h3 h7h6 f3f7 g8h7 f7c7) -1.67/5} 31.Kg2
+{(h1g2 h7h6 f3f7 g8h7 a2a7 h8b8 f7c7 b8b2 g2h3 ) 6.38/6} Qg6 {(b1g6 a2a7 g6c2 g2g1)
+-3.81/4} 32.Rxa7 {(a2a7 h7h6 d5f7 g6f7 a7a8 g8h7 a8h8 h7g6 f3g4 g6f6 h8d8 ) 7.98/6} Qc2+
+{(g6c2 g2h3 h7h6 f3f7 g8h7 a7c7) -5.84/5} 33.Kh3 {(g2h3 h7h6 a7c7 c2g6 d5f7 g8h7 f7g6
+h7g6 f3g4 g6h7 ) 14.56/7} h6 {(h7h6 a7a8 g8h7 d5e4 c2e4 f3e4 g7g6 a8a6) -9.73/5}
+34.Rxc7 {(a7c7 c2g6 d5f7 g8h7 f7g6 h7g6 f3f7 g6h7 f7g7 ) 59.91/6} Qg2+ {(c2g2 h3g2)
+-16.30/4} 35.Kxg2 {(h3g2 g8h7 f3f5 g7g6 f5f7 ) 59.95/31} Kh7 {(g8h7 f3f5 h7g8 c7c8)
+-M0/4}  {1-0 Adjudicación de Arena} 1-0
+
+[Event "Torneo Arena"]
+[Site "HOGAR"]
+[Date "2004.01.24"]
+[Round "1"]
+[White "Ruffian 1.0.5"]
+[Black "Dragon 4.5"]
+[Result "1-0"]
+[ECO "B01"]
+[Opening "Scandinavian"]
+[Time "04:33:51"]
+[Variation "Pytel-Wade Variation"]
+[TimeControl "30+0"]
+[Termination "adjudication"]
+[PlyCount "111"]
+[WhiteType "program"]
+[BlackType "program"]
+
+1.e4 d5 {(d7d5 Cb1c3 d5d4 Cc3d5 e7e5) -0.14/5} 2.exd5 Qxd5 {(Dd8xd5 Cb1c3 Dd5d6
+d2d4 Cb8c6 Cc3b5 Dd6d8) -0.44/7} 3.Nc3 Qd6 {(Dd5d6 d2d4 e7e5 Cc3b5 Dd6b4+ Ac1d2
+Db4xb2) -0.51/6} 4.d4 {(d2d4 Cg8f6 Cc3b5 Dd6e6+ Af1e2 Cb8a6 Ac1f4 De6e4) 0.31/7} e5
+{(e7e5 Cc3b5 Dd6e7 Ac1g5 Cg8f6 Af1e2) -0.68/6} 5.dxe5 {(d4xe5 Dd6xe5+ Ac1e3 Cb8c6
+Cg1f3 De5a5 Dd1d5 Ac8f5) 0.34/7} Qxe5+ {(Dd6xe5+ Cg1e2 Af8b4 Ac1f4 De5e7 Dd1d5 Cb8c6)
+-0.37/7} 6.Qe2 {(Dd1e2 De5xe2+ Af1xe2 Af8c5 Cc3b5 Cb8a6 Ac1f4 Ac5b4+ c2c3 Ab4a5) 0.47/7
+1} Bd6 {(Af8d6 Cc3b5 Cg8e7 Cb5xd6+ De5xd6 Ac1g5 Ac8e6) -0.22/5} 7.Nb5 {(Cc3b5
+Ac8g4 De2xe5+ Ad6xe5 f2f4 Ae5d6 Ac1e3 Cb8c6 Cb5xd6+ c7xd6 Af1c4) 0.53/7} Bg4 {(Ac8g4
+Cb5xd6+ c7xd6 f2f3 Ag4e6 De2xe5 d6xe5 Af1b5+ Ae6d7 Ab5c4) -0.53/6} 8.Qxe5+ {(De2xe5+
+Ad6xe5 h2h3 Ag4h5 f2f4 Ae5d6 Ac1e3 Cb8c6 Cb5xd6+ c7xd6 Af1c4) 0.61/7} Bxe5 {(Ad6xe5
+h2h3 Ag4h5 f2f4 Ae5d6 Cb5xd6+ c7xd6 Af1c4 Cb8c6 Ac1e3 Cg8e7) -0.44/9} 9.h3 {(h2h3
+Ag4d7 Cg1f3 Ad7xb5 Af1xb5+ c7c6 Cf3xe5 c6xb5 00 Cb8c6) 0.71/9} Bf5 {(Ag4f5 Cg1f3
+Ae5d6 Cb5xd6+ c7xd6 Ac1f4 d6d5 Af4xb8 Ta8xb8 Af1b5+ Re8f8 Cf3d4) -1.00/8} 10.Nf3
+{(Cg1f3 Ae5d6 Ac1e3 Af5xc2 Ta1c1 Ac2e4 Cb5xc7+ Ad6xc7 Tc1xc7 Cb8d7) 1.00/8} Bd6 {(Ae5d6
+Cb5xd6+ c7xd6 Ac1f4 Cb8c6 000 Af5e6 Af1b5 Cg8e7 Td1xd6) -0.96/8} 11.Nxd6+ {(Cb5xd6+
+c7xd6 Cf3d4 Cg8e7 Ac1f4 Cb8c6 Cd4xf5 Ce7xf5 000) 1.09/7 1} cxd6 {(c7xd6 Ac1f4 d6d5
+Cf3d4 Cg8e7 Af1b5+ Cb8c6 00) -0.99/8} 12.Nd4 {(Cf3d4 Cg8e7 Ac1f4 Cb8c6 000 Cc6xd4
+Td1xd4 Ta8c8 Af1c4 d6d5) 1.12/9} Bd7 {(Af5d7 Cd4b5 Ad7xb5 Af1xb5+ Cb8c6 Ac1f4 Ta8d8
+Ta1d1) -1.24/7} 13.Bf4 {(Ac1f4 d6d5 000 Cg8f6 Cd4b5 Ad7xb5 Af1xb5+ Cb8c6 Th1e1+ Re8f8
+Af4d6+ Rf8g8) 1.56/9} d5 {(d6d5 Cd4b5 Ad7xb5 Af1xb5+ Cb8c6 00 Cg8f6 Ta1d1 00) -1.28/8}
+14.O-O-O {(000 Cg8e7 Td1e1 Cb8c6 Cd4xc6 b7xc6 Af4d6 Ad7e6 Af1d3) 1.58/8} Ne7 {(Cg8e7
+Td1e1 Cb8c6 Af4d6 Re8d8 Cd4xc6+ Ce7xc6 Af1b5 Rd8c8) -1.83/7} 15.Re1 {(Td1e1 Re8d8
+Cd4b5 Ad7xb5 Af1xb5 Cb8c6 Af4d6 Th8e8 Rc1b1) 1.63/8} Nbc6 {(Cb8c6 Af4d6 Re8d8 Af1d3
+Ta8c8 Cd4xc6+ Ce7xc6 g2g4 Cc6d4) -1.78/8} 16.Bd6 {(Af4d6 Re8d8 Af1d3 a7a6 Cd4xc6+
+Ce7xc6 Rc1b1 Ta8c8 c2c3) 1.64/7} Be6 {(Ad7e6 Af1b5 000 Ad6xe7 Cc6xe7 Cd4xe6 f7xe6
+Te1xe6 Ce7f5) -1.75/7} 17.Nb5 {(Cd4b5 Ta8d8 Cb5c7+ Re8f8 Te1xe6 f7xe6 Cc7xe6+ Rf8f7
+Ce6xd8+ Th8xd8 Ad6c7 Td8e8) 1.24/9 2} Rc8 {(Ta8c8 Af1d3 h7h5 Ad6c5 00 Cb5xa7) -1.64/6}
+18.Bd3 {(Af1d3 a7a6 Cb5c7+ Re8d7 Cc7xe6 f7xe6 Ad6c5 e6e5 f2f3) 1.45/7} a6 {(a7a6
+Cb5c7+ Re8d7 Cc7xe6 f7xe6 Ad6a3 Cc6d4 Te1e5) -1.49/6} 19.Nc7+ {(Cb5c7+ Re8d7 Cc7xe6
+f7xe6 Ad6c5 Ce7g6 Ad3e2 Tc8e8 g2g3 Rd7c8 Ae2g4 Cg6e5) 0.79/10 4} Kd7 {(Re8d7 Cc7xe6
+f7xe6 Ad6a3 e6e5 Aa3c5 Rd7d8 g2g4 e5e4) -1.24/8} 20.Nxe6 {(Cc7xe6 f7xe6 Ad6c5 Ce7g6
+Ad3e2 Tc8e8 g2g3 Rd7c8 Ae2g4 Cg6e5) 0.79/9} fxe6 {(f7xe6 Ad6a3 Ce7g6 Ad3xg6 h7xg6
+Te1d1) -0.80/8} 21.Bc5 {(Ad6c5 Ce7g6 Ad3f1 Tc8e8 f2f3 Rd7c8 Ac5d6 e6e5 Af1d3) 0.79/8}
+Ne5 {(Cc6e5 Te1xe5 Tc8xc5 Th1e1 Tc5c6) -0.83/5} 22.Rxe5 {(Te1xe5 Tc8xc5 Th1e1 Tc5c6
+Te5e2 b7b5 f2f4 Th8f8 g2g3) 0.81/9} Rxc5 {(Tc8xc5 Th1e1 Tc5c6 Te1e2 Tc6d6 f2f4 Ce7c6
+Te5e3 Cc6d4) -0.33/9} 23.Rhe1 {(Th1e1 Tc5c6 f2f4 Th8f8 g2g3 Ce7f5 g3g4 Cf5d4) 0.74/8}
+Rc6 {(Tc5c6 f2f4 Th8f8 g2g3 Ce7f5 Ad3xf5 Tf8xf5 Te5xf5 e6xf5 Te1e5) -0.19/9} 24.f3
+{(f2f3 Ce7g6 Te5g5 Th8c8 Ad3xg6 h7xg6 c2c3 Rd7d6 Tg5xg6) 0.77/7} h5 {(h7h5) -0.10/2}
+25.c3 {(c2c3 h5h4 Te5g5 g7g6 Tg5e5 Th8f8) 0.77/6} h4 {(h5h4 Rc1b1 g7g6 Te1e3)
+-0.09/7} 26.Kc2 {(Rc1c2 g7g6 Rc2c1 Th8f8 Te5e2 Ce7f5 Te2e5) 0.72/7} Rh6 {(Th8h6 Rc2b1
+Th6f6 Te5h5 Ce7g6 Th5h7) -0.05/6} 27.Rg5 {(Te5g5 g7g6 Tg5e5 Th6h8 Rc2c1 Th8f8 Te5e2
+Ce7f5 Te2e5) 0.72/7} g6 {(g7g6 f3f4 Tc6c7 Rc2b1 Ce7f5 Ad3xf5 g6xf5 Te1e5 Tc7c4)
+-0.15/8} 28.Rge5 {(Tg5e5 Th6h8 Rc2c1 Th8f8 Te5e2 Ce7f5 Te2e5) 0.72/7} Rh7 {(Th6h7 Rc2b1
+Th7f7 Te5g5 Tf7g7 f3f4 Rd7c8) -0.03/7} 29.Kc1 {(Rc2c1 Th7f7 Te5e2 Ce7f5 Te2e5 Tf7f8)
+0.72/6} Rf7 {(Th7f7 Te5g5 Tf7g7 f3f4 Tg7f7 g2g3) -0.03/6} 30.Rg5 {(Te5g5 Tf7f8 Tg5g4
+Tf8h8 Ad3xg6 Ce7xg6 Tg4xg6) 0.71/6} Rg7 {(Tf7g7 Tg5g4 g6g5 Te1e5 Tc6c5 Te5xg5)
+-0.59/6} 31.Rg4 {(Tg5g4 Tg7h7 Ad3xg6 Ce7xg6 Tg4xg6 Th7f7 Rc1d2 Tf7f4) 0.85/7} g5 {(g6g5
+Te1e5 b7b5 f3f4 b5b4 f4xg5 b4xc3) -0.62/7} 32.f4 {(f3f4 d5d4 c3c4 Tc6c5 b2b4 Tc5c8
+f4xg5) 1.20/7} d4 {(d5d4 c3c4 Tc6d6 Te1e5 Ce7c6) -0.41/5} 33.c4 {(c3c4 Tc6c5 b2b4
+Tc5c8 f4xg5 Ce7c6 Tg4xh4 Tg7xg5) 1.22/6} Rd6 {(Tc6d6 f4xg5 Ce7c6 Tg4xh4 Cc6b4 Te1d1)
+-0.57/6} 34.fxg5 {(f4xg5 Rd7c8 Tg4xh4 Tg7xg5 Th4h7 Ce7f5) 1.46/6} Nc6 {(Ce7c6 Tg4xh4
+Cc6b4 Ad3e4 Cb4xa2+ Rc1b1 Ca2b4) -0.87/6} 35.a3 {(a2a3 e6e5 g5g6 Cc6e7 Te1xe5 Ce7xg6)
+1.34/6} Ne7 {(Cc6e7 Te1e4 Ce7c6 g2g3 h4xg3 Tg4xg3 Tg7g6) -1.36/6} 36.g3 {(g2g3 h4xg3
+Tg4xg3 Ce7g6 Tg3g4 Rd7c8 h3h4) 1.61/6} hxg3 {(h4xg3 Tg4xg3 Ce7g6 Ad3e4 Rd7c8 Tg3d3
+Rc8b8) -1.39/6} 37.Rxg3 {(Tg4xg3 Ce7f5 Tg3g1 Rd7c8 Te1e5 Td6c6 c4c5) 1.53/7} Ng6
+{(Ce7g6 Tg3g4 Rd7c8 h3h4 Td6d7) -1.63/7} 38.Rg4 {(Tg3g4 Cg6e7 h3h4 Tg7f7 c4c5 Td6d5)
+2.02/6} Kc8 {(Rd7c8 h3h4 Tg7g8) -2.18/6} 39.h4 {(h3h4 Cg6e7 c4c5 Td6d5 Ad3c4 Td5xc5
+Tg4xd4 Ce7f5) 2.46/7} Nxh4 {(Cg6xh4 Tg4xh4 Tg7xg5 Th4h6 Rc8d7 Th6h7+ Rd7c8 Th7e7)
+-2.44/7} 40.Rxh4 {(Tg4xh4 Tg7xg5 Th4h8+ Rc8c7 Th8h7+ Rc7c8 Te1f1) 3.53/5} Rxg5 {(Tg7xg5
+Th4h6 Rc8d7 Th6h7+ Rd7c8 Th7e7 Tg5g3 Te7xe6) -2.56/8} 41.Rh8+ {(Th4h8+ Rc8c7 Th8h7+
+Rc7c8 Th7e7 Tg5g3 c4c5 Td6d8) 3.41/6} Kc7 {(Rc8c7 Th8h7+ Rc7b8 Te1f1 Td6b6 Tf1f8+
+Rb8a7 Tf8c8 Tg5g1+ Rc1d2) -2.55/8} 42.Rh7+ {(Th8h7+ Rc7c8 Te1f1 b7b6 Tf1f8+ Td6d8
+Tf8f7 Tg5g1+ Rc1d2 e6e5) 3.47/6} Kb8 {(Rc7b8 Te1f1 Td6b6 Tf1f8+ Rb8a7 Tf8f7 Tg5g1+
+Ad3f1 e6e5 Rc1c2) -2.46/8} 43.Re7 {(Th7e7 Tg5g3 Rc1d2 Tg3g2+ Te1e2 Tg2xe2+ Rd2xe2
+Rb8c8 Te7f7) 3.59/6} Rg3 {(Tg5g3 Rc1d2 Tg3g2+ Te1e2 Tg2xe2+ Rd2xe2 b7b6 b2b4 Rb8a8
+c4c5) -2.46/8} 44.Kd2 {(Rc1d2 Tg3g2+ Te1e2 Tg2xe2+ Ad3xe2 Rb8a7 Ae2g4 Td6b6 Ag4xe6
+Tb6xb2+) 3.65/6} Rg2+ {(Tg3g2+ Te1e2 Tg2xe2+ Ad3xe2 Td6b6 Rd2d3 Tb6xb2 Te7xe6 Tb2b3+
+Rd3xd4 Tb3xa3) -2.87/7} 45.Re2 {(Te1e2 Tg2xe2+ Ad3xe2 Td6b6 Rd2d3 Tb6xb2 Te7xe6 Tb2a2
+Te6e7 Ta2b2) 4.02/8} Rxe2+ {(Tg2xe2+ Ad3xe2 Td6b6 Rd2d3 Tb6xb2 Te7xe6 Tb2b3+)
+-2.87/7} 46.Bxe2 {(Ad3xe2 Td6b6 Rd2d3 Tb6xb2 Te7xe6 Tb2a2 Te6e7 Ta2b2) 4.02/8} Rb6
+{(Td6b6 Rd2c2 Tb6d6 Ae2g4 d4d3+ Rc2d2 e6e5 Te7xe5) -3.33/8} 47.b4 {(b2b4 Rb8c8 c4c5
+Tb6c6 Ae2f3 Tc6c7 Te7xe6 Tc7g7) 4.44/8} Kc8 {(Rb8c8 Ae2g4 Rc8d8 Te7xe6 Tb6xe6 Ag4xe6
+Rd8c7 Rd2d3 Rc7d6) -4.07/8} 48.c5 {(c4c5 Tb6c6 Rd2d3 Rc8d8 Te7xb7 e6e5 Rd3e4 Rd8c8
+Tb7f7) 5.01/9} Rc6 {(Tb6c6 Ae2g4 Rc8d8 Te7xb7 a6a5 b4b5 Tc6xc5 Ag4xe6 Tc5c3) -4.18/9}
+49.Kd3 {(Rd2d3 Rc8d8 Te7xb7 e6e5 Rd3e4 Rd8c8 Tb7f7 a6a5 Re4xe5 a5xb4) 5.01/8} b6
+{(b7b6 Rd3xd4 Rc8d8) -4.80/9} 50.Kxd4 {(Rd3xd4 Rc8d8 Te7g7 Rd8e8 Ae2h5+ Re8f8 Tg7f7+
+Rf8g8 c5xb6 Tc6xb6) 5.79/7} bxc5+ {(b6xc5+ b4xc5 Rc8d8 Te7a7 e6e5+ Rd4xe5 Tc6xc5+
+Re5d6 Tc5c8 Ta7d7+ Rd8e8 Ae2xa6 Re8f8) -5.48/7} 51.bxc5 {(b4xc5 Rc8d8 Te7g7 a6a5
+Ae2b5 e6e5+ Rd4d5 Tc6c7) 5.87/7} Kd8 {(Rc8d8 Te7a7 a6a5 Ta7a8+ Rd8e7 Ae2b5 e6e5+
+Rd4d5 Tc6c7 Ta8xa5) -5.49/8} 52.Ra7 {(Te7a7 e6e5+ Rd4d5 Tc6c7 Ta7xa6 Tc7d7+ Ta6d6
+e5e4) 6.23/6} Rc7 {(Tc6c7 Ta7xa6 Tc7e7 Ae2f3 Rd8c7 Rd4e4 Rc7d7) -5.71/7} 53.Rxa6
+{(Ta7xa6 Rd8e7 Ta6d6 e6e5+ Rd4d5 Tc7a7 Td6e6+ Re7d7 Ae2b5+ Rd7c7) 6.47/7} e5+ {(e6e5+
+Rd4e4) -6.43/8} 54.Kd5 {(Rd4d5 e5e4 Ta6e6 Tc7a7 Te6xe4 Ta7xa3 c5c6) 6.99/7} e4 {(e5e4
+Ta6a8+ Rd8e7 Ta8a4 Tc7d7+ Rd5xe4 Td7c7 Re4d5 Re7f7) -6.95/8} 55.Ra8+ {(Ta6a8+ Rd8e7
+Ta8a4 Tc7d7+ Rd5xe4 Re7d8 Ta4d4 Rd8c7) 7.20/6} Ke7 {(Rd8e7 Ta8a4 Tc7d7+ Rd5c6 e4e3
+Ta4e4+ Re7d8 Te4xe3) -7.06/9}  {1-0 Adjudicación de Arena} 1-0
+
+[Event "Torneo Arena"]
+[Site "HOGAR"]
+[Date "2004.01.24"]
+[Round "1"]
+[White "SOS.3 for Arena"]
+[Black "Crafty"]
+[Result "0-1"]
+[ECO "C41"]
+[Opening "Philidor"]
+[Time "04:35:31"]
+[Variation "De Legall Trap"]
+[TimeControl "30+0"]
+[Termination "normal"]
+[PlyCount "67"]
+[WhiteType "program"]
+[BlackType "program"]
+
+1.e4 e5 2.Nf3 d6 3.Bc4 Bg4 4.h3 {(h2h3 Ag4d7 d2d4 e5xd4 00 b7b5 Ac1g5) 0.77/7 1}
+Bh5 5.d3 {(d2d3 Af8e7 d3d4 Cb8c6 g2g4 Ah5g6) 0.52/6 1} Nf6 {(5. ... Nf6 6. g4 Bg6
+7. g5 Nfd7 8. Nh4 Nc6 9. Nxg6 hxg6) 0.66/7} 6.g4 {(g2g4 Ah5g6 Ac1g5 Af8e7 00 00)
+0.51/6 1} Bg6 {(6. ... Bg6 7. g5 Nh5 8. Nh4 Nf4 9. Nxg6 hxg6) 0.70/7} 7.Bg5 {(Ac1g5
+Af8e7 Cf3h4 Cb8c6 Ch4xg6 h7xg6) 0.40/6} h5 {(7. ... h5 8. Nh4 hxg4 9. hxg4 Nc6 10.
+Qf3) 0.56/6} 8.Nh4 {(Cf3h4 Ag6h7 Th1g1 h5xg4 Ag5xf6 Dd8xf6 Dd1xg4) 0.75/6 1} hxg4
+{(8. ... hxg4 9. hxg4 Nc6 10. Nc3 Nd4 11. Nd5 c6) 0.48/7} 9.Nxg6 {(Ch4xg6 f7xg6
+Ag5xf6 g7xf6 Dd1xg4 Th8h6 Dg4e6+ Af8e7 De6g8+) 1.62/7 1} fxg6 {(9. ... fxg6 10. h4 Be7
+11. Nc3 Nbd7 12. Be6 c6) 0.37/7} 10.h4 {(h3h4 Af8e7 Cb1d2 Dd8c8 Ac4b5+ c7c6) 1.03/8
+2} Nc6 11.Rg1 {(Th1g1 Dd8d7 Ac4b5 000 Cb1c3 Af8e7) 0.66/7 1} Be7 {(11. ... Be7 12.
+Bxf6 Bxf6 13. Qxg4 Ne7 14. Rh1 Rf8) 0.03/7} 12.c3 {(c2c3 Dd8d7 Dd1b3 000 Ac4e6)
+0.78/6} Qd7 {(12. ... Qd7 13. Qb3 d5 14. exd5 Na5 15. Qb5 Nxc4 16. Qxd7+ Nxd7 17. dxc4
+Bxg5 18. hxg5) 0.15/7} 13.Qa4 {(Dd1a4 Th8f8 Ac4b5 Re8d8 Da4c4 a7a6) 0.61/6 1} O-O-O
+14.Bd5 {(Ac4d5 Cf6xd5 e4xd5 Ae7xg5 d5xc6) 0.56/6} a6 {(14. ... a6 15. Bxf6 Bxf6 16.
+Bxc6 Qxc6 17. Qxc6 bxc6 18. Rxg4 Rxh4 19. Rxg6) -0.52/6} 15.Bxc6 {(Ad5xc6 Dd7xc6
+Da4xc6 b7xc6 d3d4 Td8d7 Cb1d2 e5xd4 c3xd4) -0.05/8 1} Qxc6 {(15. ... Qxc6 16. Qxc6
+bxc6 17. Nd2 d5 18. O-O-O Bc5 19. Rdf1 Rhf8) -0.31/9} 16.Qxc6 {(Da4xc6 b7xc6 d3d4
+Td8d7 Cb1d2 e5xd4 c3xd4) -0.06/6} bxc6 {(16. ... bxc6 17. Nd2 d5 18. O-O-O Bc5 19.
+Rdf1 Kb7 20. Bxf6 <HT>) -0.21/8} 17.Nd2 {(Cb1d2 Rc8d7 Ta1d1 d6d5 b2b4 Th8h5) 0.12/6}
+d5 18.c4 {(c3c4 Ae7b4 a2a3 Ab4a5 c4xd5 Aa5xd2+ Ag5xd2 Cf6xe4) -0.16/6} dxe4 {(18.
+... dxe4 19. dxe4 Bb4 20. O-O-O Bxd2+ 21. Rxd2 Rxd2 22. Kxd2 Nxe4+ 23. Ke3 Nf6)
+-0.63/7} 19.dxe4 {(d3xe4 Ae7b4 Ta1d1 Td8d4 Ag5e3 Ab4xd2+ Td1xd2 Cf6xe4 Tg1xg4 Ce4xd2)
+-0.38/5} Bc5 {(19. ... Bc5 20. Rd1 Rhf8 21. Ke2 Kb7 22. Bxf6 Rxf6) -0.60/7} 20.Nb3
+{(Cd2b3 Ac5b4+ Re1e2 Td8d6 a2a3) 0.31/4} Bd4 {(20. ... Bd4 21. Bxf6 gxf6 22. Nxd4 exd4
+23. Rxg4 d3 24. Kd2) -0.94/7} 21.Ke2 {(Re1e2 g4g3 Cb3xd4 Td8xd4) -0.02/5} Bxb2
+{(21. ... Bxb2 22. Rab1 Bd4 23. Bxf6 gxf6 24. Rxg4 Kd7 25. Rxg6 Rxh4) -1.37/8}
+22.Rab1 {(Ta1b1 Ab2a3 Re2e1 Td8d3 Re1e2) -0.25/5} Bd4 {(22. ... Bd4 23. Bxf6 gxf6 24.
+Rxg4 Rhg8 25. Nxd4 exd4 26. Kd3 Rd6) -1.20/8} 23.Rgc1 {(Tg1c1 Td8d6 Cb3xd4 e5xd4)
+-0.35/4} Rhf8 {(23. ... Rhf8 24. Nd2 Rd7 25. Be3 Bxe3 26. Kxe3 <HT>) -1.93/7} 24.a4
+{(a2a4 Td8d6 Cb3xd4 e5xd4) -0.50/4} Nxe4 {(24. ... Nxe4 25. Bxd8 Rxf2+ 26. Kd3 Rf3+
+27. Kc2 Rc3+ 28. Kd1 Kxd8 29. Ke2 Rxc1 30. Nxc1) -3.57/8} 25.Bxd8 {(Ag5xd8 Tf8xf2+
+Re2e1 Rc8xd8 Tc1d1 c6c5) -0.55/5} Rxf2+ {(25. ... Rxf2+ 26. Kd3 Rf3+ 27. Kc2 Rc3+ 28.
+Kb2 Rxc1+ 29. Kxc1 Kxd8 30. Na5 Be3+ 31. Kb2 Kd7 <HT>) -3.75/8} 26.Ke1 {(Re2e1
+Rc8xd8 Tc1d1 c6c5 Td1d3 Rd8e7) -0.49/5} g3 {(26. ... g3 27. Nxd4 exd4 28. Bxc7 Kxc7
+29. Rb3 Kd6) -4.17/7} 27.Nxd4 {(Cb3xd4 e5xd4 Ad8xc7 Rc8xc7 c4c5) -1.14/5} exd4
+{(27. ... exd4!!) -8.11/8} 28.Bxc7 {(Ad8xc7 Rc8xc7 Tb1b3 g3g2 Tb3g3) -2.23/6} Kxc7
+{(28. ... Kxc7 29. Rb5 g2 30. Rg5 d3 31. Rxg2 d2+ 32. Kd1 Rf1+ 33. Kc2 dxc1=Q+ 34.
+Kd3 Nd6) -13.57/8} 29.Rb5 {(Tb1b5 d4d3 Tb5b3 d3d2+ Re1d1 d2xc1D+ Rd1xc1) -7.48/6 1}
+g2 30.Rg5 {(Tb5g5 Tf2f1+ Re1e2 d4d3+ Re2xd3 Ce4xg5 Rd3e2 Tf1xc1) -11.17/5} d3
+{(30. ... d3 31. Rxg2 d2+ <HT>) -M8/7} 31.Rxg2 {(Tg5xg2 d3d2+ Re1d1 Tf2f1+ Rd1e2
+d2xc1D Tg2xg6 Tf1h1 Tg6xg7+) -19.15/6} d2+ {(31. ... d2+ 32. Kd1 Rf1+ 33. Ke2 dxc1=Q
+34. Rf2 Re1+ 35. Kf3 Qc3+ 36. Kg4 Qg3#) -M6/7} 32.Kd1 {(Re1d1 Tf2f1+ Rd1e2 d2xc1D
+Tg2xg6 Dc1xc4+ Re2e3) -20.24/6} Rf1+ {(32. ... Rf1+ 33. Ke2 dxc1=Q 34. Rf2 Re1+ 35.
+Kf3 Qc3+ 36. Kg4 Qg3# <HT>) -M5/7} 33.Ke2 {(Rd1e2 d2xc1D Tg2xg6 Dc1xc4+ Re2e3
+Tf1e1+ Re3f3 Dc4d4) -19.14/5} dxc1=Q {(33. ... dxc1=Q 34. Rf2 Re1+ 35. Kf3 Qc3+ 36.
+Kg4 Qg3# <HT>) -M4/6} 34.c5 {(c4c5 Dc1c4+ Re2e3 Ce4xc5 Tg2f2) -20.30/4}  {Las
+blancas abandonan} 0-1
+
+[Event "Torneo Arena"]
+[Site "HOGAR"]
+[Date "2004.01.24"]
+[Round "1"]
+[White "ORB2BOO"]
+[Black "ORB2BOO"]
+[Result "1-0"]
+[ECO "A04"]
+[Opening "Reti Opening"]
+[Time "04:36:58"]
+[TimeControl "30+0"]
+[Termination "time forfeit"]
+[PlyCount "2"]
+[WhiteType "program"]
+[BlackType "program"]
+
+1.Nf3  {1-0 Negras pierde por tiempo} 1-0
+

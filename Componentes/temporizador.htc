@@ -1,0 +1,226 @@
+<public:component tagName="timer" lightweight="true">
+<public:attach event="oncontentready" for="element" onevent="Clock_load()" />
+<public:method name="start" internalname="startTimer" />
+<public:method name="stop" internalname="stopTimer" />
+<public:method name="setup" internalname="setTimer" />
+<public:method name="reset" internalname="resetTimer" />
+<public:property name="active" get="get_active" />
+<public:property name="tipo" put="put_tipo" />
+<public:property name="timestamp" get="get_timestamp" put="put_timestamp"/>
+<public:event name="ontimeover" id="eventoTimeOver" />
+</public:component>
+
+<script>
+	function Clock_load(){
+		element.inicial = new Tiempo();
+		element.actual = new Tiempo();
+		element.control = new ControlTiempo();
+		element.estado = new EstadoTimer();
+		element.display = new Display();
+		element.eventoOver = createEventObject();
+			
+		element.onselectstart = function(){event.returnValue=false}
+		element.style.cursor = "default";
+		
+		display.refresh();
+	}
+	
+	function Display(){
+		var dsp = element.document.createElement("div");
+		
+		dsp.refresh = function(){
+			var ret;
+			ret = element.actual.horas;
+			ret += ":";
+			ret += (element.actual.minutos < 10) ? "0" : "";
+			ret += element.actual.minutos;
+			ret += ":";
+			ret += (element.actual.segundos < 10) ? "0" : "";
+			ret += element.actual.segundos;
+			
+			this.innerText = ret;
+		}
+				
+		element.appendChild(dsp);
+		return dsp;
+	}
+	
+	function Tiempo(){
+		this.minutos = 0;
+		this.horas = 0;
+		this.segundos = 0;
+		this.incremento = 0;	
+	}
+
+	function ControlTiempo(){
+		this.timeout = 0;
+		this.delayTimeout = null;
+		this.mSecsDelay = 0;
+		this.lastTick = 0;
+		this.correccion = 0;
+		
+		this.reset = function(){
+			this.delayTimeout = 0;
+			this.mSecsDelay = 0;
+			this.lastTick = 0;
+		}
+		
+	}
+
+	function EstadoTimer(){
+		this.counting = false;
+		this.timeover = false;
+		this.idle = true;
+		this.tipo = "down";
+	}
+
+	function startTimer(){
+		if(estado.counting == true || estado.timeover == true){
+			return;
+		}
+
+		control.delayTimeout = setTimeout(startCount, control.mSecsDelay);
+		estado.counting = true;
+	}
+
+	function startCount(){
+		control.delayTimeout = 0;
+		countTime();
+		if(estado.counting==true){
+			control.timeout = setInterval(countTime,1000);
+		}
+	}
+
+	function countTime(){
+		if(estado.tipo=="down"){
+			actual.segundos -= 1;
+			if(actual.segundos < 0){
+				actual.segundos = 59;
+				actual.minutos -= 1;
+			}
+			if(actual.minutos < 0){
+				actual.horas -= 1;
+				actual.minutos = 59;
+			}
+			if(actual.horas < 0){
+				stopCount();
+				estado.timeover = true;
+				eventoTimeOver.fire(eventoOver);
+			}
+			else{
+				display.refresh();
+			}
+		}
+		else if(estado.tipo=="up"){
+			actual.segundos += 1;
+			
+			if(actual.segundos > 59){
+				actual.segundos = 0;
+				actual.minutos += 1;
+			}
+			if(actual.minutos > 59){
+				actual.horas += 1;
+				actual.minutos = 0;
+			}
+			
+			display.refresh();
+		}
+		
+		var ahora = (new Date()).getTime();
+		control.correccion = ahora - control.lastTick + 1000;
+		control.lastTick = ahora;
+	}
+
+	function stopCount(){
+		clearInterval(control.timeout);
+		clearTimeout(control.delayTimeout);
+		control.delayTimeout = 0;
+		control.timeout = 0;
+		estado.counting = false;
+	}
+
+	function stopTimer(){
+		if(estado.counting==false){
+			if(estado.timeover==false){
+				incrementTimer();
+				display.refresh();
+			}
+			return;
+		}
+
+		control.mSecsDelay = 1000 - ((new Date()).getTime() - control.lastTick);
+				
+		incrementTimer();
+		stopCount();
+		if(estado.timeover == false)
+			display.refresh();
+
+	}
+	
+	function incrementTimer(){
+		actual.segundos += inicial.incremento;
+	
+		if(actual.segundos >= 60){
+			var times = (actual.segundos-actual.segundos%60)/60;
+			actual.segundos %= 60;
+			actual.minutos += times;
+			if(actual.minutos >= 60){
+				times = (actual.minutos-actual.minutos%60)/60;
+				actual.minutos %= 60;
+				actual.horas += times;
+			}
+		}	
+	}
+	
+	function setTimer(h,m,s,i){
+		inicial.horas = actual.horas = h;
+		inicial.minutos = actual.minutos = m;
+		inicial.segundos = actual.segundos = s;	
+		inicial.incremento = i;
+		display.refresh();
+	}
+
+	function resetTimer(){
+		stopCount();
+		actual.horas = inicial.horas;
+		actual.minutos = inicial.minutos;
+		actual.segundos = inicial.segundos;
+		control.reset();
+		display.refresh();
+		estado.timeover = false;
+	}
+	
+	function get_active(){
+		return estado.counting;	
+	}
+	
+	function put_tipo(value){
+		estado.tipo = value;
+		
+		if(value=="up")
+			control.mSecsDelay = 1000;
+	}
+	
+	function get_timestamp(){
+		if(estado.counting==true)
+			var mSecs = 1000 - ((new Date()).getTime() - control.lastTick);
+		else
+			var mSecs = control.mSecsDelay;
+				
+		return (actual.segundos + actual.minutos*60 + actual.horas*3600)*1000 + mSecs;
+
+	}
+
+	function put_timestamp(stamp){
+		var msecs = stamp%1000;
+		var temp = (stamp - msecs)/1000;
+		var secs = temp%60;
+		var temp = (temp - secs)/60;
+		var mins = temp%60;
+		var horas = (temp - mins)/60;
+		
+		setTimer(horas,mins,secs,actual.incremento);
+		control.mSecsDelay += msecs;
+	}
+	
+</script>

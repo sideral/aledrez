@@ -1,0 +1,41 @@
+	BODY{
+		margin:0;
+		background-image:url('../Imagenes/pawns.gif');
+		background-repeat:no-repeat;
+		background-position:center middle;
+	}
+	
+	#cuadroMensajes
+	{
+		position:absolute;
+		height:100;
+		width:150;
+		top:20%;
+		left:1%;
+		font-size:20;
+		color:Lightyellow;
+	}
+	
+	#cuadroAyuda
+	{
+		position:absolute;
+		width:20%;
+		top:20%;
+		left:0;
+		font-size:medium;
+		color:White;
+	}
+	
+	#cuadroProgreso
+	{
+		position:absolute;
+		top:36%;
+		height:25%;
+		width:40%;
+		left:30%;
+		border:solid black 1px;
+		background-color:Silver;
+
+	}
+	
+

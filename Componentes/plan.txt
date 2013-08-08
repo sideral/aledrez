@@ -1,0 +1,83 @@
+
+
+torre 32 -> 56
+
+torre.espacios = [columna,fila]
+
+torre.validar(32,56)
+	retorne esPosible && esCorrecto && esLegal
+
+
+torre.esPosible(32,56){
+	cas[32].columna.id == cas[56].columna.id
+	o
+	cas[32].fila.id == cas[56].fila.id
+	
+	retorne espacio (fila ó columna)
+}
+
+torre.esCorrecto(32,56,espacio){
+	sup: cas[32][espacio].piezas = [0,8,32,48] 
+	
+	si 32 < 56
+		recorra piezas en orden y cuando encuentre 32...
+			verifique que la siguiente sea >= 56 o indefinida
+			si es igual, verifique que tab[56].pieza.color != tab[32].pieza.color.
+	si 56 > 32
+		recorra piezas inversamente y verifique lo mismo que antes
+		
+	retorne la conclusion
+
+}
+
+torre.esLegal(32,36,espacio){
+	tome la casilla del rey tal que cas[Rey].pieza.color == cas[36].pieza.color
+	verifique que la casilla Rey no tenga espacios en común con torre
+		(que no estén en la misma fila o columna, esto se sabe mirando torre.espacios.
+		
+	si lo está, verifique que "espacio" sea el mismo que el espacio en común	
+	
+	si no, verifique las piezas que pertenecen al espacio.
+		es decir, cas[32].espacio.piezas.
+			si Rey < 32
+				recorra en orden, y cuando encuentre 32, verifique que la siguiente
+				sea del mismo color que torre o que no sea dama o torre de color opuesto
+			si Rey > 32
+				Recorre al revés y verifique lo mismo.
+				
+	retorne el resultado
+	
+}
+
+Si el juego está en jaque, verifique que la torre tome al oponente o 
+	que la torre tape el jaque. 
+	
+	Cuando hay un jaque, se guarda la casilla del atacante y el espacio del jaque
+	Ebtonces verifique que la torre entre al mismo espacio (cas[56].espacio==jaque.espacio)
+	y que Rey < 56 < casillaatacante o Rey > 56 > casillaatacante
+	Si no, es ilegal.
+	
+
+Para verificar si la torre le hace jaque al rey opuesto, 
+	mire si la casilla del rey opuesto (ReyOp) tiene algún (torre.espacios) en común
+	Si lo tiene recorra el espacio y verifique si la siguiente casilla a 56, es el rey.
+	El orden, depende de si ReyOp < 56 o > 56
+	Si es la casilla, es jaque.
+
+Si le hace jaque, se debe verificar si es jaque mate.
+	Verfique todas las casillas alrededor del rey que no tengan el espacio
+	en común con el espacio de jaque.
+		Si la casilla está llena, verifique que el color de la pieza sea diferente
+			si lo es, mire si está protegida (adelante)
+		Si no está llena, mire si está atacada.
+		
+El tablero debe ser capaz de decir si una casilla dada está atacada o no.
+Para hacerlo, debe verificar cada uno de los espacios de la casilla,
+	recorrerlos y concluir, de acuerdo a la primera pieza que encuentre, < y > que
+	la consultada, si es del color atancante. 
+
+
+
+	
+
+

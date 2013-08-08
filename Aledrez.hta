@@ -1,0 +1,42 @@
+<html xmlns:control="http://www.aledrez.net">
+
+	<HTA:APPLICATION
+		ID = "AplicacionAledrez"
+		APPLICATIONNAME = "Aledrez"
+		VERSION = "0.2"
+		WINDOWSTATE = "maximize"
+		SINGLEINSTANCE = "no"
+		NAVIGABLE = "yes"
+		ICON = "./imagenes/icono.ico"
+		CONTEXTMENU = "no"
+		SCROLL = "no"
+		SELECTION = "no"
+	/>
+	
+	<?import namespace="control" implementation="./Componentes/menu.htc" />
+	<?import namespace="control" implementation="./Componentes/tablero.htc" />
+	<?import namespace="control" implementation="./Componentes/progressbar.htc" />
+	<?import namespace="control" implementation="./Componentes/temporizador.htc" />
+	<?import namespace="control" implementation="./Componentes/ventana.htc" />
+	<?import namespace="control" implementation="./Componentes/listamovimientos.htc" />
+	<?import namespace="control" implementation="./Componentes/fasttable.htc" />
+
+	<head>
+		<title>Aledrez</title>
+		<link href="./Logica/estilos.css" rel="stylesheet"></link>
+		<script src="./Logica/inicio.js"></script>
+		
+		<script src="./Logica/Core/constantes.js"></script>
+		<script src="./Logica/Core/evento.js"></script>
+		<script src="./Logica/Core/ventanas.js"></script>
+		<script src="./Logica/Core/cargador.js"></script>
+
+		<script src="./Logica/Motores/motor.js"></script>
+		<script src="./Logica/Motores/motorWinboard.js"></script>
+		<script src="./Logica/Motores/motorScript.js"></script>
+		<script src="./Logica/Motores/motorServidor.js"></script>
+		<script src="./Logica/Motores/oponenteRemoto.js"></script>
+	</head>
+	
+	<body onload="cargarAledrez()"></body>
+</html>

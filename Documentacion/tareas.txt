@@ -1,0 +1,13 @@
+<----- Lista de Tareas pendientes ----->
+
+- Mejorar el tablero usando el concepto de espacios de piezas
+- Escribir el lector de PGN
+- Escribir el escritor de PGN
+- Interfaz de juego remoto
+- Organizar menú
+- Realizar la base de datos de partidos
+- Lograr eliminar los archivos temporales
+- Completar la interfaz Winboard
+- Arreglar los contenedores
+- Arreglar el reloj colocando diferentes estados
+- Separar los estilos de los componentes

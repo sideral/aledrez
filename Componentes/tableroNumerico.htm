@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+<TITLE>Numerico</TITLE>
+<script src="jscript1.js"></script>
+<SCRIPT>
+function tabla(){
+
+	var txt  = "<table border=1 cellspacing=0><tr>";
+	var i=57;
+	while(i != 8){
+		if(i%8!=0){
+			txt += "<td>" + (i-1) + "</td>";
+			i++;
+		}
+		else{
+			txt += "<td>" + (i-1) + "</td></tr><tr>";
+			i = i - 15;
+		}
+	}
+	txt += "<td>" + (i-1)+ "</td></tr></table>";
+	document.getElementById("tablero").innerHTML = txt;
+
+	var or = prompt("origen","");
+	var ds = prompt("destino","");
+
+	alert(tab[or].pieza.esPosible(or,ds));
+
+}
+
+</SCRIPT>
+
+</HEAD>
+
+<BODY ONLOAD="tabla();return false">
+
+<DIV ID="tablero" contentEditable=true>
+
+</DIV>
+</BODY>
+</HTML>

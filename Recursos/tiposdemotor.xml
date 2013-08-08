@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<tiposdemotor>
+	<tipo>
+		<nombre>WINBOARD</nombre>
+		<clase>MotorWinboard</clase>
+		<fuente>./Logica/Motores/motorwinboard.js</fuente>
+		<habilitado>si</habilitado>
+	</tipo>
+	<tipo>
+		<nombre>SERVIDOR</nombre>
+		<clase>MotorServidor</clase>
+		<fuente>./Logica/Motores/motorservidor.js</fuente>
+		<habilitado>si</habilitado>
+	</tipo>
+	<tipo>
+		<nombre>REMOTO</nombre>
+		<clase>OponenteRemoto</clase>
+		<fuente>./Logica/Motores/oponenteremoto.js</fuente>
+		<habilitado>si</habilitado>
+	</tipo>
+	<tipo>
+		<nombre>SCRIPT</nombre>
+		<clase>MotorScript</clase>
+		<fuente>./Logica/Motores/motorscript.js</fuente>
+		<habilitado>si</habilitado>
+	</tipo>
+</tiposdemotor>

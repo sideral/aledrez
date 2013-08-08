@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<style>
+	body{
+		background-color: ivory;
+		font-size: 12px;
+		font-family: "Verdana";
+		padding: 5%;
+		margin: 0px;
+	}
+
+	#msgError{
+		color:red;	
+	}
+
+</style>
+
+<script>
+	var aledrez = window.frameElement.window;
+	
+	function entrar(){
+		window.frameElement.src = "http://localhost/login.php?nick=" + escape(usuario.value);
+	}
+	
+	function buscarError(){
+		if(aledrez.login.mensajeError!=""){
+			msgError.innerText = aledrez.login.mensajeError;
+		}
+	}
+
+</script>
+
+</head>
+<body onload="buscarError()">
+Usuario:<br><input type="text" id="usuario" maxlength=15 size=16><br>
+Contraseña:<br><input type="password" maxlength=10 size=16><br><br>
+<input type="button" value="Entrar" onclick="entrar()"><br>
+
+<div id="msgError"></div>
+</body>
+</html>

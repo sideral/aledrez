@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title>Configuración del tablero</title>
+		<style>
+
+			body{
+				background-color: ivory;
+				font-size: 12px;
+				font-family: "Verdana";
+				padding: 2;
+				margin: 0px;
+				overflow: visible;
+				padding-left: 6%;
+				padding-top:5%;
+			}
+			
+			button{
+				font-family: "Verdana";
+				font-size: 11px;
+			
+			}
+			
+			div.settime{
+				display:none;
+				padding-left: 8%;
+				font-size: 10px;
+			}
+			
+			input.settime{
+				font-size: 10px;
+				font-familiy: "Verdana";
+			}
+
+		</style>
+		<script>
+			var aledrez = window.frameElement.window;
+			var colorElegido = "B";
+			var tipoTiempo = "sinlimite";
+		
+			function mostrarTiempo(id){
+				completo.style.display = "none";
+				pormovimiento.style.display = "none";
+				movportiempo.style.display = "none";
+				
+				if(document.getElementById(id)!=null){
+					document.getElementById(id).style.display = "block";
+				}
+				
+				tipoTiempo = id;
+			}
+	
+		function someter(){
+			event.returnValue = false;
+			
+			var min = 0;
+			var seg = 0;
+			var par = 0;
+			
+			switch(tipoTiempo){
+				case "sinlimite":
+					min = seg = par = 0;
+					break;
+				case "completo":
+					min = formulario.comMins.value;
+					seg = formulario.comSecs.value;
+					par = formulario.comInc.value;
+					break;
+				case "pormovimiento":
+					min = formulario.tmMins.value;
+					seg = formulario.tmSecs.value;
+					par = 0;
+					break;
+				case "movportiempo":
+					min = formulario.mtMins.value;
+					seg = formulario.mtSecs.value;
+					par = formulario.mtMovs.value;
+					break;			
+			}
+					
+			var oRetorno = new objRetorno(colorElegido,tipoTiempo,min,seg,par);
+			
+			aledrez.control.abrirTablero(oRetorno);
+			aledrez.activador.cerrar();
+			
+		}
+		
+		function objRetorno(color,tipo,min,seg,par){
+			this.color = color;
+			this.tipo = tipo;
+			this.minutos = parseInt(min);
+			this.segundos = parseInt(seg);
+			this.parametro = parseInt(par);
+		}
+		
+		</script>
+		
+	</head>
+	<body>
+		<form id="formulario" onsubmit="someter()">
+			<b>Color:</b><br><br>
+			<input type=radio checked name=color onclick="colorElegido ='B'"> Blanco
+			<input type=radio name=color onclick="colorElegido='N'"> Negro
+			<br><br>
+			<b>Tiempo:</b><br><br>
+			<input type=radio checked name=tiempo onclick="mostrarTiempo('sinlimite')"> Sin límite<br>
+			<input type=radio name=tiempo onclick="mostrarTiempo('completo')"> Juego completo<br>
+				<div id=completo class=settime>
+					Mins: <input type=text name=comMins size=3 maxlength=3 class=settime value=0>
+					Segs: <input type=text name=comSecs size=2 maxlength=3  class=settime value=0>
+					Incr: <input type=text name=comInc size=2 maxlength=2  class=settime value=0> segs.
+				</div>
+			<input type=radio name=tiempo onclick="mostrarTiempo('pormovimiento')"> Tiempo por movimiento<br>
+				<div id="pormovimiento" class=settime>
+					Minutos: <input type=text name=tmMins size=3 maxlength=3 class=settime value=0>
+					Segundos: <input type=text name=tmSecs size=2 maxlength=3  class=settime value=0>
+				</div>
+			<input type=radio name=tiempo onclick="mostrarTiempo('movportiempo')"> Movimientos por tiempo<br>
+				<div id="movportiempo" class=settime>
+					Movs: <input type=text name=mtMovs size=3 maxlength=3 class=settime value=0>
+					Minutos: <input type=text name=mtMins size=2 maxlength=3  class=settime value=0>
+					Segundos: <input type=text name=mtSecs size=2 maxlength=3  class=settime value=0>
+				</div>
+			<br><br>
+			<center><input type="submit" value="Abrir tablero"></center>
+		</form>
+	</body>
+</html>
